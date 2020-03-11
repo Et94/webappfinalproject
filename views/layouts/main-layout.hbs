@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>{{ pageTitle }}</title>
     <link href='/css/main.css' rel='stylesheet' />
-    {{#if peoplesCSS}}
+    <!-- {{#if peoplesCSS}}
         <link href='/css/peoplesCSS.css' rel='stylesheet' />
     {{/if}}
     {{#if peopleCSS}}
@@ -12,19 +12,10 @@
     {{/if}}
     {{#if formsCSS}}
         <link href='/css/forms.css' rel='stylesheet' />
-    {{/if}}
+    {{/if}} -->
 
 </head>
 <body>
-    <header class="main-header">
-        <nav class="main-header__nav">
-            <ul class="main-header__item-list">
-                <li class="main-header__item"><a href="/">Home</a></li>
-                <li class="main-header__item"><a href="/peoples">All people</a></li>
-                <li class="main-header__item"><a href="/people/add">Add People</a></li>
-            </ul>
-        </nav>
-    </header>
     {{{ body }}}
 </body>
 </html>

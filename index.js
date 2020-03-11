@@ -22,17 +22,20 @@ app.use(bodyParser.urlencoded({ extended: false })) // middleware
 // parse application/json
 app.use(bodyParser.json()) // middleware
 
-// let peopleRoutes = require('./routes/peoples');
-
 app.use(express.static(path.join(__dirname,'public')));
 
-app.get('/', function (req,res) {
-    res.render('home', { pageTitle: 'People App', heading: 'Welcome to People App'});
-});
-
+// !! FOR REFERENCE - When you create a route, please use this template to add it.
+// let peopleRoutes = require('./routes/peoples');
 // app.use(peopleRoutes);
 
-app.listen(3000 || process.env.PORT, () => console.log('Server ready @ port 3000'))
+// !! Change the render page name to your view name to test your view.
+// Change the variables to your view variables.
+app.get('/', function (req,res) {
+    res.render('login', { pageTitle: 'People App', heading: 'Welcome to People App'});
+});
+
+
+app.listen(process.env.PORT || 3000, () => console.log('Server ready @ port 3000'))
 
 
 
