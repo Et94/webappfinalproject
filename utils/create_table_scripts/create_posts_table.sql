@@ -5,11 +5,12 @@ drop table if exists Posts;
 create table Posts (
     postId SERIAL not null,
     userId INT not null,
-    topic VARCHAR(255),
+    topicName VARCHAR(255),
     subject VARCHAR(255),
     body TEXT,
     date TIMESTAMP,
     numReplies INT,
     primary key (postId),
-    foreign key (userId) references Users (userId)
+    foreign key (userId) references Users (userId),
+    foreign key (topicName) references Topics (topicName)
 );
