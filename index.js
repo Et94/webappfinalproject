@@ -33,7 +33,12 @@ app.use(express.static(path.join(__dirname,'views')));
 // !! Change the render page name to your view name to test your view.
 // Change the variables to your view variables.
 app.get('/', function (req,res) {
-    res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search'});
+    // res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search'});
+    res.render('searchResultView', { 
+      pageTitle: 'People App', 
+      heading: 'Welcome to People App', 
+      searchResultCSS: true,
+      searchBarText: 'settings'});
 });
 
 

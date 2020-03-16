@@ -1,0 +1,41 @@
+/* #post-container {
+    position: relative;
+    left: 8em;
+} */
+.post {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.user-image {
+    border-radius: 50%;
+    border-style: double;
+    border-color: lightgrey;
+}
+
+.post-content {
+    padding-left: 3em;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+}
+
+.topic {
+    border-style: solid;
+    border-width: 1px;
+    border-color: powderblue;
+    color: powderblue;
+    width: 5em;
+    font-size: 1em;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    
+    text-indent: 0.25em;
+}
+
+.subject {
+
+}
