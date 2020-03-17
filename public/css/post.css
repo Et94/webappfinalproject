@@ -41,6 +41,7 @@ p {
     font-weight: bold;
     text-indent: 0.25em;
 }
+
 .post-body {
     max-height: 5em;
 }
@@ -48,4 +49,9 @@ p {
 .post-footer {
     display: flex;
     justify-content: space-between;
+}
+
+.replies {
+    padding-bottom: 2px;
+    border-bottom: 1px solid blue;
 }
