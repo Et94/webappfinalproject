@@ -37,8 +37,8 @@ app.get('/', function (req,res) {
     res.render('searchResultView', { 
       pageTitle: 'People App', 
       heading: 'Welcome to People App', 
-      searchResultCSS: true,
-      searchBarText: 'settings'});
+      searchResultCSS: true
+    });
 });
 
 

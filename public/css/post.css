@@ -2,25 +2,37 @@
     position: relative;
     left: 8em;
 } */
+
+p {
+    color: grey;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .post {
     display: flex;
     justify-content: flex-start;
+    width: 40em;
 }
 
 .user-image {
     border-radius: 50%;
     border-style: double;
     border-color: lightgrey;
+    max-width: 72px;
+    max-height: 72px;
 }
 
-.post-content {
-    padding-left: 3em;
+.indent-container {
+    padding-left: 2em;
 }
 
 .post-header {
     display: flex;
     justify-content: space-between;
-    width: 300px;
+}
+
+.subject {
+    font-size: large;
 }
 
 .topic {
@@ -29,13 +41,17 @@
     border-color: powderblue;
     color: powderblue;
     width: 5em;
-    font-size: 1em;
+    height: fit-content;
+    font-size: small;
     font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    
     text-indent: 0.25em;
 }
-
-.subject {
-
+.post-body {
+    max-height: 5em;
 }
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
