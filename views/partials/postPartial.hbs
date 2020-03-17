@@ -1,6 +1,6 @@
 {{!-- {{#each post}} --}}
     <div class="post" id="{{this.postId}}">
-        <img class="user-image" src="https://randomuser.me/api/portraits/med/men/1.jpg">
+        <img class="post-image" src="https://randomuser.me/api/portraits/med/men/1.jpg">
         <div class="indent-container">
             <div class="post-header">
                 <p class="subject">User settings deleted</p>
@@ -16,6 +16,6 @@
                 </div>
             </div>
         </div>
-        
     </div>
+    {{>replyPartial}}
 {{!-- {{/each}} --}}
