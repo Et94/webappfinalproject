@@ -65,5 +65,6 @@ p {
     background: none;
     position: relative;
     float: right;
-   
+    color: grey;
+    font-family: Arial, Helvetica, sans-serif;
 }

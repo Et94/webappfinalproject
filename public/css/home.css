@@ -1,0 +1,15 @@
+p {
+    color: grey;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#home-container {
+    display: flex;
+    width: 57em;
+    text-align: center;
+}
+
+#profile-summary-container {
+    margin-top: 5em;
+    margin-left: 2em;
+}
