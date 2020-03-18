@@ -1,0 +1,49 @@
+/* p {
+    color: grey;
+    font-family: Arial, Helvetica, sans-serif;
+} */
+
+#reply-container {
+    position: relative;
+    left: 9em;
+    width: 40em;
+}
+
+.reply {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1em;
+}
+
+.reply-image {
+    border-radius: 50%;
+    border-style: none;
+    max-block-size: 62px;
+}
+
+.reply-body {
+    max-height: 5em;
+    padding-left: 2em;
+}
+
+#comment-box {
+    width: 100%;
+    padding: 1em 0 4em 0;
+    margin: 1em 0 1em 0;
+    text-indent: 1em;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#comment-button {
+    float: right;
+    background-color: #1bacea;
+    color: white;
+    border: none;
+    height: 1.75em;
+    width: 7em;
+    font-size: 1em;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+}

@@ -1,0 +1,23 @@
+{{!-- {{#each post}} --}}
+    <div class="post" id="{{this.postId}}">
+        <a href="/profile/x">
+            <img class="post-image" src="https://randomuser.me/api/portraits/med/men/1.jpg">
+        </a>
+        <div class="indent-container">
+            <div class="post-header">
+                <p class="subject">User settings deleted</p>
+                <p class="topic">nodejs</p>
+            </div>
+            <div class="indent-container">
+                <div class="post-body">
+                    <p>After I logged into my node app, I saw that settings were deleted after I restarted my server. I had installed nodemon then it had...</p>
+                </div>
+                <div class="post-footer">
+                    <p class="date">Oct 25 2020</p>
+                    <p class="replies">5 replies</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{>replyPartial}}
+{{!-- {{/each}} --}}
