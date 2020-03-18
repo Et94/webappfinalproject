@@ -1,0 +1,73 @@
+p {
+    color: grey;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#home-container {
+    display: flex;
+    
+}
+
+#create-post-container {
+    font-family: Arial, Helvetica, sans-serif;
+    color: grey;
+}
+
+#profile-summary-container {
+    margin-top: 5em;
+    margin-left: 2em;
+    width: 16em;
+    text-align: center;
+    margin-right: 8em;
+}
+
+#subject {
+    width: 100%;
+    margin: 0 0 1em 0;
+    text-indent: 1em;
+    font-size: 1em;
+}
+
+#question {
+    width: 100%;
+    padding: 0.5em 0 4em 0;
+    margin: 0 0 1em 0;
+    text-indent: 1em;
+    font-size: 1em;
+}
+
+.topics {
+    color: #1bacea;
+    border-color: #1bacea;
+}
+
+#post-to-timeline{
+    background-color: #1bacea;
+    color: white;
+    border: none;
+    height: 1.4em;
+    width: 8.5em;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#search-by-topic-container {
+    margin-top: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: grey;
+    font-size: small;
+}
+
+#search-by-topic {
+    background-color: #1bacea;
+    color: white;
+    border: none;
+    height: 1.4em;
+    width: 3.5em;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#search-label {
+    margin-right: 1em;
+}
