@@ -55,3 +55,15 @@ p {
     padding-bottom: 2px;
     border-bottom: 1px solid blue;
 }
+
+#next-container {
+    width: 40em;
+}
+
+#next {
+    border: none;
+    background: none;
+    position: relative;
+    float: right;
+   
+}
