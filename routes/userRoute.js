@@ -4,6 +4,6 @@ const userController = require('../controllers/userController');
 const router = express.Router();
 let path = require('path');
 
-router.get('/profile', userController.getProfile);
+router.get('/profile/:id', userController.getProfile);
 
 module.exports = router;
