@@ -1,1 +1,13 @@
-profileView.hbs
+<div id="profile">
+	<div id="left">
+		<img src={{ user.imageurl }} id="profilePic">
+		<p id="u_name"> {{ user.username }} </p>
+		<p id="u_about"> {{ user.about }} </p>
+		<p id="u_country"> {{ user.country }} </p>
+	</div>
+	<div id="right">
+		<button href="the message page" id="btnMsg">Message</button>
+		<p id="likes">5 Likes</p>
+		<p id="posts">{{ user.numposts }} Posts</p>
+	</div>
+</div>
