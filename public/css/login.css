@@ -1,0 +1,97 @@
+.login {
+	padding: 5px;
+	justify-content: center;
+}
+
+.login-header {
+	display: flex;
+	padding: 20px;
+}
+
+.kb-logo {
+	height: 40px;
+}
+
+.login-header form {
+	width: 100%;
+	min-width: 430px;	
+}
+
+.login-headerinput {
+	min-width: 120px;
+    height: 20px;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+#login-login-btn {
+	min-width: 70px;
+    height: 30px;
+    font-size: 15px;
+    display: inline-block;
+    padding: 5px;
+    color: white;
+    background-color: #00a2e5;
+    border-color: #00a2e5;
+}
+
+#login-book-img {
+	height: 300px;
+	padding: 25px;
+	padding-right: 40px;
+}
+
+.login-body {
+	display: flex;
+	max-width: 1000px;
+	min-width: 800px;
+}
+
+#login-img-section {
+	width: 50%;
+}
+
+#login-input {
+	width: 50%;
+}
+
+#login-flavor-text {
+	width: 375px;
+	font-size: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#login-form {
+	width: 300px;
+}
+
+.login-smallinput {
+	width: 47%;
+	min-width: 100px;
+    height: 20px;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.login-largeinput {
+	width: 98%;
+	min-width: 100px;
+    height: 20px;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+#login-signup-btn {
+	width: 100%;
+	min-width: 100px;
+    height: 30px;
+    font-size: 15px;
+    display: inline-block;
+    padding: 5px;
+    color: white;
+    background-color: #00a2e5;
+    border-color: #00a2e5;
+}

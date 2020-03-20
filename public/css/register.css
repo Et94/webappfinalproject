@@ -1,0 +1,75 @@
+.register {
+	padding: 5px;
+	justify-content: center;
+}
+
+.kb-logo {
+	height: 40px;
+}
+
+.register-body {
+	display: flex;
+	padding: 30px;
+	justify-content: left;
+}
+
+.register-body h1 {
+	
+}
+
+#register-flavor-text {
+	width: 40%;
+	min-width: 200px;
+	max-width: 300px;
+}
+
+#register-flavor-text h1 {
+	width: 80%;
+	font-size: 40px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#register-form {
+	width: 40%;
+	min-width: 200px;
+	max-width: 400px;
+	padding-top: 25px;
+}
+
+#register-form form {
+	width: 200px;
+}
+
+#register-about {
+	width: 100%;
+	min-width: 100px;
+    height: 80px;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 15px;
+    text-align: left;
+    vertical-align: top;
+}
+
+#register-image, #register-country, #register-date {
+	width: 100%;
+	min-width: 100px;
+    height: 20px;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+
+
+#register-form button {
+	width: 100%;
+	min-width: 100px;
+    height: 30px;
+    font-size: 15px;
+    display: inline-block;
+    padding: 5px;
+    color: #1bacea;
+    background-color: white;
+    border-color: #1bacea;
+}
