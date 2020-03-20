@@ -4,7 +4,7 @@ let bodyParser = require('body-parser');
 let path = require('path');
 let db = require('./utils/db');
 
-let userRoutes = require('./routes/userRoute');
+let profileRoutes = require('./routes/profileRoute');
 
 const expressHbs = require('express-handlebars');
 app.engine(
@@ -37,7 +37,7 @@ app.get('/', function (req,res) {
 });
 
 
-app.use(userRoutes);
+app.use(profileRoutes);
 
 app.listen(process.env.PORT || 3000, () => console.log('Server ready @ port 3000'))
 

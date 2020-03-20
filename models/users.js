@@ -18,14 +18,10 @@ function delUser(id) {
 }
 
 
-function updateUserProfile(data) {
-	return db.query("UPDATE users SET username = " + data.username + "");
-}
 
 module.exports = {
 	addU: addUser,
 	getallU: getAllUsers,
 	getU: getUserById,
-	delU: delUser,
-	updateUP: updateUserProfile
+	delU: delUser
 }

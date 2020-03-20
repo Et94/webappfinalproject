@@ -7,7 +7,15 @@
 	</div>
 	<div id="right">
 		<button href="the message page" id="btnMsg">Message</button>
-		<p id="likes">5 Likes</p>
+		<br>
+		<p id="likes">{{likes}} Likes</p> {{#if likeBtn}} <button id="likeBtn">+</button> {{/if}}
 		<p id="posts">{{ user.numposts }} Posts</p>
+	</div>
+</div>
+<br>
+<div id="postList">
+	<h1 id="postTitle">All posts by {{ user.username }} </h1>
+	<div>
+		<p>Post Partials Here</p>
 	</div>
 </div>
