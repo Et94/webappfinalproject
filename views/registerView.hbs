@@ -1,0 +1,19 @@
+<section class="register">
+	<section>
+		<img src="/assets/knowledgeBase.png" class="kb-logo"/>
+	</section>
+	<section class="register-body">
+		<section id="register-flavor-text">
+			<h1>Let us know a little more about you</h1>
+		</section>
+		<section id="register-form">
+			<form action="/register" method="POST" >
+				<input type="text" name="image_url" placeholder="imageurl" id="register-image"/>
+				<textarea type="text" name="about" placeholder="a few lines about yourself ..." id="register-about"></textarea>
+				<input type="text" name="country" placeholder="country" id="register-country" />
+				<input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="dob" placeholder="date of birth (mm/dd/yyyy)" id="register-date" />
+				<button type="submit">complete registration</button>
+			</form>
+		</section>
+	</section>
+</section>

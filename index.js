@@ -11,6 +11,7 @@ app.engine(
     'hbs',
     expressHbs({
       layoutsDir: 'views/layouts/',
+      partialsDir: 'views/partials/',
       defaultLayout: 'main-layout',
       extname: 'hbs'
     })
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false })) // middleware
 app.use(bodyParser.json()) // middleware
 
 app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname,'views')));
 
 // !! FOR REFERENCE - When you create a route, please use this template to add it.
 // let peopleRoutes = require('./routes/peoples');
@@ -33,13 +35,18 @@ app.use(express.static(path.join(__dirname,'public')));
 // !! Change the render page name to your view name to test your view.
 // Change the variables to your view variables.
 app.get('/', function (req,res) {
-    res.render('login', { pageTitle: 'People App', heading: 'Welcome to People App'});
+    // res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search'});
+    res.render('sendMessageView', { 
+      pageTitle: 'Send a Message',
+      searchResultCSS: true,
+      sendmsgCSS: true
+    });
 });
 
 
 app.use(profileRoutes);
 
-app.listen(process.env.PORT || 3000, () => console.log('Server ready @ port 3000'))
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server ready @ port ${PORT}`))
 
 
