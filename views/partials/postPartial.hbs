@@ -1,5 +1,5 @@
 {{!-- {{#each post}} --}}
-    <div class="post" id="{{this.postId}}">
+    <div id="post-1" class="post">
         <a href="/profile/x">
             <img class="post-image" src="https://randomuser.me/api/portraits/med/men/1.jpg">
         </a>
@@ -13,8 +13,8 @@
                     <p>After I logged into my node app, I saw that settings were deleted after I restarted my server. I had installed nodemon then it had...</p>
                 </div>
                 <div class="post-footer">
-                    <p class="date">Oct 25 2020</p>
-                    <p class="replies">5 replies</p>
+                    <p id="date-1" class="date">Oct 25 2020</p>
+                    <p id="numReplies-1" class="numReplies" onclick="toggleReplies(1)">5 replies</p>
                 </div>
             </div>
         </div>

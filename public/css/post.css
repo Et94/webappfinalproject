@@ -51,9 +51,14 @@ p {
     justify-content: space-between;
 }
 
-.replies {
+.numReplies {
     padding-bottom: 2px;
     border-bottom: 1px solid blue;
+}
+
+.numReplies:hover {
+    cursor: pointer;
+    color: blue;
 }
 
 #next-container {
