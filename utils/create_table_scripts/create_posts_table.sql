@@ -1,6 +1,6 @@
 use d6f0ta0sp4vrnm;
 
-drop table if exists Posts;
+drop table if exists Posts cascade;
 
 create table Posts (
     postId SERIAL not null,
