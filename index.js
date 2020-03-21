@@ -30,10 +30,13 @@ app.use(express.static(path.join(__dirname,'views')));
 // let peopleRoutes = require('./routes/peoples');
 // app.use(peopleRoutes);
 
+let postRoutes = require('./routes/postRoutes');
+app.use(postRoutes);
+
 // !! Change the render page name to your view name to test your view.
 // Change the variables to your view variables.
 app.get('/', function (req,res) {
-    res.render('loginView', { 
+    res.render('homeView', { 
       pageTitle: 'People App', 
       heading: 'Welcome to People App',
       homeCSS: true,

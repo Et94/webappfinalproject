@@ -1,5 +1,3 @@
-use d6f0ta0sp4vrnm;
-
 drop table if exists Messages cascade;
 
 create table Messages (
