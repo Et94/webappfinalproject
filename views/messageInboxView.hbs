@@ -1,1 +1,133 @@
-messageInboxView.hbs
+<div>
+    {{>navbarPartial}}
+</div>
+<div id="inbox_container">
+	<div id="left_column">
+		<div id="convo_list">
+			<div class="convo_description">
+				<img class="convo_img" src="https://randomuser.me/api/portraits/men/20.jpg" alt="Convo image"/>
+				<div class="convo_text_div">
+					<div class="convo_name">
+						Conrad Hayward
+					</div>
+					<div class="convo_date">
+						Feb 28
+					</div>
+					<div class="convo_lastmsg">
+						Technical help
+					</div>
+				</div>
+			</div>
+			<div class="convo_description">
+				<img class="convo_img" src="https://randomuser.me/api/portraits/men/12.jpg" alt="Convo image"/>
+				<div class="convo_text_div">
+					<div class="convo_name">
+						Robin Lee
+					</div>
+					<div class="convo_date">
+						March 17
+					</div>
+					<div class="convo_lastmsg">
+						Project meeting time
+					</div>
+				</div>
+			</div>
+			<div class="convo_description">
+				<img class="convo_img" src="https://randomuser.me/api/portraits/women/5.jpg" alt="Convo image"/>
+				<div class="convo_text_div">
+					<div class="convo_name">
+						Jennifer Brown
+					</div>
+					<div class="convo_date">
+						March 20
+					</div>
+					<div class="convo_subject">
+						<p>New role</p>
+					</div>
+				</div>
+			</div>
+			<div class="convo_description">
+				<img class="convo_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Convo image"/>
+				<div class="convo_text_div">
+					<div class="convo_name">
+						Kevin Hudson
+					</div>
+					<div class="convo_date">
+						March 22
+					</div>
+					<div class="convo_lastmsg">
+						Zend training
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="right_column">
+		<div id="msgs_list">
+			<div class="msg_container">
+				<fieldset>
+        			<legend>March 22</legend>
+				      <div class="msg_description">
+				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Msg image"/>
+				      	<div class="msg_text_div">
+				      		<div class="msg_header">
+				      			Kevin Hudson 9:03 AM
+				      		</div>
+				      		<div class="msg_text">
+				      			You have gread zend skills, want to conduct a workshop?
+				      		</div>
+				      	</div>
+				      </div>
+    			</fieldset>
+			</div>
+			<div class="msg_container">
+				<fieldset>
+        			<legend class="msg_date">March 22</legend>
+				      <div class="msg_description">
+				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/6.jpg" alt="Msg image"/>
+				      	<div class="msg_text_div">
+				      		<div class="msg_header">
+				      			Sean Williamson 9:57AM
+				      		</div>
+				      		<div class="msg_text">
+				      			Umm, give me some time to think about it ...
+				      		</div>
+				      	</div>
+				      </div>
+				      <div class="msg_description">
+				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/6.jpg" alt="Msg image"/>
+				      	<div class="msg_text_div">
+				      		<div class="msg_header">
+				      			Sean Williamson 9:58AM
+				      		</div>
+				      		<div class="msg_text">
+				      			When would it be held? And where?
+				      		</div>
+				      	</div>
+				      </div>
+				      <div class="msg_description">
+				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/6.jpg" alt="Msg image"/>
+				      	<div class="msg_text_div">
+				      		<div class="msg_header">
+				      			Kevin Hudson 10:30AM
+				      		</div>
+				      		<div class="msg_text">
+				      			Probably in a month
+				      		</div>
+				      	</div>
+				      </div>
+    			</fieldset>
+			</div>
+		</div>
+		<div id="input_area">
+			<div id="input_field">
+				<form id="msg_form">
+					<textarea placeholder="Write a message..."></textarea>
+				</form>
+			</div>
+			<div id="btn_div">
+				<button id="send_btn" form="msg_form">Send</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,120 @@
+#inbox_container {
+	border: 10px solid red;
+	display: flex;
+	position:fixed; 
+	top:70px; 
+	left:0px; 
+	bottom:0px; 
+	right:0px;
+}
+
+#left_column {
+	border: 5px solid blue;
+	min-width: 350px;
+	overflow: scroll;
+}
+
+#convo_list {
+	border: 5px solid lightblue;
+}
+
+.convo_description {
+	border: 3px solid orange;
+	display: flex;
+	padding: 10px;
+}
+
+.convo_img {
+	border-radius: 50%;
+    border-style: double;
+    border-color: lightgrey;
+    max-block-size: 85px;
+}
+
+.convo_text_div {
+	border: 2px solid purple;
+}
+
+.convo_name {
+
+}
+
+.convo_date {
+
+}
+
+.convo_subject {
+
+}
+
+#right_column {
+	border: 5px solid green;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+#msgs_list {
+	border: 3px solid yellow;
+	overflow: auto;
+	flex: 3;
+}
+
+.msg_container {
+
+}
+
+fieldset {
+	border-left:0px;
+    border-right:0px;
+    border-bottom:0px;
+}
+
+legend {
+	margin: 0 auto;
+}
+
+.msg_description {
+	border: 3px solid violet;
+	display: flex;
+}
+
+.msg_img {
+	border-radius: 50%;
+    border-style: double;
+    border-color: lightgrey;
+    max-block-size: 50px;
+}
+
+.msg_text_div {
+	border: 2px solid pink;
+}
+
+.msg_header {
+
+}
+
+.msg_text {
+
+}
+
+#input_area {
+	border: 2px solid orange;
+	flex: 1;
+}
+
+#input_field {
+
+}
+
+#msg_form {
+
+}
+
+#btn_div {
+
+}
+
+#send_btn {
+
+}
