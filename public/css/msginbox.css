@@ -2,23 +2,25 @@
 	border: 10px solid red;
 	display: flex;
 	position:fixed; 
-	top:70px; 
-	left:0px; 
-	bottom:0px; 
-	right:0px;
+	top: 85px; 
+	left: 30px; 
+	bottom: 30px; 
+	right: 30px;
 }
 
 #left_column {
-	border: 5px solid blue;
+	border-right: 5px solid blue;
 	min-width: 350px;
+	max-width: 350px;
 	overflow: scroll;
+	margin-right: 15px;
 }
 
-#convo_list {
+#conversations_list {
 	border: 5px solid lightblue;
 }
 
-.convo_description {
+.convo_container {
 	border: 3px solid orange;
 	display: flex;
 	padding: 10px;
@@ -29,18 +31,28 @@
     border-style: double;
     border-color: lightgrey;
     max-block-size: 85px;
+    margin-right: 12px;
 }
 
 .convo_text_div {
-	border: 2px solid purple;
+	width: 100%;
+	margin: 5px 5px 0px 0px;
+}
+
+.convo_header {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 3px;
 }
 
 .convo_name {
-
+	flex: 2;
 }
 
 .convo_date {
-
+	flex: 1;
+	margin-left: 3px;
+	text-align: right;
 }
 
 .convo_subject {
@@ -48,10 +60,11 @@
 }
 
 #right_column {
-	border: 5px solid green;
+	border-left: 5px solid green;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	min-width: 350px;
 }
 
 #msgs_list {
@@ -61,13 +74,13 @@
 }
 
 .msg_container {
-
 }
 
 fieldset {
 	border-left:0px;
     border-right:0px;
     border-bottom:0px;
+    margin: 25px 0px 25px 0px;
 }
 
 legend {
@@ -75,8 +88,8 @@ legend {
 }
 
 .msg_description {
-	border: 3px solid violet;
 	display: flex;
+	margin: 25px 0px 0px 0px;
 }
 
 .msg_img {
@@ -87,15 +100,27 @@ legend {
 }
 
 .msg_text_div {
-	border: 2px solid pink;
+	margin: 3px 0px 0px 10px;
 }
 
 .msg_header {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 5px;
+}
+
+.msg_name {
 
 }
 
-.msg_text {
+.dot_divider {
+	margin: 0px 5px 0px 5px;
+}
 
+.msg_date {
+}
+
+.msg_text {
 }
 
 #input_area {
