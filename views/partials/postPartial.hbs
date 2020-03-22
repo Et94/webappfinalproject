@@ -1,6 +1,6 @@
 {{!-- {{#each post}} --}}
     <div id="post-1" class="post">
-        <a href="/profile/x">
+        <a href="/profile/{{this.userId}}">
             <img class="post-image" src="https://randomuser.me/api/portraits/med/men/1.jpg">
         </a>
         <div class="indent-container">
@@ -12,14 +12,17 @@
                 <div class="post-body">
                     <p>After I logged into my node app, I saw that settings were deleted after I restarted my server. I had installed nodemon then it had...</p>
                 </div>
-                <div class="post-footer">
-                    <p id="date-1" class="date">Oct 25 2020</p>
-                    <p id="numReplies-1" class="numReplies" onclick="toggleReplies(1)">5 replies</p>
-                </div>
+                <form class="post-footer" method="GET" action="/home/post/replies">
+                    <p class="date">25 Oct 2020</p>
+                    <input type="hidden" name="postId" value="1">
+                    <button class="numReplies" onclick="getReplies(1)">1 replies</button>
+                </form>
             </div>
         </div>
     </div>
-    {{>replyPartial}}
+    <div id="reply-container-1" class="reply-container">
+        {{>replyPartial}}
+    </div>
 {{!-- {{/each}} --}}
 <div id="next-container">
     <button id="next" onclick="window.location.href = '/next';">Next -></button>
