@@ -25,7 +25,6 @@ exports.startConvo = (req,res,next) => {
     		input.conversationId = data.rows[0].conversationid;
 
     		messageModel.sendMessage(input)
-    			// need to change the redirect to messages inbox
     			.then((data) => {
     				console.log("Message succesfully saved to database");
 
@@ -41,6 +40,7 @@ exports.startConvo = (req,res,next) => {
                     console.log("Recipient emailed");
                     console.log(data);
 
+                    // need to change the redirect to messages inbox
                     res.redirect(301, '/')
                   })
                   .catch((error) => {
@@ -53,7 +53,6 @@ exports.startConvo = (req,res,next) => {
                 console.log("Failed to retrieve email");
                 console.log(error);
               });
-
 
     			})
       		.catch((error) => {

@@ -1,6 +1,9 @@
 let nodemailer = require('../utils/nodemailer');
 
 function sendEmail(email, subject, msg) {
+
+	// Add firstName
+
 	let mailOptions = {
             from: "knowledgebase4ta@gmail.com",
             to: email,
