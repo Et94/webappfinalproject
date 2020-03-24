@@ -4,6 +4,8 @@
 <div id="inbox_container">
 	<div id="left_column">
 		<div id="conversations_list">
+
+			<!-- For loop each convo list result entry -->
 			<div class="convo_container">
 				<img class="convo_img" src="https://randomuser.me/api/portraits/men/20.jpg" alt="Convo image"/>
 				<div class="convo_text_div">
@@ -20,62 +22,21 @@
 					</div>
 				</div>
 			</div>
-			<div class="convo_container">
-				<img class="convo_img" src="https://randomuser.me/api/portraits/men/12.jpg" alt="Convo image"/>
-				<div class="convo_text_div">
-					<div class="convo_header">
-						<div class="convo_name">
-							Robin Lee
-						</div>
-						<div class="convo_date">
-							April 17
-						</div>
-					</div>
-					<div class="convo_subject">
-						Project meeting time
-					</div>
-				</div>
-			</div>
-			<div class="convo_container">
-				<img class="convo_img" src="https://randomuser.me/api/portraits/women/5.jpg" alt="Convo image"/>
-				<div class="convo_text_div">
-					<div class="convo_header">
-						<div class="convo_name">
-							Jennifer Brown
-						</div>
-						<div class="convo_date">
-							March 20
-						</div>
-					</div>
-					<div class="convo_subject">
-						New role
-					</div>
-				</div>
-			</div>
-			<div class="convo_container">
-				<img class="convo_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Convo image"/>
-				<div class="convo_text_div">
-					<div class="convo_header">
-						<div class="convo_name">
-							Kevin Hudson
-						</div>
-						<div class="convo_date">
-							March 22
-						</div>
-					</div>
-					<div class="convo_subject">
-						Zend training
-					</div>
-				</div>
-			</div>
+			<!-- end of for loop -->
+
 		</div>
 	</div>
 	<div id="right_column">
 		<div id="msgs_list">
+
+			<!-- For loop each message list result entry -->
 			<div class="msg_container">
 				<fieldset>
+
         			<legend>March 21</legend>
-				      <div class="msg_description">
+
+        			<!-- For each message with the same date -->
+				    <div class="msg_description">
 				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Msg image"/>
 				      	<div class="msg_text_div">
 				      		<div class="msg_header">
@@ -88,68 +49,16 @@
 								</div>
 				      		</div>
 				      		<div class="msg_text">
-				      			You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? You have gread zend skills, want to conduct a workshop? 
+				      			You have gread zend skills, want to conduct a workshop? 
 				      		</div>
 				      	</div>
-				      </div>
+				    </div>
+				    <!-- end of inner for loop -->
+
     			</fieldset>
 			</div>
-			<div class="msg_container">
-				<fieldset>
-        			<legend>March 22</legend>
-				      <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/6.jpg" alt="Msg image"/>
-				      	<div class="msg_text_div">
-				      		<div class="msg_header">
-				      			<div class="msg_name">
-										Sean Williamson
-								</div>
-								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										9:57AM
-								</div>
-				      		</div>
-				      		<div class="msg_text">
-				      			Umm, give me some time to think about it ...
-				      		</div>
-				      	</div>
-				      </div>
-				      <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/6.jpg" alt="Msg image"/>
-				      	<div class="msg_text_div">
-				      		<div class="msg_header">
-				      			<div class="msg_name">
-										Sean Williamson
-								</div>
-								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										9:58AM
-								</div>
-				      		</div>
-				      		<div class="msg_text">
-				      			When would it be held? And where?
-				      		</div>
-				      	</div>
-				      </div>
-				      <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/6.jpg" alt="Msg image"/>
-				      	<div class="msg_text_div">
-				      		<div class="msg_header">
-				      			<div class="msg_name">
-										Kevin Hudson
-								</div>
-								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										10:30AM
-								</div>
-				      		</div>
-				      		<div class="msg_text">
-				      			Probably in a month
-				      		</div>
-				      	</div>
-				      </div>
-    			</fieldset>
-			</div>
+			<!-- end of outer for loop -->
+
 		</div>
 		<div id="input_container">
 			<div id="input_area">

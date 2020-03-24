@@ -4,7 +4,8 @@ drop table if exists Users;
 
 create table if not exists Users (
     userId SERIAL not NULL,
-    username VARCHAR(255),
+    firstName VARCHAR(255),
+    lastName VARCHAR(255),
     password VARCHAR(255),
     email VARCHAR(255),
     imageURL VARCHAR(255),

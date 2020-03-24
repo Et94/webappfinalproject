@@ -39,9 +39,3 @@ exports.startConvo = (req,res,next) => {
     	})
       .catch((error) => console.log(error));
 }
-
-// SELECT to_char(now()::timestamp, 'Month DD') as date, to_char(now()::timestamp, 'HH:MI PM') as time;
-
-// output: 
-// date = March 24
-// time = 6:42 AM
