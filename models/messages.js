@@ -28,7 +28,13 @@ function sendMessage(input) {
 	return db.query(sql);
 }
 
+function getUserEmail(receiverId) {
+	let sql = `select users.email from users where userid = ${receiverId};`;
+	return db.query(sql);
+}
+
 module.exports = {
 	createConversation : createConversation,
-	sendMessage : sendMessage
+	sendMessage : sendMessage,
+	getUserEmail: getUserEmail
 }
