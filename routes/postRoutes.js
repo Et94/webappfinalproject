@@ -2,8 +2,8 @@ let express = require('express');
 let router = express.Router();
 let postController = require('../controllers/postController');
 
-router.post('/reply', postController.postReply);
+router.post('/posts/search', postController.searchPosts);
 
-router.get('/home/post/replies', postController.getRepliesHome)
+router.get('/posts/reply', postController.replyToPost);
 
 module.exports = router;

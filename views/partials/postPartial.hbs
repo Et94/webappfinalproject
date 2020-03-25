@@ -12,11 +12,10 @@
                 <div class="post-body">
                     <p>After I logged into my node app, I saw that settings were deleted after I restarted my server. I had installed nodemon then it had...</p>
                 </div>
-                <form class="post-footer" method="GET" action="/home/post/replies">
+                <div class="post-footer">
                     <p class="date">25 Oct 2020</p>
-                    <input type="hidden" name="postId" value="1">
-                    <button class="numReplies" onclick="getReplies(1)">1 replies</button>
-                </form>
+                    <p class="numReplies" onclick="toggleReplies(1)">1 replies</p>
+                </div>
             </div>
         </div>
     </div>
