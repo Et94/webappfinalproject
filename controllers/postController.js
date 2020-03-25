@@ -4,8 +4,7 @@ exports.replyToPost = (req, res, next) => {
     let reply = {postId, userId, body} = req.body;
     postModel.insertReply(reply)
     .then(data => {
-        console.log("Successful insertion of reply into Replies table.");
-        // redirect or render a view
+        res.redirect(301, '/');
     })
     .catch(error => {
         console.log(error);
@@ -17,27 +16,36 @@ exports.searchPosts = (req, res, next) => {
     let string = req.body.searchString;
     postModel.searchPosts(string)
     .then(data => {
-        console.log(data);
+        let posts = [];
+        let replies = []; 
+
+        for(let i = 0; i < data.rows.length; i++) {
+            posts.push({
+                postId: data.rows[i].postid,
+                userId: data.rows[i].postuserid,
+                imageURL: data.rows[i].postimage,
+                body: data.rows[i].postbody,
+                date: data.rows[i].date,
+                numReplies: data.rows[i].numreplies
+            })
+
+            replies.push({
+                replyId: data.rows[i].replyid,
+                userId: data.rows[i].replyuserid,
+                imageURL: data.rows[i].replyimage,
+                body: data.rows[i].replybody,
+            })
+        }
+        
+        res.render('searchResultView', {
+            pageTitle: 'People App', 
+            heading: 'Welcome to People App',
+            searchResultCSS: true,
+            post: posts,
+            reply: replies
+        });
     })
     .catch(error => {
         console.log(error);
     })
 };
-
-// exports.getReplies = (req, res, next) => {
-//     let postId = req.body.postId;
-//     postModel.selectReplies(postId)
-//     .then(data => {
-//         console.log(data.rows);
-//         // potential solution is to have a separate view for a single post with all of its replies?
-//         res.render('homeView', {
-//             pageTitle: 'People App', 
-//             homeCSS: true,
-//             reply: data.rows,
-//         });
-//     })
-//     .catch(error => {
-//         console.log(error);
-//         res.status(500).send("Error retrieving replies from replies table.")
-//     });
-// };

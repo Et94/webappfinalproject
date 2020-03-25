@@ -1,18 +1,10 @@
 {{#each reply}}
     <div class="reply" id="reply-{{this.replyId}}">
         <a href="/profile/{{this.userId}}">
-            <img class="reply-image" src="https://randomuser.me/api/portraits/med/men/2.jpg">
+            <img class="reply-image" src="{{this.imageURL}}">
         </a>
         <div class="reply-body">
             <p>{{this.body}}</p>
         </div>
     </div>
 {{/each}}
-<div class="comment-container">
-    <form method="POST" action="/reply">
-        <input class="comment-box" type="text" name="body" placeholder="Add your reply here...">
-        <input type="hidden" name="postId" value="1">
-        <input type="hidden" name="userId" value="1">
-        <button class="comment-button" type="submit">comment</button>
-    </form>
-</div>

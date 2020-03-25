@@ -21,6 +21,14 @@
     </div>
     <div id="reply-container-1" class="reply-container">
         {{>replyPartial}}
+        <div class="comment-container">
+            <form method="POST" action="/reply">
+                <input class="comment-box" type="text" name="body" placeholder="Add your reply here...">
+                <input type="hidden" name="postId" value="{{this.postId}}">
+                <input type="hidden" name="userId" value="">
+                <button class="comment-button" type="submit">comment</button>
+            </form>
+        </div>
     </div>
 {{!-- {{/each}} --}}
 <div id="next-container">

@@ -10,7 +10,8 @@ create table if not exists Users (
 	about TEXT,
     country VARCHAR(255),
     dob VARCHAR(255),
-    numPosts INT,
-    numMessages INT,
+    numPosts INT default 0,
+    numMessages INT default 0,
+    numLikes INT default 0
     primary key (userId)
 );

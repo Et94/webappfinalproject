@@ -6,7 +6,7 @@ create table Posts (
     topicName VARCHAR(255),
     subject VARCHAR(255),
     body TEXT,
-    date TIMESTAMP default now(),
+    date date default now(),
     numReplies INT default 0,
     primary key (postId),
     foreign key (userId) references Users (userId),

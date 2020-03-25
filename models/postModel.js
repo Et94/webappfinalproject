@@ -10,35 +10,33 @@ const insertReply = (reply) => {
     );
 };
 
-const selectReplies = (postId) => {
-    return db.query(
-        `SELECT 
-            u.userId,
-            u.imageURL, 
-            r.replyId,
-            r.body
-        FROM Replies r
-            LEFT JOIN Users u ON u.userId = r.userId
-        WHERE r.postId = $1`,
-        [postId]
-    );
-};
-
 const searchPosts = (string) => {
     return db.query(
-        `SELECT * 
+        `SELECT
+            p.postId,
+            up.userId as postUserId,
+            up.imageURL AS postImage,
+            p.body AS postBody,
+            to_char(p.date, 'Mon-DD-YYYY') AS date,
+            p.numReplies,
+            r.replyId,
+            ur.userId AS replyUserId,
+            ur.imageURL AS replyImage,
+            r.body AS replyBody
         FROM Posts p
             LEFT JOIN Replies r on r.postId = p.postId
             LEFT JOIN Users up on up.userId = p.userId
             LEFT JOIN Users ur on ur.userId = r.userId
         WHERE
-            p.subject LIKE $1`,
+            p.subject LIKE $1
+        ORDER BY
+            p.postId
+        LIMIT 5`,
             [`%${string}%`]
     );
 };
 
 module.exports = {
     insertReply: insertReply,
-    selectReplies: selectReplies,
     searchPosts: searchPosts
 };
