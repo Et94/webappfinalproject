@@ -1,5 +1,5 @@
 let messageModel = require('../models/messages');
-let emailModel = require('../models/email');
+let nodemailer = require('../utils/nodemailer');
 
 exports.startConvo = (req,res,next) => {
   let { subject, msg } = req.body;
@@ -33,7 +33,7 @@ exports.startConvo = (req,res,next) => {
 
               input.email = data.rows[0].email;
               
-              emailModel.sendEmail(input.email, subject, msg)
+              nodemailer.sendEmail(input.email, subject, msg)
                 .then((data) => {
                   console.log("Recipient emailed");
                   console.log(data);
