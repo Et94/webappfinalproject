@@ -6,24 +6,28 @@
 		<div id="conversations_list">
 
 			{{#each conversations}}
-				<div class="convo_container" id={{this.conversationid}}>
-					<img class="convo_img" src={{this.imageurl}} alt="Convo image"/>
-					<div class="convo_text_div">
-						<div class="convo_header">
-							<div class="convo_name">
-								{{this.firstname}} {{this.lastname}}
-							</div>
-							<div class="convo_date">
-								{{this.latestdate}}
+				<form id="convo_form" action="/conversations/messages" method="POST">
+					<input type="hidden" id="conversationid" name="conversationid" value={{this.conversationid}}>
+					<button class="selectedconvo_btn">
+						<div class="convo_container">
+							<img class="convo_img" src={{this.imageurl}} alt="Convo image"/>
+							<div class="convo_text_div">
+								<div class="convo_header">
+									<div class="convo_name">
+										{{this.firstname}} {{this.lastname}}
+									</div>
+									<div class="convo_date">
+										{{this.latestdate}}
+									</div>
+								</div>
+								<div class="convo_subject">
+									{{this.subject}}
+								</div>
 							</div>
 						</div>
-						<div class="convo_subject">
-							{{this.subject}}
-						</div>
-					</div>
-				</div>
+					</button>
+				</form>
 			{{/each}}
-
 		</div>
 	</div>
 	<div id="right_column">

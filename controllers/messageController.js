@@ -89,43 +89,66 @@ exports.getConvoList = (req,res,next) => {
 
 exports.getMsgList = (req,res,next) => { 
 
-  // need to get conversation id from front end
-  let conversationid = 14;
+  // need to get current user from session
+  let currentUserId = 1;
+  let conversations = [];
 
-  messageModel.getMsgList(conversationid)
+  messageModel.getConvoList(currentUserId)
     .then((data) => {
       console.log(data.rows);
 
-      let messages = [];
-      let sameDate = [];
-      let num = 0;
-      let currDate = data.rows[num].date;
+      conversations = data.rows;
 
-      while(num < data.rows.length) {
-        if (data.rows[num].date !== currDate) {
+      // if form is get
+      // let conversationid = req.query.conversationid;
+      
+      // if form is post
+      let conversationid = req.body.conversationid;
+
+      console.log("conversationid from frontend:");
+      console.log(conversationid);
+
+      messageModel.getMsgList(conversationid)
+        .then((data) => {
+          console.log(data.rows);
+
+          let messages = [];
+          let sameDate = [];
+          let num = 0;
+          let currDate = data.rows[num].date;
+
+          while(num < data.rows.length) {
+            if (data.rows[num].date !== currDate) {
+              messages.push(sameDate);
+              sameDate = [];
+              currDate = data.rows[num].date;
+            } 
+            sameDate.push(data.rows[num]);
+            num++;
+          } 
           messages.push(sameDate);
-          sameDate = [];
-          currDate = data.rows[num].date;
-        } 
-        sameDate.push(data.rows[num]);
-        num++;
-      } 
-      messages.push(sameDate);
 
-      let messagesList = [];
-      for (let i = 0; i < messages.length; ++i) {
-        let section = {
-          date: messages[i][0].date,
-          messages: messages[i]
-        }
-        messagesList.push(section);
-      }
+          let messagesList = [];
+          for (let i = 0; i < messages.length; ++i) {
+            let section = {
+              date: messages[i][0].date,
+              messages: messages[i]
+            }
+            messagesList.push(section);
+          }
 
-      res.render('messageInboxView', { 
-        pageTitle: 'Message Inbox',
-        messagesList: messagesList,
-        searchResultCSS: true,
-        msgInboxCSS: true });
+          res.render('messageInboxView', { 
+            pageTitle: 'Message Inbox',
+            messagesList: messagesList,
+            conversations: conversations,
+            searchResultCSS: true,
+            msgInboxCSS: true });
+        })
+        .catch((error) => {
+          console.log("Failed to get messages list");
+          console.log(error);
+        });
+
     })
     .catch((error) => {
       console.log("Failed to get convo list");
