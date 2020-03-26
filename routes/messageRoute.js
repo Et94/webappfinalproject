@@ -4,6 +4,6 @@ const router = express.Router();
 
 router.post('/message/create', messageController.startConvo);
 router.get('/conversations', messageController.getConvoList);
-router.post('/conversations/messages', messageController.getMsgList);
+// router.post('/conversations/messages', messageController.getMsgList);
 
 module.exports = router;
