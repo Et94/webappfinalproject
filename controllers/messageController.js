@@ -87,3 +87,49 @@ exports.getConvoList = (req,res,next) => {
 
 }
 
+exports.getMsgList = (req,res,next) => { 
+
+  // need to get conversation id from front end
+  let conversationid = 14;
+
+  messageModel.getMsgList(conversationid)
+    .then((data) => {
+      console.log(data.rows);
+
+      let messages = [];
+      let sameDate = [];
+      let num = 0;
+      let currDate = data.rows[num].date;
+
+      while(num < data.rows.length) {
+        if (data.rows[num].date !== currDate) {
+          messages.push(sameDate);
+          sameDate = [];
+          currDate = data.rows[num].date;
+        } 
+        sameDate.push(data.rows[num]);
+        num++;
+      } 
+      messages.push(sameDate);
+
+      let messagesList = [];
+      for (let i = 0; i < messages.length; ++i) {
+        let section = {
+          date: messages[i][0].date,
+          messages: messages[i]
+        }
+        messagesList.push(section);
+      }
+
+      res.render('messageInboxView', { 
+        pageTitle: 'Message Inbox',
+        messagesList: messagesList,
+        searchResultCSS: true,
+        msgInboxCSS: true });
+    })
+    .catch((error) => {
+      console.log("Failed to get convo list");
+      console.log(error);
+    });
+
+}

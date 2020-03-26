@@ -29,155 +29,35 @@
 	<div id="right_column">
 		<div id="msgs_list">
 
-			<!-- For loop each message list result entry -->
+			{{#each messagesList}}
 			<div class="msg_container">
 				<fieldset>
 
-        			<legend>March 21</legend>
+        			<legend>{{this.date}}</legend>
 
-        			<!-- For each message with the same date -->
+        			{{#each this.messages}}
 				    <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Msg image"/>
+				      	<img class="msg_img" src={{this.imageurl}} alt="Msg image"/>
 				      	<div class="msg_text_div">
 				      		<div class="msg_header">
 				      			<div class="msg_name">
-										Kevin Hudson
+										{{this.firstname}} {{this.lastname}}
 								</div>
 								<div class="dot_divider">•</div>
 								<div class="msg_date">
-										9:03 AM
+										{{this.time}}
 								</div>
 				      		</div>
 				      		<div class="msg_text">
-				      			You have gread zend skills, want to conduct a workshop? 
+				      			{{this.body}} 
 				      		</div>
 				      	</div>
 				    </div>
-
-				    <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Msg image"/>
-				      	<div class="msg_text_div">
-				      		<div class="msg_header">
-				      			<div class="msg_name">
-										Kevin Hudson
-								</div>
-								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										9:03 AM
-								</div>
-				      		</div>
-				      		<div class="msg_text">
-				      			You have gread zend skills, want to conduct a workshop? 
-				      		</div>
-				      	</div>
-				    </div>
-				    <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Msg image"/>
-				      	<div class="msg_text_div">
-				      		<div class="msg_header">
-				      			<div class="msg_name">
-										Kevin Hudson
-								</div>
-								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										9:03 AM
-								</div>
-				      		</div>
-				      		<div class="msg_text">
-				      			You have gread zend skills, want to conduct a workshop? 
-				      		</div>
-				      	</div>
-				    </div>
-				    <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Msg image"/>
-				      	<div class="msg_text_div">
-				      		<div class="msg_header">
-				      			<div class="msg_name">
-										Kevin Hudson
-								</div>
-								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										9:03 AM
-								</div>
-				      		</div>
-				      		<div class="msg_text">
-				      			You have gread zend skills, want to conduct a workshop? 
-				      		</div>
-				      	</div>
-				    </div>
-				    <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Msg image"/>
-				      	<div class="msg_text_div">
-				      		<div class="msg_header">
-				      			<div class="msg_name">
-										Kevin Hudson
-								</div>
-								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										9:03 AM
-								</div>
-				      		</div>
-				      		<div class="msg_text">
-				      			You have gread zend skills, want to conduct a workshop? 
-				      		</div>
-				      	</div>
-				    </div>
-				    <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Msg image"/>
-				      	<div class="msg_text_div">
-				      		<div class="msg_header">
-				      			<div class="msg_name">
-										Kevin Hudson
-								</div>
-								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										9:03 AM
-								</div>
-				      		</div>
-				      		<div class="msg_text">
-				      			You have gread zend skills, want to conduct a workshop? 
-				      		</div>
-				      	</div>
-				    </div>
-				    <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Msg image"/>
-				      	<div class="msg_text_div">
-				      		<div class="msg_header">
-				      			<div class="msg_name">
-										Kevin Hudson
-								</div>
-								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										9:03 AM
-								</div>
-				      		</div>
-				      		<div class="msg_text">
-				      			You have gread zend skills, want to conduct a workshop? 
-				      		</div>
-				      	</div>
-				    </div>
-				    <div class="msg_description">
-				      	<img class="msg_img" src="https://randomuser.me/api/portraits/men/5.jpg" alt="Msg image"/>
-				      	<div class="msg_text_div">
-				      		<div class="msg_header">
-				      			<div class="msg_name">
-										Kevin Hudson
-								</div>
-								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										9:03 AM
-								</div>
-				      		</div>
-				      		<div class="msg_text">
-				      			You have gread zend skills, want to conduct a workshop? 
-				      		</div>
-				      	</div>
-				    </div>
-				    <!-- end of inner for loop -->
+				    {{/each}}
 
     			</fieldset>
 			</div>
-			<!-- end of outer for loop -->
+			{{/each}}
 
 		</div>
 		<div id="input_container">

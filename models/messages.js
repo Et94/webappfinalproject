@@ -41,11 +41,26 @@ function getConvoList(currentUserId) {
 		where (c.senderid = ${currentUserId} or c.receiverid = ${currentUserId}) and u.userid != ${currentUserId} order by c.latestdate desc`;
 
 	return db.query(sql);
-	}
+}
+
+function getMsgList(conversationid) {
+	let sql = `select 
+		to_char(m.date::timestamp, 'Mon DD') as date, 
+		to_char(m.date::timestamp, 'HH:MI PM') as time, 
+		m.messageid, m.conversationid, m.body, m.senderid,
+		u.firstname, u.lastname, u.imageurl 
+		from messages m join users u
+		on m.senderid = u.userid 
+		where m.conversationid = ${conversationid}
+		order by m.date`;
+
+	return db.query(sql);
+}
 
 module.exports = {
 	createConversation : createConversation,
 	sendMessage : sendMessage,
 	getUserEmail: getUserEmail,
-	getConvoList: getConvoList
+	getConvoList: getConvoList,
+	getMsgList: getMsgList
 }
