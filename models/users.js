@@ -15,27 +15,15 @@ exports.registerUser = (data) => {
 	return db.query(sql);
 }
 
-// Harry's user functions
-function addUser(data) {
-	let query = "INSERT INTO users (username, password, imageurl) VALUES ('" + data.name + "','" + data.pass + "','" + data.url + "')";
-	return db.query(query);
-}
-
-function getAllUsers() {
+// Harry's user methods
+exports.getallU = () => {
 	return db.query('SELECT * from users');
 }
 
-function getUserById(id) {
+exports.getU = (id) => {
 	return db.query("SELECT * from users where userid = " + id);
 }
 
-function delUser(id) {
+exports.delU = (id) => {
 	return db.query("DELETE FROM users WHERE userid = " + id);
-}
-
-module.exports = {
-	addU: addUser,
-	getallU: getAllUsers,
-	getU: getUserById,
-	delU: delUser
 }
