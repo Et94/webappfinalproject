@@ -1,5 +1,9 @@
 let db = require('../utils/db');
 
+/**
+ * Inserts a reply into the Replies table.
+ * @param {object} reply 
+ */
 const insertReply = (reply) => {
     let {postId, userId, body} = reply;
     return db.query(
@@ -10,29 +14,54 @@ const insertReply = (reply) => {
     );
 };
 
+/**
+ * Returns a json object containing 5 posts and their replies.
+ * @param {string} string
+ */
 const searchPosts = (string) => {
     return db.query(
-        `SELECT
-            p.postId,
-            up.userId as postUserId,
-            up.imageURL AS postImage,
-            p.body AS postBody,
-            to_char(p.date, 'Mon-DD-YYYY') AS date,
-            p.numReplies,
-            r.replyId,
-            ur.userId AS replyUserId,
-            ur.imageURL AS replyImage,
-            r.body AS replyBody
-        FROM Posts p
-            LEFT JOIN Replies r on r.postId = p.postId
-            LEFT JOIN Users up on up.userId = p.userId
-            LEFT JOIN Users ur on ur.userId = r.userId
-        WHERE
-            p.subject LIKE $1
-        ORDER BY
-            p.postId
-        LIMIT 5`,
-            [`%${string}%`]
+        `WITH five_posts AS (
+            SELECT 
+                p.postId,
+                up.userId,
+                up.imageURL,
+                p.subject,
+                p.topicName,
+                p.body,
+                to_char(p.date, 'Mon DD YYYY') as date,
+                p.numReplies,
+                json_agg(postReplies) as reply
+            FROM Posts p
+                LEFT JOIN Users up on up.userId = p.userId
+                LEFT JOIN (
+                    SELECT
+                        r.postId,
+                        r.replyId,
+                        ur.userId,
+                        ur.imageURL,
+                        r.body
+                    FROM Posts p2
+                        left join Replies r on r.postId = p2.postId
+                        left join Users ur on ur.userId = r.userId
+                    ) postReplies on postReplies.postId = p.postId
+            WHERE
+                p.subject LIKE $1
+            group by 
+                p.postId,
+                up.userId,
+                up.imageURL,
+                p.subject,
+                p.topicName,
+                p.body,
+                date,
+                p.numReplies
+            ORDER BY
+                p.postId
+            LIMIT 5)
+            SELECT 
+                array_to_json(array_agg(fp)) as posts
+            from five_posts fp`,
+                [`%${string}%`]
     );
 };
 

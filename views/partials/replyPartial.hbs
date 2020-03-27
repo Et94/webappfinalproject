@@ -1,7 +1,7 @@
-{{#each reply}}
-    <div class="reply" id="reply-{{this.replyId}}">
-        <a href="/profile/{{this.userId}}">
-            <img class="reply-image" src="{{this.imageURL}}">
+{{#each this.reply}}
+    <div class="reply" id="reply-{{this.replyid}}">
+        <a href="/profile/{{this.userid}}">
+            <img class="reply-image" src="{{this.imageurl}}">
         </a>
         <div class="reply-body">
             <p>{{this.body}}</p>
