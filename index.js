@@ -1,5 +1,6 @@
 let express = require('express')
 let app = express();
+let session = require('express-session');
 let bodyParser = require('body-parser');
 let path = require('path');
 let db = require('./utils/db');
@@ -17,6 +18,10 @@ app.engine(
   app.set('view engine', 'hbs');
   app.set('views', 'views');
 
+app.use(session({
+  secret: 'mysecret'
+}));
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false })) // middleware
 
@@ -30,11 +35,14 @@ app.use(express.static(path.join(__dirname,'views')));
 // let peopleRoutes = require('./routes/peoples');
 // app.use(peopleRoutes);
 
+let loginRoutes = require('./routes/loginRoute');
+app.use(loginRoutes);
+
 // !! Change the render page name to your view name to test your view.
 // Change the variables to your view variables.
 app.get('/', function (req,res) {
     // res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search'});
-    res.render('registerView', { 
+    res.render('loginView', { 
       pageTitle: 'People App', 
       heading: 'Welcome to People App', 
       homeCSS: true,
