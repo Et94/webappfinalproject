@@ -1,6 +1,10 @@
 window.onload=function () {
-     var objDiv = document.getElementById("msgs_list");
-     objDiv.scrollTop = objDiv.scrollHeight;
+     var msgsList = document.getElementById("msgs_list");
+     msgsList.scrollTop = msgsList.scrollHeight;
+
+     var convos = document.getElementsByClassName("selectedconvo_btn");
+     convos[0].style.background = "#f2f6fc";
+
 }
 
 function highlight(node) {

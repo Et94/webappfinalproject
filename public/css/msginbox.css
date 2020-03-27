@@ -177,7 +177,7 @@ textarea {
 	font-size: 14px;
 }
 
-textarea:focus {
+textarea:focus, button:focus {
 	outline: none;
 }
 
