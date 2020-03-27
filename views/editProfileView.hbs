@@ -1,0 +1,14 @@
+<div>
+    {{>navbarPartial}}
+</div>
+<div id="edit-container">
+    <form action="/profile/submit" method="POST" id="edit-form">
+        <input type="text" name="first_name" value="{{user.firstname}}" placeholder="First Name" id="edit-first-name"/>
+        <input type="text" name="last_name" value="{{user.lastname}}" placeholder="Last Name" id="edit-last-name"/>
+        <input type="text" name="image_url" value="{{user.imageurl}}" placeholder="Image URL" id="edit-image"/>
+        <textarea rows="4" form="edit-form" name="about" placeholder="About" id="edit-about">{{user.about}}</textarea>
+        <input type="text" name="country" value="{{user.country}}" placeholder="Country" id="edit-country" />
+        <input type="date" name="dob" value="{{user.dob}}" placeholder="Date" id="edit-dob" />
+        <input type="submit" value="Save Changes" id="edit-submit">
+    </form>
+</div>
