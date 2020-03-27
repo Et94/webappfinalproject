@@ -4,8 +4,8 @@ exports.login = (req, res, next) => {
 	let loginData = {"email": req.body.email, "password": req.body.password};
 	let userData = {};
 
-	let user = userModel.getUser(loginData);
-	user.then((res) => {
+	userModel.getUser(loginData)
+	.then((res) => {
 		userData.password = res.rows[0].password;
 		userData.email = res.rows[0].email;
 		userData.userid = res.rows[0].userid;
