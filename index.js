@@ -5,6 +5,7 @@ let path = require('path');
 let db = require('./utils/db');
 
 let profileRoutes = require('./routes/profileRoute');
+let postRoutes = require('./routes/postRoute');
 
 const expressHbs = require('express-handlebars');
 app.engine(
@@ -45,6 +46,7 @@ app.get('/', function (req,res) {
 
 
 app.use(profileRoutes);
+app.use(postRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server ready @ port ${PORT}`))
