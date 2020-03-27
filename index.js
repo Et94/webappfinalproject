@@ -5,6 +5,8 @@ let bodyParser = require('body-parser');
 let path = require('path');
 let db = require('./utils/db');
 
+let profileRoutes = require('./routes/profileRoute');
+
 const expressHbs = require('express-handlebars');
 app.engine(
     'hbs',
@@ -42,17 +44,10 @@ app.use(loginRoutes);
 // Change the variables to your view variables.
 app.get('/', function (req,res) {
     // res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search'});
-    res.render('loginView', { 
-      pageTitle: 'People App', 
-      heading: 'Welcome to People App', 
-      homeCSS: true,
-      loginCSS: true,
-      registerCSS: true
-    });
+    res.render('loginView', { loginCSS: true,});
 });
+
+app.use(profileRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server ready @ port ${PORT}`))
-
-
-
