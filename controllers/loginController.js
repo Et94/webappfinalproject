@@ -35,16 +35,18 @@ exports.signup = (req, res, next) => {
 	}
 	let isUser = false;
 
-	let verifyNoUser = userModel.getUser(regData);
+	userModel.getUser(regData)
 
 	// add user prompts for failures at the end
-	verifyNoUser.then((res) => { 
-		if (res != undefined)
+	.then((res) => { 
+		console.log(res.row);
+		if (res.row != undefined)
 			isUser = true;
 	})
 	.then(() => {
 		console.log(regData);
-		if (!isUser && regData.firstname && regData.lastname && regData.email && regData.password && regData.confirm_password && regData.password == req.body.confirm_password) {
+		if (!isUser && regData.firstname != undefined && regData.lastname != undefined && regData.email != undefined 
+			&& regData.password != undefined && regData.password == req.body.confirm_password) {
 			req.session.regData = regData;
 			res.render("registerView", {registerCSS: true});
 		} else {
@@ -58,14 +60,17 @@ exports.signup = (req, res, next) => {
 
 exports.register = (req, res, next) => {
 	let regData = req.session.regData;
-	regData.image_url = req.body.image_url;
+	regData.imageurl = req.body.imageurl;
 	regData.about = req.body.about;
 	regData.country = req.body.country;
 	regData.dob = req.body.dob;
+	console.log(regData);
 
-	if (regData.image_url && regData.about && regData.country && regData.dob) {
-		let register = userModel.registerUser(regData);
-		register.then(console.log(register));
+	if (regData.image_url != undefined && regData.about != undefined 
+		&& regData.country != undefined && regData.dob != undefined) {
+		userModel.registerUser(regData)
+		.then((err) => console.log(err));
+		res.redirect(301, '/');
 	} else {
 		res.redirect(301, '/register');
 	}
