@@ -18,7 +18,8 @@ exports.searchPosts = (req, res, next) => {
     if(pagination) {
         page = (pagination == "next") ? ++page : --page;
     }
-    let offset = page * 5;
+    let postsPerPage = 5;
+    let offset = page * postsPerPage;
     postModel.searchPosts(subject, offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
@@ -29,8 +30,8 @@ exports.searchPosts = (req, res, next) => {
             post: posts,
             page: page,
             searchString: subject,
-            isFirstPage: page==0,
-            isLastPage: offset + 5 > numPosts
+            isFirstPage: page == 0,
+            isLastPage: offset + postsPerPage > numPosts
         });
     })
     .catch(error => {

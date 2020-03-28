@@ -1,8 +1,11 @@
 let express = require('express')
 let app = express();
+let session = require('express-session');
 let bodyParser = require('body-parser');
 let path = require('path');
 let db = require('./utils/db');
+
+let profileRoutes = require('./routes/profileRoute');
 
 const expressHbs = require('express-handlebars');
 app.engine(
@@ -16,6 +19,10 @@ app.engine(
   );
   app.set('view engine', 'hbs');
   app.set('views', 'views');
+
+app.use(session({
+  secret: 'mysecret'
+}));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false })) // middleware
@@ -46,8 +53,7 @@ app.get('/posts', function (req,res) {
     });
 });
 
+app.use(profileRoutes);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server ready @ port ${PORT}`))
-
-
-
