@@ -35,7 +35,7 @@ app.use(postRoutes);
 
 // !! Change the render page name to your view name to test your view.
 // Change the variables to your view variables.
-app.get('/', function (req,res) {
+app.get('/posts', function (req,res) {
     res.render('homeView', { 
       pageTitle: 'People App', 
       heading: 'Welcome to People App',

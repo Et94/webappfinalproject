@@ -18,7 +18,7 @@ const insertReply = (reply) => {
  * Returns a json object containing 5 posts and their replies.
  * @param {string} string
  */
-const searchPosts = (string) => {
+const searchPosts = (string, page) => {
     return db.query(
         `WITH five_posts AS (
             SELECT 
@@ -28,11 +28,11 @@ const searchPosts = (string) => {
                 p.subject,
                 p.topicName,
                 p.body,
-                to_char(p.date, 'Mon DD YYYY') as date,
+                to_char(p.date, 'Mon DD YYYY') AS date,
                 p.numReplies,
-                json_agg(postReplies) as reply
+                json_agg(postReplies) AS reply
             FROM Posts p
-                LEFT JOIN Users up on up.userId = p.userId
+                LEFT JOIN Users up ON up.userId = p.userId
                 LEFT JOIN (
                     SELECT
                         r.postId,
@@ -41,12 +41,12 @@ const searchPosts = (string) => {
                         ur.imageURL,
                         r.body
                     FROM Posts p2
-                        left join Replies r on r.postId = p2.postId
-                        left join Users ur on ur.userId = r.userId
-                    ) postReplies on postReplies.postId = p.postId
+                        left join Replies r ON r.postId = p2.postId
+                        left join Users ur ON ur.userId = r.userId
+                    ) postReplies ON postReplies.postId = p.postId
             WHERE
-                p.subject LIKE $1
-            group by 
+                LOWER(p.subject) LIKE LOWER($1)
+            GROUP BY 
                 p.postId,
                 up.userId,
                 up.imageURL,
@@ -59,8 +59,8 @@ const searchPosts = (string) => {
                 p.postId
             LIMIT 5)
             SELECT 
-                array_to_json(array_agg(fp)) as posts
-            from five_posts fp`,
+                array_to_json(array_agg(fp)) AS posts
+            FROM five_posts fp`,
                 [`%${string}%`]
     );
 };

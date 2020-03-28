@@ -5,9 +5,10 @@
         </a>
     </li>
     <li>
-        <form method="POST" action="/posts/search">
+        <form method="GET" action="/posts/search">
             <i class="fa fa-search" aria-hidden="true"></i>
-            <input id="search-bar" type="text" placeholder="Search" name="searchString"></input>
+            <input type="hidden" name="page" value="0">
+            <input id="search-bar" type="text" placeholder="Search" name="subject"></input>
         </form>
     </li>
     <li>

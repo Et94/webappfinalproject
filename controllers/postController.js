@@ -14,15 +14,21 @@ exports.replyToPost = (req, res, next) => {
 };
 
 exports.searchPosts = (req, res, next) => {
-    let string = req.body.searchString;
-    postModel.searchPosts(string)
+    let {subject, page, pagination} = req.query;
+    if(pagination) {
+        page = (pagination == "next") ? ++page : --page;
+    }
+    postModel.searchPosts(subject, page*5)
     .then(data => {
         let posts = data.rows[0].posts;
         res.render('searchResultView', {
             pageTitle: 'People App', 
             heading: 'Welcome to People App',
             searchResultCSS: true,
-            post: posts
+            post: posts,
+            page: page,
+            searchString: subject,
+            isFirstPage: page==0
         });
     })
     .catch(error => {
