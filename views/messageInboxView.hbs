@@ -6,7 +6,7 @@
 		<div id="conversations_list">
 
 			{{#each conversations}}
-				<!-- <form id="convo_form" action="/conversations/messages" method="POST"> -->
+				<form id="convo_form" action="/conversations/messages" method="POST">
 					<input type="hidden" id="conversationid" name="conversationid" value={{this.conversationid}}>
 					<button class="selectedconvo_btn" onclick="highlight(this)">
 						<div class="convo_container">
@@ -26,7 +26,7 @@
 							</div>
 						</div>
 					</button>
-				<!-- </form> -->
+				</form>
 			{{/each}}
 		</div>
 	</div>
