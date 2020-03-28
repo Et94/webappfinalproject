@@ -18,19 +18,19 @@ const insertReply = (reply) => {
  * Returns a json object containing 5 posts and their replies.
  * @param {string} string
  */
-const searchPosts = (string, page) => {
+const searchPosts = (string, offset) => {
     return db.query(
         `WITH five_posts AS (
-            SELECT 
+            SELECT
                 p.postId,
                 up.userId,
                 up.imageURL,
                 p.subject,
                 p.topicName,
                 p.body,
-                to_char(p.date, 'Mon DD YYYY') AS date,
+                TO_CHAR(p.date, 'Mon DD YYYY') AS date,
                 p.numReplies,
-                json_agg(postReplies) AS reply
+                JSON_AGG(postReplies) AS reply
             FROM Posts p
                 LEFT JOIN Users up ON up.userId = p.userId
                 LEFT JOIN (
@@ -57,11 +57,12 @@ const searchPosts = (string, page) => {
                 p.numReplies
             ORDER BY
                 p.postId
-            LIMIT 5)
+            LIMIT 5 OFFSET $2)
             SELECT 
-                array_to_json(array_agg(fp)) AS posts
-            FROM five_posts fp`,
-                [`%${string}%`]
+                ARRAY_TO_JSON(ARRAY_AGG(fp)) AS posts,
+                (SELECT COUNT(*) FROM Posts) AS numPosts
+            FROM five_posts fp;`,
+                [`%${string}%`, offset]
     );
 };
 

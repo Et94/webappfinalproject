@@ -18,9 +18,10 @@ exports.searchPosts = (req, res, next) => {
     if(pagination) {
         page = (pagination == "next") ? ++page : --page;
     }
-    postModel.searchPosts(subject, page*5)
+    let offset = page * 5;
+    postModel.searchPosts(subject, offset)
     .then(data => {
-        let posts = data.rows[0].posts;
+        let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
             pageTitle: 'People App', 
             heading: 'Welcome to People App',
@@ -28,7 +29,8 @@ exports.searchPosts = (req, res, next) => {
             post: posts,
             page: page,
             searchString: subject,
-            isFirstPage: page==0
+            isFirstPage: page==0,
+            isLastPage: offset + 5 > numPosts
         });
     })
     .catch(error => {

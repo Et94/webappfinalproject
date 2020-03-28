@@ -3,12 +3,14 @@
     <div id="post-container">
         {{>postPartial}}
     </div>
-    <form id="next-container" method="GET" action="/posts/search">
-        <input type="hidden" name="page" value="{{page}}">
-        <input type="hidden" name="subject" value="{{searchString}}">
-        <input type="hidden" name="pagination" value="next">
-        <button id="next-button" type="submit">Next -></button>
-    </form>
+    {{#unless isLastPage}}
+        <form id="next-container" method="GET" action="/posts/search">
+            <input type="hidden" name="page" value="{{page}}">
+            <input type="hidden" name="subject" value="{{searchString}}">
+            <input type="hidden" name="pagination" value="next">
+            <button id="next-button" type="submit">Next -></button>
+        </form>
+    {{/unless}}
     {{#unless isFirstPage}}
         <form id="prev-container" method="GET" action="/posts/search">
             <input type="hidden" name="page" value="{{page}}">
