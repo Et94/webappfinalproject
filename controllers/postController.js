@@ -1,12 +1,12 @@
 const postModel = require('../models/postModel');
 const POSTS_PER_PAGE = 5
 const searchOptions = (query) => {
-    let {search, page, pagination} = query;
-    if(pagination) {
-        page = (pagination == "next") ? ++page : --page;
+    let {string, page, paginate} = query;
+    if(paginate) {
+        page = (paginate == "next") ? ++page : --page;
     }
     let offset = page * POSTS_PER_PAGE;
-    return {search, page, offset}
+    return {string, page, offset}
 }
 
 exports.replyToPost = (req, res, next) => {
@@ -23,8 +23,8 @@ exports.replyToPost = (req, res, next) => {
 };
 
 exports.getPostsBySubject = (req, res, next) => {
-    let {search, page, offset} = searchOptions(req.query);
-    postModel.selectPostsBySubject(search, offset)
+    let {string, page, offset} = searchOptions(req.query);
+    postModel.selectPostsBySubject(string, offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
@@ -32,7 +32,7 @@ exports.getPostsBySubject = (req, res, next) => {
             searchResultCSS: true,
             post: posts,
             page: page,
-            searchString: search,
+            string: string,
             route: '/posts/search',
             isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE > numPosts
@@ -44,8 +44,8 @@ exports.getPostsBySubject = (req, res, next) => {
 };
 
 exports.getPostsByTopic = (req, res, next) => {
-    let {search, page, offset} = searchOptions(req.query);
-    postModel.selectPostsByTopic(search, offset)
+    let {string, page, offset} = searchOptions(req.query);
+    postModel.selectPostsByTopic(string, offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
@@ -53,7 +53,7 @@ exports.getPostsByTopic = (req, res, next) => {
             searchResultCSS: true,
             post: posts,
             page: page,
-            searchString: search,
+            string: string,
             route: '/posts/searchTopic',
             isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE > numPosts

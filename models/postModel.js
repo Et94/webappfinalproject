@@ -20,8 +20,8 @@ var selectPostsTemplate = (whereClause) => {
                     ur.userId,
                     ur.imageURL,
                     r.body
-                FROM Posts p2
-                    left join Replies r ON r.postId = p2.postId
+                FROM Posts p
+                    left join Replies r ON r.postId = p.postId
                     left join Users ur ON ur.userId = r.userId
                 ) postReplies ON postReplies.postId = p.postId
         WHERE
@@ -39,8 +39,11 @@ var selectPostsTemplate = (whereClause) => {
             p.postId
         LIMIT 5 OFFSET $2)
         SELECT 
-            ARRAY_TO_JSON(ARRAY_AGG(fp)) AS posts,
-            (SELECT COUNT(*) FROM Posts) AS numPosts
+            (	SELECT COUNT(*)
+                FROM Posts p
+                WHERE ${whereClause}
+            ) AS numPosts,
+            ARRAY_TO_JSON(ARRAY_AGG(fp)) AS posts
         FROM five_posts fp;`;
 }
 
@@ -65,7 +68,7 @@ const insertReply = (reply) => {
  * @param {int} offset
  */
 const selectPostsBySubject = (subject, offset) => {
-    let whereClause = 'LOWER(p.subject) LIKE LOWER($1)'
+    let whereClause = "LOWER(p.subject) LIKE LOWER($1)"
     let query = selectPostsTemplate(whereClause);
     return db.query(query, [`%${subject}%`, offset]);
 };
