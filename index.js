@@ -22,7 +22,9 @@ app.engine(
   app.set('views', 'views');
 
 app.use(session({
-  secret: 'mysecret'
+  secret: 'mysecret',
+  resave: true,
+  saveUninitialized: true
 }));
 
 // parse application/x-www-form-urlencoded
@@ -45,10 +47,12 @@ app.use(loginRoutes);
 // Change the variables to your view variables.
 app.get('/', function (req,res) {
     // res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search'});
-    //res.render('sendMessageView', { 
-      //pageTitle: 'Message Inbox',
-      //searchResultCSS: true,
-    //   sendMsgCSS: true
+
+    // res.render('sendMessageView', { 
+    //   pageTitle: 'Message Inbox',
+    //   searchResultCSS: true,
+    //   sendMsgCSS: true });
+
     res.render('loginView', { loginCSS: true,});
 });
 

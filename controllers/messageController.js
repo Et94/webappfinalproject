@@ -1,6 +1,13 @@
 let messageModel = require('../models/messages');
 let nodemailer = require('../utils/nodemailer');
 
+exports.sendMessage = (req,res,next) => {
+   res.render('sendMessageView', { 
+      pageTitle: 'Send a Message',
+      searchResultCSS: true,
+      sendMsgCSS: true });
+};
+
 exports.startConvo = (req,res,next) => {
   let { subject, msg } = req.body;
 
