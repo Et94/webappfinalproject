@@ -1,4 +1,48 @@
-let db = require('../utils/db');
+const db = require('../utils/db');
+var selectPostsTemplate = (whereClause) => {
+    return `WITH five_posts AS (
+        SELECT
+            p.postId,
+            up.userId,
+            up.imageURL,
+            p.subject,
+            p.topicName,
+            p.body,
+            TO_CHAR(p.date, 'Mon DD YYYY') AS date,
+            p.numReplies,
+            JSON_AGG(postReplies) AS reply
+        FROM Posts p
+            LEFT JOIN Users up ON up.userId = p.userId
+            LEFT JOIN (
+                SELECT
+                    r.postId,
+                    r.replyId,
+                    ur.userId,
+                    ur.imageURL,
+                    r.body
+                FROM Posts p2
+                    left join Replies r ON r.postId = p2.postId
+                    left join Users ur ON ur.userId = r.userId
+                ) postReplies ON postReplies.postId = p.postId
+        WHERE
+            ${whereClause}
+        GROUP BY 
+            p.postId,
+            up.userId,
+            up.imageURL,
+            p.subject,
+            p.topicName,
+            p.body,
+            date,
+            p.numReplies
+        ORDER BY
+            p.postId
+        LIMIT 5 OFFSET $2)
+        SELECT 
+            ARRAY_TO_JSON(ARRAY_AGG(fp)) AS posts,
+            (SELECT COUNT(*) FROM Posts) AS numPosts
+        FROM five_posts fp;`;
+}
 
 /**
  * Inserts a reply into the Replies table.
@@ -15,58 +59,30 @@ const insertReply = (reply) => {
 };
 
 /**
- * Returns a json object containing 5 posts and their replies.
- * @param {string} string
+ * Returns a json object containing 5 posts and their replies filtered by subject.
+ * If subject parameter is null, returns posts unfiltered.
+ * @param {string} subject
+ * @param {int} offset
  */
-const searchPosts = (string, offset) => {
-    return db.query(
-        `WITH five_posts AS (
-            SELECT
-                p.postId,
-                up.userId,
-                up.imageURL,
-                p.subject,
-                p.topicName,
-                p.body,
-                TO_CHAR(p.date, 'Mon DD YYYY') AS date,
-                p.numReplies,
-                JSON_AGG(postReplies) AS reply
-            FROM Posts p
-                LEFT JOIN Users up ON up.userId = p.userId
-                LEFT JOIN (
-                    SELECT
-                        r.postId,
-                        r.replyId,
-                        ur.userId,
-                        ur.imageURL,
-                        r.body
-                    FROM Posts p2
-                        left join Replies r ON r.postId = p2.postId
-                        left join Users ur ON ur.userId = r.userId
-                    ) postReplies ON postReplies.postId = p.postId
-            WHERE
-                LOWER(p.subject) LIKE LOWER($1)
-            GROUP BY 
-                p.postId,
-                up.userId,
-                up.imageURL,
-                p.subject,
-                p.topicName,
-                p.body,
-                date,
-                p.numReplies
-            ORDER BY
-                p.postId
-            LIMIT 5 OFFSET $2)
-            SELECT 
-                ARRAY_TO_JSON(ARRAY_AGG(fp)) AS posts,
-                (SELECT COUNT(*) FROM Posts) AS numPosts
-            FROM five_posts fp;`,
-                [`%${string}%`, offset]
-    );
+const selectPostsBySubject = (subject, offset) => {
+    let whereClause = 'LOWER(p.subject) LIKE LOWER($1)'
+    let query = selectPostsTemplate(whereClause);
+    return db.query(query, [`%${subject}%`, offset]);
+};
+
+/**
+ * Returns a json object containing 5 posts and their replies filtered by topic.
+ * @param {string} topic 
+ * @param {int} offset 
+ */
+const selectPostsByTopic = (topic, offset) => {
+    let whereClause = 'p.topicName = $1';
+    let query = selectPostsTemplate(whereClause);
+    return db.query(query, [topic, offset]);
 };
 
 module.exports = {
     insertReply: insertReply,
-    searchPosts: searchPosts
+    selectPostsBySubject: selectPostsBySubject,
+    selectPostsByTopic: selectPostsByTopic
 };

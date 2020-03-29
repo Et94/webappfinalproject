@@ -1,4 +1,13 @@
-var postModel = require('../models/postModel');
+const postModel = require('../models/postModel');
+const POSTS_PER_PAGE = 5
+const searchOptions = (query) => {
+    let {search, page, pagination} = query;
+    if(pagination) {
+        page = (pagination == "next") ? ++page : --page;
+    }
+    let offset = page * POSTS_PER_PAGE;
+    return {search, page, offset}
+}
 
 exports.replyToPost = (req, res, next) => {
     let reply = {postId, userId, body} = req.body;
@@ -13,28 +22,42 @@ exports.replyToPost = (req, res, next) => {
     });
 };
 
-exports.searchPosts = (req, res, next) => {
-    let {subject, page, pagination} = req.query;
-    if(pagination) {
-        page = (pagination == "next") ? ++page : --page;
-    }
-    let postsPerPage = 5;
-    let offset = page * postsPerPage;
-    postModel.searchPosts(subject, offset)
+exports.getPostsBySubject = (req, res, next) => {
+    let {search, page, offset} = searchOptions(req.query);
+    postModel.selectPostsBySubject(search, offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
-            pageTitle: 'People App', 
-            heading: 'Welcome to People App',
+            pageTitle: 'People App - Search Posts',
             searchResultCSS: true,
             post: posts,
             page: page,
-            searchString: subject,
+            searchString: search,
             isFirstPage: page == 0,
-            isLastPage: offset + postsPerPage > numPosts
+            isLastPage: offset + POSTS_PER_PAGE > numPosts
         });
     })
     .catch(error => {
         console.log(error);
+    });
+};
+
+exports.getPostsByTopic = (req, res, next) => {
+    let {search, page, offset} = searchOptions(req.query);
+    postModel.selectPostsByTopic(search, offset)
+    .then(data => {
+        let {posts, numposts: numPosts} = data.rows[0];
+        res.render('searchResultView', {
+            pageTitle: 'People App - Search Posts', 
+            searchResultCSS: true,
+            post: posts,
+            page: page,
+            searchString: search,
+            isFirstPage: page == 0,
+            isLastPage: offset + POSTS_PER_PAGE > numPosts
+        });
     })
+    .catch(error => {
+        console.log(error);
+    });
 };
