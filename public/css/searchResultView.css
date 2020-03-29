@@ -2,3 +2,29 @@
     position: relative;
     left: 7em;
 }
+
+#prev-container {
+    width: 40em;
+}
+
+#prev-button {
+    border: none;
+    background: none;
+    position: relative;
+    float: right;
+    color: grey;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#next-container {
+    width: 40em;
+}
+
+#next-button {
+    border: none;
+    background: none;
+    position: relative;
+    float: right;
+    color: grey;
+    font-family: Arial, Helvetica, sans-serif;
+}
