@@ -33,6 +33,7 @@ exports.getPostsBySubject = (req, res, next) => {
             post: posts,
             page: page,
             searchString: search,
+            route: '/posts/search',
             isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE > numPosts
         });
@@ -53,6 +54,7 @@ exports.getPostsByTopic = (req, res, next) => {
             post: posts,
             page: page,
             searchString: search,
+            route: '/posts/searchTopic',
             isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE > numPosts
         });
