@@ -1,6 +1,36 @@
 let messageModel = require('../models/messages');
 let nodemailer = require('../utils/nodemailer');
 
+const sortByDate = (results) => {
+    
+  let messages = [];
+  let sameDate = [];
+  let num = 0;
+  let currDate = results[num].date;
+
+  while(num < results.length) {
+    if (results[num].date !== currDate) {
+      messages.push(sameDate);
+      sameDate = [];
+      currDate = results[num].date;
+    } 
+    sameDate.push(results[num]);
+    num++;
+  } 
+  messages.push(sameDate);
+
+  let messagesList = [];
+  for (let i = 0; i < messages.length; ++i) {
+    let section = {
+      date: messages[i][0].date,
+      messages: messages[i]
+    }
+    messagesList.push(section);
+  }
+
+  return messagesList;
+}
+
 exports.sendMessage = (req,res,next) => {
    res.render('sendMessageView', { 
       pageTitle: 'Send a Message',
@@ -72,28 +102,6 @@ exports.startConvo = (req,res,next) => {
     });
 }
 
-exports.getConvoList = (req,res,next) => { 
-
-  // need to get current user from session
-  let currentUserId = 1;
-
-  messageModel.getConvoList(currentUserId)
-    .then((data) => {
-      console.log(data.rows);
-
-      res.render('messageInboxView', { 
-        pageTitle: 'Message Inbox', 
-        conversations: data.rows, 
-        searchResultCSS: true,
-        msgInboxCSS: true });
-    })
-    .catch((error) => {
-      console.log("Failed to get convo list");
-      console.log(error);
-    });
-
-}
-
 exports.getMsgList = (req,res,next) => { 
 
   // need to get current user from session
@@ -102,8 +110,8 @@ exports.getMsgList = (req,res,next) => {
 
   messageModel.getConvoList(currentUserId)
     .then((data) => {
-      console.log("ConvoList:")
-      console.log(data.rows);
+      // console.log("ConvoList:")
+      // console.log(data.rows);
 
       conversations = data.rows;
 
@@ -112,30 +120,7 @@ exports.getMsgList = (req,res,next) => {
           // console.log("MsgList:")
           // console.log(data.rows);
 
-          let messages = [];
-          let sameDate = [];
-          let num = 0;
-          let currDate = data.rows[num].date;
-
-          while(num < data.rows.length) {
-            if (data.rows[num].date !== currDate) {
-              messages.push(sameDate);
-              sameDate = [];
-              currDate = data.rows[num].date;
-            } 
-            sameDate.push(data.rows[num]);
-            num++;
-          } 
-          messages.push(sameDate);
-
-          let messagesList = [];
-          for (let i = 0; i < messages.length; ++i) {
-            let section = {
-              date: messages[i][0].date,
-              messages: messages[i]
-            }
-            messagesList.push(section);
-          }
+          let messagesList = sortByDate(data.rows);
 
           res.render('messageInboxView', { 
             pageTitle: 'Message Inbox',

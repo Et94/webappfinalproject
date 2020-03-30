@@ -6,28 +6,21 @@
 		<div id="conversations_list">
 
 			{{#each conversations}}
-				<!-- <form id="convo_form" action="/conversations/messages" method="POST"> -->
-					<button class="selectedconvo_btn" onclick="highlight(this)">
+					<button class="selectedconvo_btn" onclick="showMessages(this)">
 						<input type="hidden" class="conversationid" name="conversationid" value={{this.conversationid}}>
 						<div class="convo_container">
 							<img class="convo_img" src={{this.imageurl}} alt="Convo image"/>
 							<div class="convo_text_div">
 								<div class="convo_header">
-									<div class="convo_name">
-										{{this.firstname}} {{this.lastname}}
-									</div>
-									<div class="convo_date">
-										{{this.latestdate}}
-									</div>
+									<div class="convo_name">{{this.firstname}} {{this.lastname}}</div>
+									<div class="convo_date">{{this.latestdate}}</div>
 								</div>
-								<div class="convo_subject">
-									{{this.subject}}
-								</div>
+								<div class="convo_subject">{{this.subject}}</div>
 							</div>
 						</div>
 					</button>
-				<!-- </form> -->
 			{{/each}}
+
 		</div>
 	</div>
 	<div id="right_column">
@@ -35,30 +28,21 @@
 
 			{{#each messagesList}}
 			<div class="msg_container">
-				<fieldset>
-
+				<fieldset class="msg_date">
         			<legend>{{this.date}}</legend>
-
         			{{#each this.messages}}
 				    <div class="msg_description" id={{this.conversationid}}>
 				      	<img class="msg_img" src={{this.imageurl}} alt="Msg image"/>
 				      	<div class="msg_text_div">
 				      		<div class="msg_header">
-				      			<div class="msg_name">
-										{{this.firstname}} {{this.lastname}}
-								</div>
+				      			<div class="msg_name">{{this.firstname}} {{this.lastname}}</div>
 								<div class="dot_divider">•</div>
-								<div class="msg_date">
-										{{this.time}}
-								</div>
+								<div class="msg_time">{{this.time}}</div>
 				      		</div>
-				      		<div class="msg_text">
-				      			{{this.body}} 
-				      		</div>
+				      		<div class="msg_text">{{this.body}}</div>
 				      	</div>
 				    </div>
 				    {{/each}}
-
     			</fieldset>
 			</div>
 			{{/each}}
