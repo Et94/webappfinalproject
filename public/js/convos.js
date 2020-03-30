@@ -1,9 +1,11 @@
-window.onload=function () {
-     var msgsList = document.getElementById("msgs_list");
-     msgsList.scrollTop = msgsList.scrollHeight;
+window.onload = function() {
+    var msgsList = document.getElementById("msgs_list");
+    msgsList.scrollTop = msgsList.scrollHeight;
 
-     var convos = document.getElementsByClassName("selectedconvo_btn");
-     convos[0].style.background = "#f2f6fc";
+    var convos = document.getElementsByClassName("selectedconvo_btn");
+    convos[0].style.background = "#f2f6fc";
+
+    showMessages(convos[0]);
 }
 
 function showMessages(node) {
