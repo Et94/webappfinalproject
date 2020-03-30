@@ -6,9 +6,9 @@
 		<div id="conversations_list">
 
 			{{#each conversations}}
-				<form id="convo_form" action="/conversations" method="POST">
-					<input type="hidden" id="conversationid" name="conversationid" value={{this.conversationid}}>
+				<!-- <form id="convo_form" action="/conversations/messages" method="POST"> -->
 					<button class="selectedconvo_btn" onclick="highlight(this)">
+						<input type="hidden" class="conversationid" name="conversationid" value={{this.conversationid}}>
 						<div class="convo_container">
 							<img class="convo_img" src={{this.imageurl}} alt="Convo image"/>
 							<div class="convo_text_div">
@@ -26,7 +26,7 @@
 							</div>
 						</div>
 					</button>
-				</form>
+				<!-- </form> -->
 			{{/each}}
 		</div>
 	</div>
@@ -40,7 +40,7 @@
         			<legend>{{this.date}}</legend>
 
         			{{#each this.messages}}
-				    <div class="msg_description">
+				    <div class="msg_description" id={{this.conversationid}}>
 				      	<img class="msg_img" src={{this.imageurl}} alt="Msg image"/>
 				      	<div class="msg_text_div">
 				      		<div class="msg_header">

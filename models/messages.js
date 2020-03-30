@@ -43,15 +43,16 @@ function getConvoList(currentUserId) {
 	return db.query(sql);
 }
 
-function getMsgList(conversationid) {
-	let sql = `select 
+function getMsgList(currentUserId) {
+	let sql = `Select c.conversationid, m.messageid, m.body, m.senderid, u.firstname, u.lastname, u.imageurl, 
 		to_char(m.date::timestamp, 'Mon DD') as date, 
-		to_char(m.date::timestamp, 'HH:MI PM') as time, 
-		m.messageid, m.conversationid, m.body, m.senderid,
-		u.firstname, u.lastname, u.imageurl 
-		from messages m join users u
-		on m.senderid = u.userid 
-		where m.conversationid = ${conversationid}
+		to_char(m.date::timestamp, 'HH:MI PM') as time  
+		from conversations c 
+		join messages m 
+		on (m.conversationid = c.conversationid) 
+		and (c.receiverid = ${currentUserId} or c.senderid = ${currentUserId}) 
+		join users u 
+		on (m.senderid = u.userid) 
 		order by m.date`;
 
 	return db.query(sql);
