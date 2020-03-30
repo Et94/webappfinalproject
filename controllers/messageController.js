@@ -102,22 +102,15 @@ exports.getMsgList = (req,res,next) => {
 
   messageModel.getConvoList(currentUserId)
     .then((data) => {
+      console.log("ConvoList:")
       console.log(data.rows);
 
       conversations = data.rows;
 
-      // if form is get
-      // let conversationid = req.query.conversationid;
-      
-      // if form is post
-      let conversationid = req.body.conversationid;
-
-      console.log("conversationid from frontend:");
-      console.log(conversationid);
-
-      messageModel.getMsgList(conversationid)
+      messageModel.getMsgList(currentUserId)
         .then((data) => {
-          console.log(data.rows);
+          // console.log("MsgList:")
+          // console.log(data.rows);
 
           let messages = [];
           let sameDate = [];
