@@ -6,6 +6,6 @@ const is_authenticated = require('../utils/is-auth');
 router.get('/messages', is_authenticated, messageController.sendMessage);
 router.post('/message/create', messageController.startConvo);
 
-router.get('/conversations', messageController.getMsgList);
+router.get('/conversations', is_authenticated, messageController.getMsgList);
 
 module.exports = router;
