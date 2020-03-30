@@ -41,7 +41,7 @@ exports.sendMessage = (req,res,next) => {
 exports.startConvo = (req,res,next) => {
   let { subject, msg } = req.body;
 
-  let senderId = 1; // current user from session
+  let senderId = req.session.userid; // current user from session
   let receiverId = 3; // from profile url
   
   let input = {
@@ -54,58 +54,52 @@ exports.startConvo = (req,res,next) => {
   messageModel.createConversation(input)
   	.then((data) => {
 
-		console.log("Conversation successfully created:", )
+		  console.log("Conversation successfully created:", )
   		console.log(data.rows[0]);
 
   		input.conversationId = data.rows[0].conversationid;
 
-  		messageModel.sendMessage(input)
-  			.then((data) => {
-  				console.log("Message succesfully saved to database");
+      let t = new Date();
+      let YYYY = t.getFullYear();
+      let MM = ((t.getMonth() + 1 < 10) ? '0' : '') + (t.getMonth() + 1);
+      let DD = ((t.getDate() < 10) ? '0' : '') + t.getDate();
+      let HH = ((t.getHours() < 10) ? '0' : '') + t.getHours();
+      let mm = ((t.getMinutes() < 10) ? '0' : '') + t.getMinutes();
+      let ss = ((t.getSeconds() < 10) ? '0' : '') + t.getSeconds();
 
-          messageModel.getUserEmail(receiverId)
-            .then((data) => {
-              console.log("Recipient email retrieved:");
-              console.log(data.rows[0].email);
+      let date = YYYY+'-'+MM+'-'+DD+' '+HH+':'+mm+':'+ss;
 
-              input.email = data.rows[0].email;
-              
-              nodemailer.sendEmail(input.email, subject, msg)
-                .then((data) => {
-                  console.log("Recipient emailed");
-                  console.log(data);
+  		return messageModel.sendMessage(input, date);
+    })
+  	.then((data) => {
+			console.log("Message succesfully saved to database");
 
-                  // need to change the redirect to messages inbox
-                  res.redirect(301, '/')
-                })
-                .catch((error) => {
-                  console.log("Email failed to send");
-                  console.log(error);
-                });
+      return messageModel.getUserEmail(receiverId);
+    })
+    .then((data) => {
+      console.log("Recipient email retrieved:");
+      console.log(data.rows[0].email);
 
-            })
-            .catch((error) => {
-              console.log("Failed to retrieve email");
-              console.log(error);
-            });
+      input.email = data.rows[0].email;
+      return nodemailer.sendEmail(input.email, subject, msg);
+    })
+    .then((data) => {
+      console.log("Recipient emailed");
+      console.log(data);
 
-  			})
-    		.catch((error) => {
-          console.log("Failed to save message in database");
-          console.log(error);
-        });
-
-  	})
+      res.redirect(301, '/conversations')
+    })
     .catch((error) => {
-      console.log("Failed to create convo in database");
+      console.log("Failed to create conversation due to error:");
       console.log(error);
     });
+  
 }
 
 exports.getMsgList = (req,res,next) => { 
 
-  // need to get current user from session
-  let currentUserId = 1;
+  // Get current user from session
+  let currentUserId = req.session.userid;
   let conversations = [];
 
   messageModel.getConvoList(currentUserId)
@@ -114,29 +108,24 @@ exports.getMsgList = (req,res,next) => {
       // console.log(data.rows);
 
       conversations = data.rows;
-
-      messageModel.getMsgList(currentUserId)
-        .then((data) => {
+      return messageModel.getMsgList(currentUserId);
+    })
+    .then((data) => {
           // console.log("MsgList:")
           // console.log(data.rows);
 
-          let messagesList = sortByDate(data.rows);
+      let messagesList = sortByDate(data.rows);
 
-          res.render('messageInboxView', { 
-            pageTitle: 'Message Inbox',
-            messagesList: messagesList,
-            conversations: conversations,
-            searchResultCSS: true,
-            msgInboxCSS: true });
-        })
-        .catch((error) => {
-          console.log("Failed to get messages list");
-          console.log(error);
-        });
+      res.render('messageInboxView', { 
+        pageTitle: 'Message Inbox',
+        messagesList: messagesList,
+        conversations: conversations,
+        searchResultCSS: true,
+        msgInboxCSS: true });
 
     })
     .catch((error) => {
-      console.log("Failed to get convo list");
+      console.log("Failed to get convo/msg list due to error:");
       console.log(error);
     });
 
