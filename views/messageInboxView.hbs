@@ -50,8 +50,9 @@
 		</div>
 		<div id="input_container">
 			<div id="input_area">
-				<form id="msg_form">
-					<textarea placeholder="Write a message..."></textarea>
+				<form id="msg_form" action="/conversations/send" method="POST">
+					<input type="hidden" id="currentconvo_id" class="conversationid" name="conversationid">
+					<textarea placeholder="Write a message..." name="body"></textarea>
 				</form>
 			</div>
 			<div id="btn_div">

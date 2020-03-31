@@ -14,7 +14,7 @@ function createConversation(input) {
 	return db.query(sql);
 }
 
-function sendMessage(input, date) {
+function sendMessage(input) {
 
 	// example
 	// insert into messages (conversationId, body, date, senderId) values (3, 'First test msg', now(), 1);
@@ -23,7 +23,7 @@ function sendMessage(input, date) {
 	// input.msg
 	// input.senderId
 
-	let sql = `Insert into messages (conversationid, body, date, senderid) values (${input.conversationId}, '${input.msg}', '${date}', ${input.senderId});`;
+	let sql = `Insert into messages (conversationid, body, date, senderid) values (${input.conversationId}, '${input.msg}', '${input.date}', ${input.senderId});`;
 
 	return db.query(sql);
 }

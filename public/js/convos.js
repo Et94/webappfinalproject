@@ -6,6 +6,11 @@ window.onload = function() {
     convos[0].style.background = "#f2f6fc";
 
     showMessages(convos[0]);
+
+    // Set selected conversationid to input field for sending msg
+    console.log("First conversationid:");
+	console.log(convos[0].childNodes[1].value);
+	document.getElementById("currentconvo_id").value = convos[0].childNodes[1].value;
 }
 
 function showMessages(node) {
@@ -24,6 +29,9 @@ function showMessages(node) {
 	console.log("conversationid:");
 	console.log(conversationid);
 
+	// Set selected conversationid to input field for sending msg
+	document.getElementById("currentconvo_id").value = conversationid;
+
 	// Hide all dates
 	var dates = document.getElementsByClassName("msg_date");
 	for (let i = 0; i < dates.length; i++) {
@@ -41,4 +49,7 @@ function showMessages(node) {
 	    	msgs[i].style.display = "flex";
 	    }
 	}
+
+	var msgsList = document.getElementById("msgs_list");
+    msgsList.scrollTop = msgsList.scrollHeight;
 }

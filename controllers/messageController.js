@@ -31,24 +31,67 @@ const sortByDate = (results) => {
   return messagesList;
 }
 
-exports.sendMessage = (req,res,next) => {
+const getCurrentTimestamp = () => {
+    
+  let t = new Date();
+  let YYYY = t.getFullYear();
+  let MM = ((t.getMonth() + 1 < 10) ? '0' : '') + (t.getMonth() + 1);
+  let DD = ((t.getDate() < 10) ? '0' : '') + t.getDate();
+  let HH = ((t.getHours() < 10) ? '0' : '') + t.getHours();
+  let mm = ((t.getMinutes() < 10) ? '0' : '') + t.getMinutes();
+  let ss = ((t.getSeconds() < 10) ? '0' : '') + t.getSeconds();
+
+  let date = YYYY+'-'+MM+'-'+DD+' '+HH+':'+mm+':'+ss;
+
+  return date;
+}
+
+exports.sendMessageView = (req,res,next) => {
    res.render('sendMessageView', { 
       pageTitle: 'Send a Message',
       searchResultCSS: true,
       sendMsgCSS: true });
 };
 
+exports.sendMessage = (req,res,next) => {
+
+  let { conversationid, body } = req.body;
+  let senderId = req.session.userid;
+  let date = getCurrentTimestamp();
+
+  let input = {
+    conversationId: conversationid,
+    senderId: senderId,
+    msg: body,
+    date: date
+  }
+
+  console.log(input);
+
+  messageModel.sendMessage(input)
+    .then((data) => {
+      console.log("Message saved");
+      console.log(data);
+
+      res.redirect(301, '/conversations')
+    })
+    .catch((error) => {
+      console.log("Failed to save msg due to error:");
+      console.log(error);
+    });
+
+}
+
 exports.startConvo = (req,res,next) => {
   let { subject, msg } = req.body;
-
   let senderId = req.session.userid; // current user from session
   let receiverId = 3; // from profile url
   
   let input = {
-     senderId: senderId,
-     receiverId: receiverId,
-     subject: subject,
-     msg: msg
+    senderId: senderId,
+    receiverId: receiverId,
+    subject: subject,
+    msg: msg
   }
 
   messageModel.createConversation(input)
@@ -59,17 +102,10 @@ exports.startConvo = (req,res,next) => {
 
   		input.conversationId = data.rows[0].conversationid;
 
-      let t = new Date();
-      let YYYY = t.getFullYear();
-      let MM = ((t.getMonth() + 1 < 10) ? '0' : '') + (t.getMonth() + 1);
-      let DD = ((t.getDate() < 10) ? '0' : '') + t.getDate();
-      let HH = ((t.getHours() < 10) ? '0' : '') + t.getHours();
-      let mm = ((t.getMinutes() < 10) ? '0' : '') + t.getMinutes();
-      let ss = ((t.getSeconds() < 10) ? '0' : '') + t.getSeconds();
+      let date = getCurrentTimestamp();
+      input.date = date;
 
-      let date = YYYY+'-'+MM+'-'+DD+' '+HH+':'+mm+':'+ss;
-
-  		return messageModel.sendMessage(input, date);
+  		return messageModel.sendMessage(input);
     })
   	.then((data) => {
 			console.log("Message succesfully saved to database");
