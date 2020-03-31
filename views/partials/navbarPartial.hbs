@@ -1,15 +1,18 @@
 <ul id="navigation-bar">
     <li>
-        <a href="/home">
+        <a href="/posts">
             <img id='navbar-logo' src="/assets/logo.png">
         </a>
     </li>
     <li>
-        <i class="fa fa-search" aria-hidden="true"></i>
-        <input id="search-bar" type="text" placeholder="Search"></input>
+        <form method="GET" action="/posts/search">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input type="hidden" name="page" value="0">
+            <input id="search-bar" type="text" placeholder="Search" name="string"></input>
+        </form>
     </li>
     <li>
-        <form method="GET", action="/login">
+        <form method="POST", action="/logout">
             <input type="hidden">
             <button id="logout-button" type="submit">logout</button>
         </form>

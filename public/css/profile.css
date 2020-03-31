@@ -1,0 +1,92 @@
+#profile {
+	font-family: "Arial", sans-serif;
+	width: 550px;
+	height: 250px;
+}
+
+#left {
+	width: 400px;
+	margin-left: 50px;
+	float: left;
+}
+
+#right {
+	width: 100px;
+	float: right;
+	margin-top: 150px;
+}
+
+#profilePic {
+	border-radius: 75px;
+	border: 5px solid #c2c2c2;
+	height: 150px;
+}
+
+#u_name {
+	font-size:25px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#u_about {
+	font-size:15px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#u_country {
+	font-size:15px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#btnMsg {
+	border: none;
+	background-color: #00bfff;
+	color: white;
+	cursor: pointer;
+	vertical-align: middle;
+	height: 25px;
+	width: 70px;
+	font-size: 12px;
+}
+
+#likes {
+	color: #00bfff;
+	font-size: 15px;
+	margin-top: 15px;
+	margin-bottom: 5px;
+	display: inline;
+}
+
+#likeBtn {
+	background-color: #00bfff;
+	color: white;
+	font-size: 12px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: none;
+	width: 18px;
+	height: 18px;
+	border-radius: 9px;
+}
+
+#posts {
+	color: #00bfff;
+	font-size: 15px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#postList {
+	margin-top: 20px;
+	margin-left: 50px;
+}
+
+#postTitle {
+	font-size:35px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: left;
+	font-family: "Arial", sans-serif;
+}
