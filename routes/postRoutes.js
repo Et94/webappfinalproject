@@ -9,4 +9,8 @@ router.get('/posts/search', postController.getPostsBySubject);
 
 router.post('/reply', postController.replyToPost);
 
+router.post('/post', is_authenticated, postController.createPost);
+
+router.get('/posts/home', postController.getPostsById);
+
 module.exports = router;

@@ -1,9 +1,14 @@
 let usermod = require("../models/users");
+let postmod = require("../models/postModel")
 
 exports.editView = (req, res, next) => {
-    let User = usermod.getuser(1);
+    let id = req.session.userid;
+    let User = usermod.getUserInfo(id);
     User.then( (data) => {
         res.render('editProfileView', {user: data.rows[0], editCSS: true});
+    })
+    .catch(error => {
+        console.log(error);
     });
 }
 
@@ -14,6 +19,7 @@ exports.editProfile = (req, res, next) => {
     let about = req.body.about;
     let country = req.body.country;
     let dob = req.body.dob;
+    let id = req.session.userid;
 
     let p0ject = {
         firstname: first_name,
@@ -24,6 +30,37 @@ exports.editProfile = (req, res, next) => {
         dob: dob
     }
 
-    usermod.update(1, p0ject);
-    res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search', homeCSS: true});
+    usermod.updateUser(id, p0ject);
+    res.redirect(301, '/profile');
 }
+
+exports.renderHome = (req, res, next) => {
+    let id = req.session.userid;
+    let User = usermod.getHome(id);
+    let user_data;
+    let topics;
+    User.then((data) => {
+        // res.render('homeView', {user: data.rows[0], homeCSS: true});
+        user_data = data.rows[0];
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    let Posts = postmod.selectPostsById(id);
+    Posts.then((data) => {
+        let {posts, numposts: numPosts} = data.rows[0];
+        res.render('homeView', {
+            user: user_data, 
+            homeCSS: true,
+            post: posts,
+            page: 0,
+            string: id.toString(),
+            route: '/posts/home',
+            isFirstPage: true,
+            isLastPage: 0 + 5 > numPosts});   
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
+

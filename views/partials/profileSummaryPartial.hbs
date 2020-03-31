@@ -1,22 +1,22 @@
 <a href="/profile/x">
-    <img id="profile-image" src="https://randomuser.me/api/portraits/med/men/1.jpg">
+    <img id="profile-image" src="{{user.imageurl}}">
 </a>
 <div id="user">
-    <p id="name">Sean Williamson</p>
-    <p id="about">10 year of experience working in tech</p>
+    <p id="name">{{user.firstname}} {{user.lastname}}</p>
+    <p id="about">{{user.about}}</p>
 </div>
 <div id="numbers">
     <div id="posts">
         <a href="/post/x">Posts</a>
-        <span class="number">3</span>
+        <span class="number">{{user.numposts}}</span>
     </div>
     <div>
         <a href="/message/x">Messages</a>
-        <span class="number">5</span>
+        <span class="number">{{user.nummessages}}</span>
     </div>
     <div>
         <span>Likes</span>
-        <span class="number">10</span>
+        <span class="number">{{user.numlikes}}</span>
     </div>
     <div id="edit-profile-container">
         <a href="/profile/edit">Edit Profile</a>

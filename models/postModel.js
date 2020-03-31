@@ -84,8 +84,26 @@ const selectPostsByTopic = (topic, offset) => {
     return db.query(query, [topic, offset]);
 };
 
+const selectPostById = (id) => {
+    let whereClause = 'p.userId = $1';
+    let query = selectPostsTemplate(whereClause);
+    return db.query(query, [id, 0]);
+}
+
+const selectPostByIdPaginate = (id, offset) => {
+    let whereClause = 'p.userId = $1';
+    let query = selectPostsTemplate(whereClause);
+    return db.query(query, [id, offset]);
+}
+
+const getPostTopics = () => {
+    return db.query()
+}
+
 module.exports = {
     insertReply: insertReply,
     selectPostsBySubject: selectPostsBySubject,
-    selectPostsByTopic: selectPostsByTopic
+    selectPostsByTopic: selectPostsByTopic,
+    selectPostsById: selectPostById,
+    selectPostByIdPaginate, selectPostByIdPaginate
 };

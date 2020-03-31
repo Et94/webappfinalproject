@@ -15,7 +15,7 @@ exports.login = (req, res, next) => {
 			req.session.userid = userData.userid;
 			req.session.cookie.maxAge = 1800000; //30 minutes
 			// Will need to add variables when combining
-			res.render("homeView", {homeCSS: true});
+			res.redirect(301, '/profile');
 		} else {
 			// add feedback to user
 			res.redirect(301, '/');

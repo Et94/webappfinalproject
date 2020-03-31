@@ -1,4 +1,5 @@
-let postmod = require("../models/posts");
+let postmod = require("../models/postModel");
+let usermod = require("../models/users");
 
 exports.createPost = (req, res, next) => {
     let p_subject = req.body.subject;
@@ -6,14 +7,14 @@ exports.createPost = (req, res, next) => {
     let p_topic = req.body.topic;
 
     let p0ject = {
-        userid: 1,
+        userid: req.session.userid,
         topicname: p_topic,
         subject: p_subject,
         body: p_question
     };
 
     postmod.post(p0ject);
-    res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search', homeCSS: true});
+    res.redirect(301, '/profile');
 }
 const postModel = require('../models/postModel');
 const POSTS_PER_PAGE = 5
@@ -80,3 +81,33 @@ exports.getPostsByTopic = (req, res, next) => {
         console.log(error);
     });
 };
+
+exports.getPostsById = (req, res, next) => {
+    let id = req.session.userid;
+    let User = usermod.getHome(id);
+    let user_data;
+    User.then((data) => {
+        // res.render('homeView', {user: data.rows[0], homeCSS: true});
+        user_data = data.rows[0];
+    });
+    let {string, page, offset} = searchOptions(req.query);
+    postModel.selectPostByIdPaginate(string, offset)
+    .then(data => {
+        let {posts, numposts: numPosts} = data.rows[0];
+        console.log(posts);
+        res.render('homeView', {
+            user: user_data, 
+            homeCSS: true,
+            post: posts,
+            page: page,
+            string: string,
+            route: '/posts/home',
+            isFirstPage: page == 0,
+            isLastPage: offset + POSTS_PER_PAGE > numPosts
+        });
+    })
+    .catch(error => {
+        console.log(error);
+    });
+};
+
