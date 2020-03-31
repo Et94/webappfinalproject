@@ -82,7 +82,7 @@ exports.getPostsByTopic = (req, res, next) => {
     });
 };
 
-exports.getPostsById = (req, res, next) => {
+exports.getPostsByDate = (req, res, next) => {
     let id = req.session.userid;
     let User = usermod.getHome(id);
     let user_data;
@@ -91,10 +91,9 @@ exports.getPostsById = (req, res, next) => {
         user_data = data.rows[0];
     });
     let {string, page, offset} = searchOptions(req.query);
-    postModel.selectPostByIdPaginate(string, offset)
+    postModel.selectAllPosts(offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
-        console.log(posts);
         res.render('homeView', {
             user: user_data, 
             homeCSS: true,
@@ -110,4 +109,45 @@ exports.getPostsById = (req, res, next) => {
         console.log(error);
     });
 };
+
+exports.getAllPostsInitial = (req, res, next) => {
+    let id = req.session.userid;
+    let User = usermod.getHome(id);
+    let Posts = postmod.selectPostsById(id);
+    Posts.then(data => {
+        let {posts, numposts: numPosts} = data.rows[0];
+        res.render('allPostsView', { 
+            searchResultCSS: true,
+            post: posts,
+            page: 0,
+            string: id.toString(),
+            route: '/posts/all',
+            isFirstPage: true,
+            isLastPage: 5 > numPosts
+        });
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
+
+exports.getAllPosts = (req, res, next) => {
+    let {string, page, offset} = searchOptions(req.query);
+    postModel.selectPostByIdPaginate(string, offset)
+    .then(data => {
+        let {posts, numposts: numPosts} = data.rows[0];
+        res.render('allPostsView', { 
+            searchResultCSS: true,
+            post: posts,
+            page: page,
+            string: string,
+            route: '/posts/all',
+            isFirstPage: page == 0,
+            isLastPage: offset + POSTS_PER_PAGE > numPosts
+        });
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
 

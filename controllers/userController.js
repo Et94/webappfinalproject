@@ -46,7 +46,7 @@ exports.renderHome = (req, res, next) => {
     .catch(error => {
         console.log(error);
     });
-    let Posts = postmod.selectPostsById(id);
+    let Posts = postmod.selectAllPostsInit();
     Posts.then((data) => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('homeView', {
@@ -57,7 +57,7 @@ exports.renderHome = (req, res, next) => {
             string: id.toString(),
             route: '/posts/home',
             isFirstPage: true,
-            isLastPage: 0 + 5 > numPosts});   
+            isLastPage: 5 > numPosts});   
     })
     .catch(error => {
         console.log(error);
