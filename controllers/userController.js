@@ -46,11 +46,17 @@ exports.renderHome = (req, res, next) => {
     .catch(error => {
         console.log(error);
     });
+    let Topics = postmod.getPostTopics();
+    Topics.then((data) => {
+        topics = data.rows;
+        console.log(topics);
+    });
     let Posts = postmod.selectAllPostsInit();
     Posts.then((data) => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('homeView', {
-            user: user_data, 
+            user: user_data,
+            topics: topics, 
             homeCSS: true,
             post: posts,
             page: 0,

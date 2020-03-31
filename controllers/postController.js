@@ -86,16 +86,21 @@ exports.getPostsByDate = (req, res, next) => {
     let id = req.session.userid;
     let User = usermod.getHome(id);
     let user_data;
+    let topics;
     User.then((data) => {
         // res.render('homeView', {user: data.rows[0], homeCSS: true});
         user_data = data.rows[0];
+    });
+    Topics.then((data) => {
+        topics = data.rows[0];
     });
     let {string, page, offset} = searchOptions(req.query);
     postModel.selectAllPosts(offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('homeView', {
-            user: user_data, 
+            user: user_data,
+            topics: topics, 
             homeCSS: true,
             post: posts,
             page: page,
@@ -150,4 +155,3 @@ exports.getAllPosts = (req, res, next) => {
         console.log(error);
     });
 }
-

@@ -142,7 +142,7 @@ const selectPostByIdPaginate = (id, offset) => {
 }
 
 const getPostTopics = () => {
-    return db.query()
+    return db.query("Select topicname from topics");
 }
 
 const selectAllPosts = (offset) => {
@@ -158,7 +158,8 @@ module.exports = {
     selectPostsBySubject: selectPostsBySubject,
     selectPostsByTopic: selectPostsByTopic,
     selectPostsById: selectPostById,
-    selectPostByIdPaginate, selectPostByIdPaginate,
-    selectAllPostsInit, selectAllPostsInit,
-    selectAllPosts, selectAllPosts
+    selectPostByIdPaginate: selectPostByIdPaginate,
+    selectAllPostsInit: selectAllPostsInit,
+    selectAllPosts: selectAllPosts,
+    getPostTopics: getPostTopics,
 };
