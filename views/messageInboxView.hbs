@@ -1,1 +1,63 @@
-messageInboxView.hbs
+<div>
+    {{>navbarPartial}}
+</div>
+<div id="inbox_container">
+	<div id="left_column">
+		<div id="conversations_list">
+
+			{{#each conversations}}
+					<button class="selectedconvo_btn" onclick="showMessages(this)">
+						<input type="hidden" class="conversationid" name="conversationid" value={{this.conversationid}}>
+						<div class="convo_container">
+							<img class="convo_img" src={{this.imageurl}} alt="Convo image"/>
+							<div class="convo_text_div">
+								<div class="convo_header">
+									<div class="convo_name">{{this.firstname}} {{this.lastname}}</div>
+									<div class="convo_date">{{this.latestdate}}</div>
+								</div>
+								<div class="convo_subject">{{this.subject}}</div>
+							</div>
+						</div>
+					</button>
+			{{/each}}
+
+		</div>
+	</div>
+	<div id="right_column">
+		<div id="msgs_list">
+
+			{{#each messagesList}}
+			<div class="msg_container">
+				<fieldset class="msg_date">
+        			<legend>{{this.date}}</legend>
+        			{{#each this.messages}}
+				    <div class="msg_description" id={{this.conversationid}}>
+				      	<img class="msg_img" src={{this.imageurl}} alt="Msg image"/>
+				      	<div class="msg_text_div">
+				      		<div class="msg_header">
+				      			<div class="msg_name">{{this.firstname}} {{this.lastname}}</div>
+								<div class="dot_divider">•</div>
+								<div class="msg_time">{{this.time}}</div>
+				      		</div>
+				      		<div class="msg_text">{{this.body}}</div>
+				      	</div>
+				    </div>
+				    {{/each}}
+    			</fieldset>
+			</div>
+			{{/each}}
+
+		</div>
+		<div id="input_container">
+			<div id="input_area">
+				<form id="msg_form" action="/conversations/send" method="POST">
+					<input type="hidden" id="currentconvo_id" class="conversationid" name="conversationid">
+					<textarea placeholder="Write a message..." id="msg_input" name="body" onkeyup="showButton()"></textarea>
+				</form>
+			</div>
+			<div id="btn_div">
+				<button id="send_btn" form="msg_form" disabled>Send</button>
+			</div>
+		</div>
+	</div>
+</div>
