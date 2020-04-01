@@ -1,9 +1,8 @@
 const express = require('express');
-let app = express();
 const profileController = require('../controllers/profileController');
 const router = express.Router();
-let path = require('path');
+const is_authenticated = require('../utils/is-auth');
 
-router.get('/profile/:id', profileController.getProfile);
+router.get('/profile/:id', is_authenticated, profileController.getProfile);
 
 module.exports = router;

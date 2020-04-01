@@ -5,9 +5,6 @@ let bodyParser = require('body-parser');
 let path = require('path');
 let db = require('./utils/db');
 
-let profileRoutes = require('./routes/profileRoute');
-let messageRoutes = require('./routes/messageRoute');
-
 const expressHbs = require('express-handlebars');
 app.engine(
     'hbs',
@@ -46,7 +43,13 @@ let postRoutes = require('./routes/postRoutes');
 app.use(postRoutes);
 
 let loginRoutes = require('./routes/loginRoute');
-app.use(loginRoutes)
+app.use(loginRoutes);
+
+let profileRoutes = require('./routes/profileRoute');
+app.use(profileRoutes);
+
+let messageRoutes = require('./routes/messageRoute');
+app.use(messageRoutes);
 
 // !! Change the render page name to your view name to test your view.
 // Change the variables to your view variables.
@@ -55,6 +58,7 @@ app.get('/', function (req,res) {
       loginCSS: true
     });
 });
+
 // app.get('/', function (req,res) {
 //   res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search', homeCSS: true});
 //   // res.render('registerView', { 
@@ -65,9 +69,6 @@ app.get('/', function (req,res) {
 //   //   registerCSS: true
 //   // });
 // });
-
-app.use(profileRoutes);
-app.use(postRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server ready @ port ${PORT}`))

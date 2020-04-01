@@ -3,6 +3,10 @@ require('dotenv').config();
 
 function sendEmail(email, subject, msg) {
 
+	console.log("in nodemailer sendEmail function - email and pw:")
+	console.log(process.env.NODEMAIL_EMAIL);
+	console.log(process.env.NODEMAIL_PASSWORD);
+
 	let transporter = nodemailer.createTransport({
 	    service: 'gmail',
 	    auth: {

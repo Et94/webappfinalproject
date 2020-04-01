@@ -64,8 +64,13 @@ const getCurrentTimestamp = () => {
 }
 
 exports.sendMessageView = (req,res,next) => {
-  // TO UPDATE: get profile user's image from url
-  // let receiverId = 3;
+  // // TO UPDATE: get profile user's image from url
+
+  // // THIS DOESN'T WORK:
+  // // let receiverId = req.body.receiverid;
+
+  // console.log("receiverId from profile url:");
+  // console.log(receiverId);
 
   // messageModel.getUserImage(receiverId)
   //   .then((data) => {
@@ -86,7 +91,7 @@ exports.sendMessageView = (req,res,next) => {
    res.render('sendMessageView', { 
       pageTitle: 'Send a Message',
       searchResultCSS: true,
-      sendMsgCSS: true });
+      sendmsgCSS: true });
 };
 
 exports.sendMessage = (req,res,next) => {
