@@ -2,3 +2,5 @@ node_modules
 DS*
 .DS_Store
 .env
+.travis
+.travis.yml

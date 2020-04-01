@@ -16,7 +16,7 @@ exports.updateUser = (id, e) => {
 
 // Luc's login getUser and register user for login/register
 exports.getUser = (data) => {
-	let sql = "Select * from users where email = '" + data.email + "' and password = '" + data.password + "'";
+	let sql = "Select * from users where email = '" + data.email + "'";
 	return db.query(sql);
 }
 
