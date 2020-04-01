@@ -9,21 +9,8 @@ exports.login = (req, res, next) => {
 	userModel.getUser(loginData)
 	.then((data) => {
 		if (data.rows.length == 0) {
-			console.log("No user")
-	.then((res) => {
-		userData.password = res.rows[0].password;
-		userData.email = res.rows[0].email;
-		userData.userid = res.rows[0].userid;
-	})
-	.then(() => {
-		if (userData.password == loginData.password && userData.email == loginData.email) {
-			req.session.userid = userData.userid;
-			req.session.cookie.maxAge = 1800000; //30 minutes
-			// Will need to add variables when combining
-			res.redirect(301, '/profile');
-		} else {
-			// add feedback to user
-			res.redirect(301, '/');
+			console.log("No user");
+			res.redirect(301, '/');			
 		}
 		userData.password = data.rows[0].password;
 		userData.email = data.rows[0].email;
@@ -38,7 +25,7 @@ exports.login = (req, res, next) => {
 				// Will need to add variables when combining
 
 				// IMPORTANT - this should be replaced by a redirect to homeView so the is_authenticated middleware can protect that route.
-				res.render("homeView", {homeCSS: true});
+				res.redirect(301, "/profile");
 			} else {
 				console.log("Wrong password")
 				// add feedback to user
