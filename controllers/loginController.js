@@ -10,6 +10,19 @@ exports.login = (req, res, next) => {
 	.then((data) => {
 		if (data.rows.length == 0) {
 			console.log("No user")
+	.then((res) => {
+		userData.password = res.rows[0].password;
+		userData.email = res.rows[0].email;
+		userData.userid = res.rows[0].userid;
+	})
+	.then(() => {
+		if (userData.password == loginData.password && userData.email == loginData.email) {
+			req.session.userid = userData.userid;
+			req.session.cookie.maxAge = 1800000; //30 minutes
+			// Will need to add variables when combining
+			res.redirect(301, '/profile');
+		} else {
+			// add feedback to user
 			res.redirect(301, '/');
 		}
 		userData.password = data.rows[0].password;

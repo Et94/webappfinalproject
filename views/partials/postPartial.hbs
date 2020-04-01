@@ -1,20 +1,20 @@
 {{#each post}}
-    <div id="post-{{this.postid}}" class="post">
-        <a href="/profile/{{this.userid}}">
-            <img class="post-image" src="{{this.imageurl}}">
+    <div class="post" id="{{this.postId}}">
+        <a href="/profile/x">
+            <img class="post-image" src={{ this.imageurl }}>
         </a>
         <div class="indent-container">
             <div class="post-header">
-                <p class="subject">{{this.subject}}</p>
-                <p class="topic">{{this.topicname}}</p>
+                <p class="subject"> {{ this.subject }} </p>
+                <p class="topic">{{ this.topicname }}</p>
             </div>
             <div class="indent-container">
                 <div class="post-body">
-                    <p>{{this.body}}</p>
+                    <p>{{ this.body }}</p>
                 </div>
                 <div class="post-footer">
-                    <p class="date">{{this.date}}</p>
-                    <p class="numReplies" onclick="toggleReplies({{this.postid}})">{{this.numreplies}} replies</p>
+                    <p class="date">{{ this.to_char }}</p>
+                    <p class="replies">{{ this.numreplies }} replies</p>
                 </div>
             </div>
         </div>

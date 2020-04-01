@@ -1,7 +1,10 @@
+<div>
+    {{>navbarPartial}}
+</div>
 <div id="profile">
 	<div id="left">
 		<img src={{ user.imageurl }} id="profilePic">
-		<p id="u_name"> {{ user.username }} </p>
+		<p id="u_name"> {{ user.firstname }} {{ user.lastname }} </p>
 		<p id="u_about"> {{ user.about }} </p>
 		<p id="u_country"> {{ user.country }} </p>
 	</div>
@@ -14,8 +17,8 @@
 </div>
 <br>
 <div id="postList">
-	<h1 id="postTitle">All posts by {{ user.username }} </h1>
+	<h1 id="postTitle">All posts by {{ user.firstname }} </h1>
 	<div>
-		<p>Post Partials Here</p>
+		{{>postPartial}}
 	</div>
 </div>
