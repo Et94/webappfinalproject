@@ -1,25 +1,37 @@
-let userModel = require('../models/users');
+const userModel = require('../models/users');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 exports.login = (req, res, next) => {
 	let loginData = {"email": req.body.email, "password": req.body.password};
 	let userData = {};
 
 	userModel.getUser(loginData)
-	.then((res) => {
-		userData.password = res.rows[0].password;
-		userData.email = res.rows[0].email;
-		userData.userid = res.rows[0].userid;
-	})
-	.then(() => {
-		if (userData.password == loginData.password && userData.email == loginData.email) {
-			req.session.userid = userData.userid;
-			req.session.cookie.maxAge = 1800000; //30 minutes
-			// Will need to add variables when combining
-			res.render("homeView", {homeCSS: true});
-		} else {
-			// add feedback to user
+	.then((data) => {
+		if (data.rows.length == 0) {
+			console.log("No user")
 			res.redirect(301, '/');
 		}
+		userData.password = data.rows[0].password;
+		userData.email = data.rows[0].email;
+		userData.userid = data.rows[0].userid;
+	})
+	.then(() => {
+		bcrypt.compare(loginData.password, userData.password)
+		.then((result) => {
+			if (result && userData.email == loginData.email) {
+				req.session.userid = userData.userid;
+				req.session.cookie.maxAge = 1800000; //30 minutes
+				// Will need to add variables when combining
+
+				// IMPORTANT - this should be replaced by a redirect to homeView so the is_authenticated middleware can protect that route.
+				res.render("homeView", {homeCSS: true});
+			} else {
+				console.log("Wrong password")
+				// add feedback to user
+				res.redirect(301, '/');
+			}
+		})
 	})
 	.catch((err) => {
 		console.log(err);
@@ -27,12 +39,16 @@ exports.login = (req, res, next) => {
 }
 
 exports.signup = (req, res, next) => {
-	let regData = {
-		"firstname": req.body.firstname,
-		"lastname": req.body.lastname,
-		"email": req.body.email,
-		"password": req.body.password
-	}
+	let regData = {}
+	bcrypt.hash(req.body.password, saltRounds)
+	.then((hash) => {
+		regData = {
+			"firstname": req.body.firstname,
+			"lastname": req.body.lastname,
+			"email": req.body.email,
+			"password": hash
+		}
+	})
 	let isUser = false;
 
 	userModel.getUser(regData)
@@ -46,7 +62,7 @@ exports.signup = (req, res, next) => {
 	.then(() => {
 		console.log(regData);
 		if (!isUser && regData.firstname != undefined && regData.lastname != undefined && regData.email != undefined 
-			&& regData.password != undefined && regData.password == req.body.confirm_password) {
+			&& regData.password != undefined && req.body.password == req.body.confirm_password) {
 			req.session.regData = regData;
 			res.render("registerView", {registerCSS: true});
 		} else {
@@ -66,7 +82,7 @@ exports.register = (req, res, next) => {
 	regData.dob = req.body.dob;
 	console.log(regData);
 
-	if (regData.image_url != undefined && regData.about != undefined 
+	if (regData.imageurl != undefined && regData.about != undefined 
 		&& regData.country != undefined && regData.dob != undefined) {
 		userModel.registerUser(regData)
 		.then((err) => console.log(err));
