@@ -1,17 +1,18 @@
 let nodemailer = require('nodemailer');
+require('dotenv').config();
 
 function sendEmail(email, subject, msg) {
 
 	let transporter = nodemailer.createTransport({
 	    service: 'gmail',
 	    auth: {
-		    user: "knowledgebase4ta@gmail.com",
-		    pass: "P@SSword123!"
+		    user: process.env.NODEMAIL_EMAIL,
+		    pass: process.env.NODEMAIL_PASSWORD
 	    }
 	});
 
 	let mailOptions = {
-            from: "knowledgebase4ta@gmail.com",
+            from: process.env.NODEMAIL_EMAIL,
             to: email,
             subject: 'Knowledge Base - New Conversation',
             text: 'You have received a new conversation, ' + subject + ': ' + msg + ' - Knowledge Base Team',
