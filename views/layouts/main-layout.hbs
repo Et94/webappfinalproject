@@ -10,6 +10,7 @@
         <link href='/css/navbar.css' rel='stylesheet' />
         <link href='/css/post.css' rel='stylesheet' />
         <link href='/css/reply.css' rel='stylesheet' />
+        <script src="../../js/post.js" defer></script>
     {{/if}}
     {{#if homeCSS}}
         <link href='/css/home.css' rel='stylesheet' />
@@ -17,6 +18,7 @@
         <link href='/css/navbar.css' rel='stylesheet' />
         <link href='/css/post.css' rel='stylesheet' />
         <link href='/css/reply.css' rel='stylesheet' />
+        <script src="../../js/post.js" defer></script>
     {{/if}}
     {{#if loginCSS}}
         <link href='/css/login.css' rel='stylesheet' />
@@ -24,6 +26,24 @@
     {{#if registerCSS}}
         <link href='/css/register.css' rel='stylesheet' />
     {{/if}}
+    {{#if editCSS}}
+        <link href='/css/editProfile.css' rel='stylesheet'/>
+        <link href='/css/navbar.css' rel='stylesheet'/>
+    {{/if}}
+    {{#if sendmsgCSS}}
+        <link href='/css/sendmsg.css' rel='stylesheet' />
+    {{/if}}
+	{{#if PostsCSS}}
+		<link href='/css/navbar.css' rel='stylesheet' />
+        <link href='/css/post.css' rel='stylesheet' />
+		<link href='/css/reply.css' rel='stylesheet' />
+	{{/if}}
+	{{#if ProfileCSS}}
+        <link href='/css/profile.css' rel='stylesheet' />
+		<link href='/css/navbar.css' rel='stylesheet' />
+        <link href='/css/post.css' rel='stylesheet' />
+		<link href='/css/reply.css' rel='stylesheet' />
+	{{/if}}
     <!--
     {{#if peopleCSS}}
         <link href='/css/people.css' rel='stylesheet' />
@@ -31,7 +51,14 @@
     {{#if formsCSS}}
         <link href='/css/forms.css' rel='stylesheet' />
     {{/if}} -->
-
+	{{#if ProfileCSS}}
+        <link href='/css/profile.css' rel='stylesheet' />
+	{{/if}}
+    {{#if msgInboxCSS}}
+        <link href='/css/msginbox.css' rel='stylesheet' />
+        <script type="text/javascript" src="/js/convos.js"></script>
+    {{/if}}
+	
 </head>
 <body>
     {{{ body }}}

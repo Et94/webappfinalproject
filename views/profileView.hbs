@@ -1,1 +1,24 @@
-profileView.hbs
+<div>
+    {{>navbarPartial}}
+</div>
+<div id="profile">
+	<div id="left">
+		<img src={{ user.imageurl }} id="profilePic">
+		<p id="u_name"> {{ user.firstname }} {{ user.lastname }} </p>
+		<p id="u_about"> {{ user.about }} </p>
+		<p id="u_country"> {{ user.country }} </p>
+	</div>
+	<div id="right">
+		<button id="btnMsg"><a href="/messages">Message</a></button>
+		<br>
+		<p id="likes">{{likes}} Likes</p> {{#if likeBtn}} <button id="likeBtn">+</button> {{/if}}
+		<p id="posts">{{ user.numposts }} Posts</p>
+	</div>
+</div>
+<br>
+<div id="postList">
+	<h1 id="postTitle">All posts by {{ user.firstname }} </h1>
+	<div>
+		{{>postPartial}}
+	</div>
+</div>

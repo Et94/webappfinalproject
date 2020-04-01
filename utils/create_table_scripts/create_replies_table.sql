@@ -1,6 +1,4 @@
-use d6f0ta0sp4vrnm;
-
-drop table if exists Replies;
+drop table if exists Replies cascade;
 
 create table Replies (
     replyId SERIAL not null,
