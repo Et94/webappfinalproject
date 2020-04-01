@@ -1,4 +1,17 @@
 let db = require('../utils/db');
+
+exports.getUserInfo = (id) => {
+    return db.query(
+        'Select * from users where userid = ' + id
+    );
+}
+
+exports.updateUser = (id, e) => {
+    db.query(
+        "Update users set firstname = '" + e.firstname + "', lastname = '" + e.lastname + "', imageurl = '" + e.imageurl + "', about = '" + e.about + "', country = '" + e.country + "', dob = '" + e.dob + "' where userid = 1"
+    );
+}
+
 // sort out which methods to keep and which to combine. Also, figure out a common syntax.
 
 // Luc's login getUser and register user for login/register
@@ -25,4 +38,14 @@ exports.getU = (id) => {
 
 exports.delU = (id) => {
 	return db.query("DELETE FROM users WHERE userid = " + id);
+}
+
+exports.getHome = (id) => {
+	return getUser(id);
+}
+
+function getUser(id) {
+	return db.query(
+        'Select * from users where userid = ' + id
+    );
 }

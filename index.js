@@ -36,22 +36,32 @@ app.use(express.static(path.join(__dirname,'views')));
 // !! FOR REFERENCE - When you create a route, please use this template to add it.
 // let peopleRoutes = require('./routes/peoples');
 // app.use(peopleRoutes);
+let userRoutes = require('./routes/userRoute');
+app.use(userRoutes);
 
 let postRoutes = require('./routes/postRoutes');
 app.use(postRoutes);
 
+let loginRoutes = require('./routes/loginRoute');
+app.use(loginRoutes)
+
 // !! Change the render page name to your view name to test your view.
 // Change the variables to your view variables.
-app.get('/posts', function (req,res) {
-    res.render('homeView', { 
-      pageTitle: 'People App', 
-      heading: 'Welcome to People App',
-      homeCSS: true,
-      loginCSS: true,
-      registerCSS: true,
-      searchResultCSS: true
+app.get('/', function (req,res) {
+    res.render('loginView', { 
+      loginCSS: true
     });
 });
+// app.get('/', function (req,res) {
+//   res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search', homeCSS: true});
+//   // res.render('registerView', { 
+//   //   pageTitle: 'People App', 
+//   //   heading: 'Welcome to People App', 
+//   //   homeCSS: true,
+//   //   loginCSS: true,
+//   //   registerCSS: true
+//   // });
+// });
 
 app.use(profileRoutes);
 app.use(postRoutes);
