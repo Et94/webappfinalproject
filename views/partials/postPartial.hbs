@@ -19,8 +19,16 @@
             </div>
         </div>
     </div>
-    <!--{{>replyPartial}}-->
+    <div id="reply-container-{{this.postid}}" class="reply-container">
+        {{>replyPartial}}
+        <div class="comment-container">
+            <form method="POST" action="/reply">
+                <input class="comment-box" type="text" name="body" placeholder="Add your reply here...">
+                <input type="hidden" name="postId" value="{{this.postid}}">
+                <input type="hidden" name="userId" value="1">
+                <button class="comment-button" type="submit">comment</button>
+            </form>
+        </div>
+    </div>
 {{/each}}
-<div id="next-container">
-    <button id="next" onclick="window.location.href = '/next';">Next -></button>
-</div>
+{{>paginatorPartial}}
