@@ -18,6 +18,7 @@ exports.createPost = (req, res, next) => {
 }
 const postModel = require('../models/postModel');
 const POSTS_PER_PAGE = 5
+
 const searchOptions = (query) => {
     let {string, page, paginate} = query;
     if(paginate) {
@@ -25,6 +26,19 @@ const searchOptions = (query) => {
     }
     let offset = page * POSTS_PER_PAGE;
     return {string, page, offset}
+}
+
+exports.getAllPosts = (req, res, next) => {
+	let page = req.params.page;
+	let u_id = req.params.id;
+	let Post = postModel.getallP();
+	let profile_user;
+	Post.then( (post) => {
+		posts = post.rows.slice((page-1)*POSTS_PER_PAGE, page*POSTS_PER_PAGE);
+		res.render('allPostsView', {post: posts, ProfileCSS: true});
+	}).catch((err) => {
+		console.log(err);
+	});
 }
 
 exports.replyToPost = (req, res, next) => {

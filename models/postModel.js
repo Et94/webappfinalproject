@@ -153,6 +153,14 @@ const selectAllPostsInit = (offset) => {
     return db.query(selectAllPostsByDateTemplate(), [0]);
 }
 
+function getAllPosts() {
+	return db.query("SELECT to_char(date, 'Mon DD, YYYY'), * from posts inner join users ON posts.userid = users.userid ORDER BY posts.date DESC");
+}
+
+function getPostsByUserId(id) {
+	return db.query("SELECT to_char(date, 'Mon DD, YYYY'), * from posts inner join users ON posts.userid = users.userid where posts.userid = " + id + " ORDER BY posts.date DESC");
+}
+
 module.exports = {
     insertReply: insertReply,
     selectPostsBySubject: selectPostsBySubject,
@@ -162,4 +170,6 @@ module.exports = {
     selectAllPostsInit: selectAllPostsInit,
     selectAllPosts: selectAllPosts,
     getPostTopics: getPostTopics,
+	getallP: getAllPosts,
+	getPU: getPostsByUserId
 };
