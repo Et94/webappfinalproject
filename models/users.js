@@ -1,5 +1,4 @@
 let db = require('../utils/db');
-
 // sort out which methods to keep and which to combine. Also, figure out a common syntax.
 
 // Luc's login getUser and register user for login/register

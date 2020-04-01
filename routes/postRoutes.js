@@ -9,4 +9,8 @@ router.get('/posts/search', postController.getPostsBySubject);
 
 router.post('/reply', postController.replyToPost);
 
+router.get('/posts/:page', postController.getAllPosts);
+
+module.exports = router;
+
 module.exports = router;
