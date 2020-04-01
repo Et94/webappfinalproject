@@ -91,8 +91,9 @@ exports.getPostsByDate = (req, res, next) => {
         // res.render('homeView', {user: data.rows[0], homeCSS: true});
         user_data = data.rows[0];
     });
+    let Topics = postmod.getPostTopics();
     Topics.then((data) => {
-        topics = data.rows[0];
+        topics = data.rows;
     });
     let {string, page, offset} = searchOptions(req.query);
     postModel.selectAllPosts(offset)
