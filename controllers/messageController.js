@@ -9,6 +9,8 @@ const sortByDate = (results) => {
   let currDate = results[num].date;
 
   while(num < results.length) {
+    results[num].body = results[num].body.replace(/&#39;/g, "'");
+
     if (results[num].date !== currDate) {
       messages.push(sameDate);
       sameDate = [];
@@ -62,7 +64,7 @@ exports.sendMessage = (req,res,next) => {
   let input = {
     conversationId: conversationid,
     senderId: senderId,
-    msg: body,
+    msg: body.replace(/'/g, "&#39;"),
     date: date
   }
 
@@ -90,9 +92,12 @@ exports.startConvo = (req,res,next) => {
   let input = {
     senderId: senderId,
     receiverId: receiverId,
-    subject: subject,
-    msg: msg
+    subject: subject.replace(/'/g, "&#39;"),
+    msg: msg.replace(/'/g, "&#39;")
   }
+
+  console.log("Input from sendMessageView:");
+  console.log(input);
 
   messageModel.createConversation(input)
   	.then((data) => {
@@ -132,7 +137,7 @@ exports.startConvo = (req,res,next) => {
   
 }
 
-exports.getMsgList = (req,res,next) => { 
+exports.getConversations = (req,res,next) => { 
 
   // Get current user from session
   let currentUserId = req.session.userid;
@@ -140,25 +145,42 @@ exports.getMsgList = (req,res,next) => {
 
   messageModel.getConvoList(currentUserId)
     .then((data) => {
-      // console.log("ConvoList:")
-      // console.log(data.rows);
+      console.log("ConvoList:")
+      console.log(data.rows);
 
-      conversations = data.rows;
-      return messageModel.getMsgList(currentUserId);
-    })
-    .then((data) => {
-          // console.log("MsgList:")
-          // console.log(data.rows);
+      if (data.rows.length > 0) {
+        conversations = data.rows;
 
-      let messagesList = sortByDate(data.rows);
+        for(let i = 0; i < conversations.length; ++i) {
+          conversations[i].subject = conversations[i].subject.replace(/&#39;/g, "'");
+        }
 
-      res.render('messageInboxView', { 
+        messageModel.getMsgList(currentUserId)
+          .then((data) => { 
+            // console.log("MsgList:")
+            // console.log(data.rows);
+
+            let messagesList = sortByDate(data.rows);
+
+            res.render('messageInboxView', { 
+            pageTitle: 'Message Inbox',
+            messagesList: messagesList,
+            conversations: conversations,
+            searchResultCSS: true,
+            msgInboxCSS: true });
+          })
+          .catch((error) => {
+            console.log("Failed to get convo/msg list due to error:");
+            console.log(error);
+          });
+      } else {
+        res.render('messageInboxView', { 
         pageTitle: 'Message Inbox',
-        messagesList: messagesList,
-        conversations: conversations,
+        messagesList: {},
+        conversations: {},
         searchResultCSS: true,
         msgInboxCSS: true });
-
+      }
     })
     .catch((error) => {
       console.log("Failed to get convo/msg list due to error:");

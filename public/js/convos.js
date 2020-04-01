@@ -13,6 +13,17 @@ window.onload = function() {
 	document.getElementById("currentconvo_id").value = convos[0].childNodes[1].value;
 }
 
+function showButton() {
+	let convos = document.getElementsByClassName("selectedconvo_btn");
+	let input = document.getElementById("msg_input").value;
+
+	if (convos.length > 0 && input.length > 0) {
+		document.getElementById("send_btn").disabled = false;
+	} else {
+		document.getElementById("send_btn").disabled = true;
+	}
+}
+
 function showMessages(node) {
 
 	// Make all conversations white

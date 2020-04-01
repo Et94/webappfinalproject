@@ -195,3 +195,8 @@ textarea:focus, button:focus {
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 2px;
 }
+
+#send_btn:disabled {
+  background-color: #7a939e;
+  color: #dddddd;
+}

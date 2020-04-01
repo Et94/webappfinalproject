@@ -52,11 +52,11 @@
 			<div id="input_area">
 				<form id="msg_form" action="/conversations/send" method="POST">
 					<input type="hidden" id="currentconvo_id" class="conversationid" name="conversationid">
-					<textarea placeholder="Write a message..." name="body"></textarea>
+					<textarea placeholder="Write a message..." id="msg_input" name="body" onkeyup="showButton()"></textarea>
 				</form>
 			</div>
 			<div id="btn_div">
-				<button id="send_btn" form="msg_form">Send</button>
+				<button id="send_btn" form="msg_form" disabled>Send</button>
 			</div>
 		</div>
 	</div>
