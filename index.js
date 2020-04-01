@@ -55,8 +55,8 @@ app.use(messageRoutes);
 // Change the variables to your view variables.
 app.get('/', function (req,res) {
     res.render('loginView', { 
-      pageTitle: 'People App', 
-      heading: 'Welcome to People App',
+      pageTitle: 'KnowledgeBase', 
+      heading: 'Welcome to KnowledgeBase',
       homeCSS: true,
       loginCSS: true,
       registerCSS: true,
