@@ -68,12 +68,12 @@ exports.sendMessage = (req,res,next) => {
     date: date
   }
 
-  console.log(input);
+  // console.log(input);
 
   messageModel.sendMessage(input)
     .then((data) => {
-      console.log("Message saved");
-      console.log(data);
+      // console.log("Message saved");
+      // console.log(data);
 
       res.redirect(301, '/conversations')
     })
@@ -96,14 +96,14 @@ exports.startConvo = (req,res,next) => {
     msg: msg.replace(/'/g, "&#39;")
   }
 
-  console.log("Input from sendMessageView:");
-  console.log(input);
+  // console.log("Input from sendMessageView:");
+  // console.log(input);
 
   messageModel.createConversation(input)
   	.then((data) => {
 
-		  console.log("Conversation successfully created:", )
-  		console.log(data.rows[0]);
+		  // console.log("Conversation successfully created:", )
+  		// console.log(data.rows[0]);
 
   		input.conversationId = data.rows[0].conversationid;
 
@@ -145,8 +145,8 @@ exports.getConversations = (req,res,next) => {
 
   messageModel.getConvoList(currentUserId)
     .then((data) => {
-      console.log("ConvoList:")
-      console.log(data.rows);
+      // console.log("ConvoList:")
+      // console.log(data.rows);
 
       if (data.rows.length > 0) {
         conversations = data.rows;
