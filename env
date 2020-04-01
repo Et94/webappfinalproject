@@ -1,7 +1,0 @@
-DB_HOST=ec2-54-165-36-134.compute-1.amazonaws.com
-DB_DATABASE=d21k3cjb7845cu
-DB_USER=hpjxaqartlepye
-DB_PASSWORD=85677de41db0276f84ac7a21c81004d34e0bf421a59a0be2439347d15aad857e
-DB_PORT=5432
-NODEMAIL_EMAIL=knowledgebase4ta@gmail.com
-NODEMAIL_PASSWORD=P@SSword123!
