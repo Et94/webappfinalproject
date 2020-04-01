@@ -14,6 +14,7 @@ exports.replyToPost = (req, res, next) => {
     postModel.insertReply(reply)
     .then(data => {
         console.log(data);
+        // this redirect needs to be fixed. -> render page from wherever reply to post was made.
         res.redirect(301, '/search');
     })
     .catch(error => {
