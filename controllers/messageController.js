@@ -2,35 +2,50 @@ let messageModel = require('../models/messages');
 let nodemailer = require('../utils/nodemailer');
 
 const sortByDate = (results) => {
+
+  // results is an array of messages, each with the following:
+  // conversationid, messageid, body, senderid, firstname, 
+  // lastname, imageurl, date and time
+
+  // this fcn returns an array with the following format:
+  // sortedMsgList = [
+  //    { date: "Mar 31",
+  //      messages: [ {}, {}, {} ]
+  //    },
+  //    { date: "Apr 1",
+  //      messages: [ {} ]
+  //    }
+  // ]
     
   let messages = [];
-  let sameDate = [];
-  let num = 0;
-  let currDate = results[num].date;
+  let sameDateMsgs = [];
+  let index = 0;
+  let currentDate = results[index].date;
 
-  while(num < results.length) {
-    results[num].body = results[num].body.replace(/&#39;/g, "'");
+  while(index < results.length) {
 
-    if (results[num].date !== currDate) {
-      messages.push(sameDate);
-      sameDate = [];
-      currDate = results[num].date;
+    results[index].body = results[index].body.replace(/&#39;/g, "'");
+
+    if (results[index].date !== currentDate) {
+      messages.push(sameDateMsgs);
+      sameDateMsgs = [];
+      currentDate = results[index].date;
     } 
-    sameDate.push(results[num]);
-    num++;
+    sameDateMsgs.push(results[index]);
+    index++;
   } 
-  messages.push(sameDate);
+  messages.push(sameDateMsgs);
 
-  let messagesList = [];
+  let sortedMsgList = [];
   for (let i = 0; i < messages.length; ++i) {
     let section = {
       date: messages[i][0].date,
       messages: messages[i]
     }
-    messagesList.push(section);
+    sortedMsgList.push(section);
   }
 
-  return messagesList;
+  return sortedMsgList;
 }
 
 const getCurrentTimestamp = () => {
@@ -81,13 +96,12 @@ exports.sendMessage = (req,res,next) => {
       console.log("Failed to save msg due to error:");
       console.log(error);
     });
-
 }
 
 exports.startConvo = (req,res,next) => {
   let { subject, msg } = req.body;
   let senderId = req.session.userid; // current user from session
-  let receiverId = 3; // from profile url
+  let receiverId = 3; // TO UPDATE: from profile url
   
   let input = {
     senderId: senderId,
@@ -101,14 +115,11 @@ exports.startConvo = (req,res,next) => {
 
   messageModel.createConversation(input)
   	.then((data) => {
-
 		  // console.log("Conversation successfully created:", )
   		// console.log(data.rows[0]);
 
   		input.conversationId = data.rows[0].conversationid;
-
-      let date = getCurrentTimestamp();
-      input.date = date;
+      input.date = getCurrentTimestamp();
 
   		return messageModel.sendMessage(input);
     })
@@ -134,13 +145,10 @@ exports.startConvo = (req,res,next) => {
       console.log("Failed to create conversation due to error:");
       console.log(error);
     });
-  
 }
 
 exports.getConversations = (req,res,next) => { 
-
-  // Get current user from session
-  let currentUserId = req.session.userid;
+  let currentUserId = req.session.userid; // current user from session
   let conversations = [];
 
   messageModel.getConvoList(currentUserId)
@@ -186,5 +194,4 @@ exports.getConversations = (req,res,next) => {
       console.log("Failed to get convo/msg list due to error:");
       console.log(error);
     });
-
 }
