@@ -1,15 +1,12 @@
 window.onload = function() {
-    var msgsList = document.getElementById("msgs_list");
-    msgsList.scrollTop = msgsList.scrollHeight;
-
+    // Highlight first convo of convolist
     var convos = document.getElementsByClassName("selectedconvo_btn");
     convos[0].style.background = "#f2f6fc";
 
+    // Get messages from first convo of convolist
     showMessages(convos[0]);
 
     // Set selected conversationid to input field for sending msg
-    console.log("First conversationid:");
-	console.log(convos[0].childNodes[1].value);
 	document.getElementById("currentconvo_id").value = convos[0].childNodes[1].value;
 }
 
@@ -17,6 +14,7 @@ function showButton() {
 	let convos = document.getElementsByClassName("selectedconvo_btn");
 	let input = document.getElementById("msg_input").value;
 
+	// Only shows button if there is convos available and user has provided input
 	if (convos.length > 0 && input.length > 0) {
 		document.getElementById("send_btn").disabled = false;
 	} else {
@@ -25,7 +23,6 @@ function showButton() {
 }
 
 function showMessages(node) {
-
 	// Make all conversations white
   	let convos = document.getElementsByClassName("selectedconvo_btn");
   	for (var i = 0; i < convos.length; i++) {
@@ -37,8 +34,6 @@ function showMessages(node) {
 
 	// Get selected conversationid
 	let conversationid = node.childNodes[1].value;
-	console.log("conversationid:");
-	console.log(conversationid);
 
 	// Set selected conversationid to input field for sending msg
 	document.getElementById("currentconvo_id").value = conversationid;

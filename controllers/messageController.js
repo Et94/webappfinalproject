@@ -64,6 +64,25 @@ const getCurrentTimestamp = () => {
 }
 
 exports.sendMessageView = (req,res,next) => {
+  // TO UPDATE: get profile user's image from url
+  // let receiverId = 3;
+
+  // messageModel.getUserImage(receiverId)
+  //   .then((data) => {
+  //     // console.log("ImageURL retrieved:");
+  //     // console.log(data);
+
+  //     res.render('sendMessageView', { 
+  //     pageTitle: 'Send a Message',
+  //     imageURL: data.rows[0].imageurl,
+  //     searchResultCSS: true,
+  //     sendMsgCSS: true });
+  //   })
+  //   .catch((error) => {
+  //     console.log("Failed to retrieve imageURL due to error:");
+  //     console.log(error);
+  //   });
+
    res.render('sendMessageView', { 
       pageTitle: 'Send a Message',
       searchResultCSS: true,
