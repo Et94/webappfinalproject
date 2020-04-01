@@ -1,5 +1,16 @@
-let postmod = require("../models/postModel");
+let postmod = require("../models/posts");
 let usermod = require("../models/users");
+
+const POSTS_PER_PAGE = 5
+
+const searchOptions = (query) => {
+    let {string, page, paginate} = query;
+    if(paginate) {
+        page = (paginate == "next") ? ++page : --page;
+    }
+    let offset = page * POSTS_PER_PAGE;
+    return {string, page, offset}
+}
 
 exports.createPost = (req, res, next) => {
     let p_subject = req.body.subject;
@@ -16,22 +27,12 @@ exports.createPost = (req, res, next) => {
     postmod.post(p0ject);
     res.redirect(301, '/profile');
 }
-const postModel = require('../models/postModel');
-const POSTS_PER_PAGE = 5
 
-const searchOptions = (query) => {
-    let {string, page, paginate} = query;
-    if(paginate) {
-        page = (paginate == "next") ? ++page : --page;
-    }
-    let offset = page * POSTS_PER_PAGE;
-    return {string, page, offset}
-}
 
 exports.getAllPosts = (req, res, next) => {
 	let page = req.params.page;
 	let u_id = req.params.id;
-	let Post = postModel.getallP();
+	let Post = postmod.getallP();
 	let profile_user;
 	Post.then( (post) => {
 		posts = post.rows.slice((page-1)*POSTS_PER_PAGE, page*POSTS_PER_PAGE);
@@ -43,9 +44,10 @@ exports.getAllPosts = (req, res, next) => {
 
 exports.replyToPost = (req, res, next) => {
     let reply = {postId, userId, body} = req.body;
-    postModel.insertReply(reply)
+    postmod.insertReply(reply)
     .then(data => {
         console.log(data);
+        // this redirect needs to be fixed. -> render page from wherever reply to post was made.
         res.redirect(301, '/search');
     })
     .catch(error => {
@@ -56,7 +58,7 @@ exports.replyToPost = (req, res, next) => {
 
 exports.getPostsBySubject = (req, res, next) => {
     let {string, page, offset} = searchOptions(req.query);
-    postModel.selectPostsBySubject(string, offset)
+    postmod.selectPostsBySubject(string, offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
@@ -77,7 +79,7 @@ exports.getPostsBySubject = (req, res, next) => {
 
 exports.getPostsByTopic = (req, res, next) => {
     let {string, page, offset} = searchOptions(req.query);
-    postModel.selectPostsByTopic(string, offset)
+    postmod.selectPostsByTopic(string, offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
@@ -110,7 +112,7 @@ exports.getPostsByDate = (req, res, next) => {
         topics = data.rows;
     });
     let {string, page, offset} = searchOptions(req.query);
-    postModel.selectAllPosts(offset)
+    postmod.selectAllPosts(offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('homeView', {
@@ -153,7 +155,7 @@ exports.getAllPostsInitial = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
     let {string, page, offset} = searchOptions(req.query);
-    postModel.selectPostByIdPaginate(string, offset)
+    postmod.selectPostByIdPaginate(string, offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('allPostsView', { 

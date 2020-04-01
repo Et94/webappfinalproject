@@ -1,5 +1,5 @@
 let usermod = require("../models/users");
-let postmod = require("../models/postModel")
+let postmod = require("../models/posts")
 
 exports.editView = (req, res, next) => {
     let id = req.session.userid;

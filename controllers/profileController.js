@@ -1,6 +1,6 @@
 let userModel = require('../models/users');
 let likeModel = require('../models/likes');
-let postModel = require('../models/postModel');
+let postModel = require('../models/posts');
 
 exports.getProfile = (req, res, next) => {
 	let u_id = req.params.id;
