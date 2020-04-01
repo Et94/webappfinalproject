@@ -1,0 +1,16 @@
+{{#unless isLastPage}}
+    <form id="next-container" method="GET" action="{{route}}">
+        <input type="hidden" name="page" value="{{page}}">
+        <input type="hidden" name="string" value="{{string}}">
+        <input type="hidden" name="paginate" value="next">
+        <button id="next-button" type="submit">Next -></button>
+    </form>
+{{/unless}}
+{{#unless isFirstPage}}
+    <form id="prev-container" method="GET" action="{{route}}">
+        <input type="hidden" name="page" value="{{page}}">
+        <input type="hidden" name="string" value={{string}}>
+        <input type="hidden" name="paginate" value="prev">
+        <button id="prev-button" type="submit">&lt;- Prev</button>
+    </form>
+{{/unless}}
