@@ -133,7 +133,14 @@ const selectPostsByTopic = (topic, offset) => {
     return db.query(query, [topic, offset]);
 };
 
-const selectPostById = (id) => {
+/* im thinking we could do with 4 select post functions. 
+do we need extra queries?
+1. selectAllPosts
+2. selectPostsById
+3. selectPostsBySubject
+4. selectPostsByTopic */
+
+const selectPostsById = (id) => {
     let whereClause = 'p.userId = $1';
     let query = selectPostsTemplate(whereClause);
     return db.query(query, [id, 0]);
@@ -170,7 +177,7 @@ module.exports = {
     createPost: createPost,
     selectPostsBySubject: selectPostsBySubject,
     selectPostsByTopic: selectPostsByTopic,
-    selectPostsById: selectPostById,
+    selectPostsById: selectPostsById,
     selectPostByIdPaginate: selectPostByIdPaginate,
     selectAllPostsInit: selectAllPostsInit,
     selectAllPosts: selectAllPosts,
