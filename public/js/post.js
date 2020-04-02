@@ -4,5 +4,6 @@
  */
 var toggleReplies = (postId) => {
     let reply = document.getElementById(`reply-container-${postId}`);
+    console.log(reply);
     reply.style.display = reply.style.display === "block" ? "none" : "block";
 };

@@ -36,7 +36,7 @@ var selectPostsTemplate = (whereClause) => {
             date,
             p.numReplies
         ORDER BY
-            p.postId
+            date DESC
         LIMIT 5 OFFSET $2)
         SELECT 
             (	SELECT COUNT(*)
