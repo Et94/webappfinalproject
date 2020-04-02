@@ -102,9 +102,6 @@ var selectAllPostsByDateTemplate = () => {
  */
 const insertReply = (reply) => {
     let {postId, userId, body} = reply;
-    console.log(postId);
-    console.log(userId);
-    console.log(body);
     return db.query(
         `INSERT INTO Replies
         (postId, userId, body)
@@ -170,6 +167,7 @@ function getPostsByUserId(id) {
 
 module.exports = {
     insertReply: insertReply,
+    createPost: createPost,
     selectPostsBySubject: selectPostsBySubject,
     selectPostsByTopic: selectPostsByTopic,
     selectPostsById: selectPostById,

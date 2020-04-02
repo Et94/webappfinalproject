@@ -5,6 +5,7 @@ const POSTS_PER_PAGE = 5
 
 const searchOptions = (query) => {
     let {string, page, paginate} = query;
+    string = string == undefined ? '' : string;
     page = page == undefined ? 0 : page;
     if(paginate) {
         page = (paginate == "next") ? ++page : --page;
@@ -68,12 +69,13 @@ exports.renderHome = (req, res, next) => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('homeView', {
             user: user_data,
+            userId: id,
             topics: topics, 
             homeCSS: true,
             post: posts,
             page: page,
             route: '/profile',
-            isFirstPage: page == 0,
+            isFirstPage: page === 0,
             isLastPage: offset + POSTS_PER_PAGE >= numPosts});   
     })
     .catch(error => {
