@@ -9,8 +9,8 @@
 		<p id="u_country"> {{ user.country }} </p>
 	</div>
 	<div id="right">
-		<form action="/messages" method="post"><input type="text" value={{user.id}} name="receiverid" id="rid"><input type="submit" id="btnMsg" value="Message"></form>
-		<form action="/like" method="post"><p id="likes">{{likes}} Likes</p> {{#if likeBtn}} <input type="submit" id="likeBtn" value="+"><input class="p_id" name="p_id" value={{user.id}}>{{/if}}</form>
+		<form action="/messages" method="post"><input type="hidden" name="receiverid" id="rid" value={{user.userid}}><input type="submit" id="btnMsg" value="Message"></form>
+		<form action="/like" method="post"><p id="likes">{{likes}} Likes</p> {{#if likeBtn}} <input type="submit" id="likeBtn" value="+"><input class="p_id" name="p_id" value={{user.userid}}>{{/if}}</form>
 		<p id="posts">{{ user.numposts }} Posts</p>
 	</div>
 </div>
