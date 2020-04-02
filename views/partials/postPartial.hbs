@@ -25,7 +25,7 @@
             <form method="POST" action="/reply">
                 <input class="comment-box" type="text" name="body" placeholder="Add your reply here...">
                 <input type="hidden" name="postId" value="{{this.postid}}">
-                <input type="hidden" name="userId" value="{{../user.userid}}">
+                <input type="hidden" name="userId" value="{{../userId}}">
                 <input type="hidden" name="route" value="{{../route}}">
                 <button class="comment-button" type="submit">comment</button>
             </form>

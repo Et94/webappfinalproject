@@ -45,6 +45,7 @@ exports.getAllPosts = (req, res, next) => {
 
 exports.replyToPost = (req, res, next) => {
     let reply = {postId, userId, body, route} = req.body;
+    console.log(reply);
     postmod.insertReply(reply)
     .then(data => {
         console.log(data);
@@ -62,15 +63,15 @@ exports.getPostsBySubject = (req, res, next) => {
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
+            userId: req.session.userid,
             pageTitle: 'People App',
             searchResultCSS: true,
             post: posts,
             page: page,
             string: string,
             route: '/posts/search',
-            replyRoute: replyRoute,
             isFirstPage: page == 0,
-            isLastPage: offset + POSTS_PER_PAGE > numPosts
+            isLastPage: offset + POSTS_PER_PAGE >= numPosts
         });
     })
     .catch(error => {
@@ -84,14 +85,14 @@ exports.getPostsByTopic = (req, res, next) => {
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
-            pageTitle: 'People App - Search Posts', 
+            pageTitle: 'People App', 
             searchResultCSS: true,
             post: posts,
             page: page,
             string: string,
             route: '/posts/searchTopic',
             isFirstPage: page == 0,
-            isLastPage: offset + POSTS_PER_PAGE > numPosts
+            isLastPage: offset + POSTS_PER_PAGE >= numPosts
         });
     })
     .catch(error => {
