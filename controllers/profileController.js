@@ -24,3 +24,26 @@ exports.getProfile = (req, res, next) => {
 		console.log(err);
 	});
 }
+
+exports.like = (req, res, next) => {
+	let p_id = req.body.p_id;
+	let data = {
+		"rid": p_id,
+		"sid": 2
+	};
+	
+	let Like = likeModel.addLike(data);
+	Like.then( (data) => {
+		res.redirect(301, "/profile/" + p_id);
+	}).catch((err) => {
+		console.log(err);
+	})
+	
+	//let data = {"rid": p_id};
+	/*let Like = likeModel.addLike(data);
+	Like.then( (data) => {
+		res.redirect(301, "/profile/{p_id}");
+	}).catch((err) => {
+		console.log(err);
+	});*/
+}
