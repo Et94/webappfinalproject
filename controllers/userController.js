@@ -1,6 +1,18 @@
 let usermod = require("../models/users");
 let postmod = require("../models/posts")
 
+const POSTS_PER_PAGE = 5
+
+const searchOptions = (query) => {
+    let {string, page, paginate} = query;
+    page = page == undefined ? 0 : page;
+    if(paginate) {
+        page = (paginate == "next") ? ++page : --page;
+    }
+    let offset = page * POSTS_PER_PAGE;
+    return {string, page, offset}
+}
+
 exports.editView = (req, res, next) => {
     let id = req.session.userid;
     let User = usermod.getUserInfo(id);
@@ -35,6 +47,7 @@ exports.editProfile = (req, res, next) => {
 }
 
 exports.renderHome = (req, res, next) => {
+    let {page, offset} = searchOptions(req.query);
     let id = req.session.userid;
     let User = usermod.getHome(id);
     let user_data;
@@ -49,9 +62,8 @@ exports.renderHome = (req, res, next) => {
     let Topics = postmod.getPostTopics();
     Topics.then((data) => {
         topics = data.rows;
-        console.log(topics);
     });
-    let Posts = postmod.selectAllPostsInit();
+    let Posts = postmod.selectPostsBySubject('', offset);
     Posts.then((data) => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('homeView', {
@@ -59,11 +71,10 @@ exports.renderHome = (req, res, next) => {
             topics: topics, 
             homeCSS: true,
             post: posts,
-            page: 0,
-            string: id.toString(),
-            route: '/posts/home',
-            isFirstPage: true,
-            isLastPage: 5 > numPosts});   
+            page: page,
+            route: '/profile',
+            isFirstPage: page == 0,
+            isLastPage: offset + POSTS_PER_PAGE >= numPosts});   
     })
     .catch(error => {
         console.log(error);

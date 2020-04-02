@@ -5,6 +5,7 @@ const POSTS_PER_PAGE = 5
 
 const searchOptions = (query) => {
     let {string, page, paginate} = query;
+    page = page == undefined ? 0 : page;
     if(paginate) {
         page = (paginate == "next") ? ++page : --page;
     }
@@ -43,12 +44,11 @@ exports.getAllPosts = (req, res, next) => {
 }
 
 exports.replyToPost = (req, res, next) => {
-    let reply = {postId, userId, body} = req.body;
+    let reply = {postId, userId, body, route} = req.body;
     postmod.insertReply(reply)
     .then(data => {
         console.log(data);
-        // this redirect needs to be fixed. -> render page from wherever reply to post was made.
-        res.redirect(301, '/search');
+        res.redirect(301, reply.route);
     })
     .catch(error => {
         console.log(error);
@@ -62,12 +62,13 @@ exports.getPostsBySubject = (req, res, next) => {
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
-            pageTitle: 'People App - Search Posts',
+            pageTitle: 'People App',
             searchResultCSS: true,
             post: posts,
             page: page,
             string: string,
             route: '/posts/search',
+            replyRoute: replyRoute,
             isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE > numPosts
         });

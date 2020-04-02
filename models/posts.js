@@ -102,6 +102,9 @@ var selectAllPostsByDateTemplate = () => {
  */
 const insertReply = (reply) => {
     let {postId, userId, body} = reply;
+    console.log(postId);
+    console.log(userId);
+    console.log(body);
     return db.query(
         `INSERT INTO Replies
         (postId, userId, body)
