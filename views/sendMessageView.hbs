@@ -3,10 +3,11 @@
 </div>
 <div id="main_container">
 	<div id="img_container">
-		<img id="prof_img" src="https://randomuser.me/api/portraits/women/31.jpg">
+		<img id="prof_img" src="{{imageURL}}">
 	</div>
 	<div id="input_container">
-		<form id="msg_form">
+		<form id="msg_form" action="/message/create" method="POST">
+			<input type="hidden" name="receiverid" value={{receiverId}}>
 			<input id="subject_field" name="subject" type="text" placeholder="subject" />
 			<textarea id="msg_field" name="msg" placeholder="message details ...."></textarea>
 			<button id="msg_btn" type="submit">Message</button>

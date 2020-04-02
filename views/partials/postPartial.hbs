@@ -1,8 +1,8 @@
 {{#each post}}
-    <div class="post" id="{{this.postid}}">
-        <form method="GET" action="/profile/{{this.userid}}">
-            <img class="post-image" src={{this.imageurl}}>
-        </form>
+    <div class="post" id="{{this.postId}}">
+        <a href="/profile/{{this.userid}}">
+            <img class="post-image" src={{ this.imageurl }}>
+        </a>
         <div class="indent-container">
             <div class="post-header">
                 <p class="subject">{{this.subject}}</p>

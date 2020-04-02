@@ -5,8 +5,6 @@ let bodyParser = require('body-parser');
 let path = require('path');
 let db = require('./utils/db');
 
-let profileRoutes = require('./routes/profileRoute');
-
 const expressHbs = require('express-handlebars');
 app.engine(
     'hbs',
@@ -21,7 +19,9 @@ app.engine(
   app.set('views', 'views');
 
 app.use(session({
-  secret: 'mysecret'
+  secret: 'mysecret',
+  resave: true,
+  saveUninitialized: true
 }));
 
 // parse application/x-www-form-urlencoded
@@ -43,15 +43,27 @@ let postRoutes = require('./routes/postRoutes');
 app.use(postRoutes);
 
 let loginRoutes = require('./routes/loginRoute');
-app.use(loginRoutes)
+app.use(loginRoutes);
+
+let profileRoutes = require('./routes/profileRoute');
+app.use(profileRoutes);
+
+let messageRoutes = require('./routes/messageRoute');
+app.use(messageRoutes);
 
 // !! Change the render page name to your view name to test your view.
 // Change the variables to your view variables.
 app.get('/', function (req,res) {
     res.render('loginView', { 
-      loginCSS: true
+      pageTitle: 'KnowledgeBase', 
+      heading: 'Welcome to KnowledgeBase',
+      homeCSS: true,
+      loginCSS: true,
+      registerCSS: true,
+      searchResultCSS: true
     });
 });
+
 // app.get('/', function (req,res) {
 //   res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search', homeCSS: true});
 //   // res.render('registerView', { 
@@ -62,9 +74,6 @@ app.get('/', function (req,res) {
 //   //   registerCSS: true
 //   // });
 // });
-
-app.use(profileRoutes);
-app.use(postRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server ready @ port ${PORT}`))
