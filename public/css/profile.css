@@ -17,8 +17,8 @@
 }
 
 #profilePic {
-	border-radius: 75px;
-	border: 5px solid #c2c2c2;
+	border-radius: 80px;
+	border: 5px solid #F0F0F0;
 	height: 150px;
 }
 
@@ -51,6 +51,11 @@
 	font-size: 12px;
 }
 
+#btnMsg:disabled {
+	background-color: #7a939e;
+  	color: #dddddd;
+}
+
 #likes {
 	color: #00bfff;
 	font-size: 15px;
@@ -69,6 +74,7 @@
 	width: 18px;
 	height: 18px;
 	border-radius: 9px;
+	cursor: pointer;
 }
 
 #posts {
@@ -89,12 +95,4 @@
 	margin-bottom: 5px;
 	text-align: left;
 	font-family: "Arial", sans-serif;
-}
-
-#rid {
-	display: none;
-}
-
-.p_id {
-	display: none;
 }

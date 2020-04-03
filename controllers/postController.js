@@ -107,7 +107,7 @@ exports.getPostsByTopic = (req, res, next) => {
 
 exports.getPostsByDate = (req, res, next) => {
     let id = req.session.userid;
-    let User = usermod.getHome(id);
+    let User = usermod.getUserInfo(id);
     let user_data;
     let topics;
     User.then((data) => {
@@ -144,8 +144,8 @@ exports.getPostsByDate = (req, res, next) => {
 that uses postmod.selectPostsById */
 exports.getAllPostsInitial = (req, res, next) => {
     let id = req.session.userid;
+    let User = usermod.getUserInfo(id);
     let {page, offset} = searchOptions(req.query);
-    let User = usermod.getHome(id);
     let Posts = postmod.selectPostsById(id);
     Posts.then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
