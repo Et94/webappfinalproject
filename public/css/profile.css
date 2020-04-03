@@ -90,3 +90,11 @@
 	text-align: left;
 	font-family: "Arial", sans-serif;
 }
+
+#rid {
+	display: none;
+}
+
+.p_id {
+	display: none;
+}

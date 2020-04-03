@@ -64,34 +64,30 @@ const getCurrentTimestamp = () => {
 }
 
 exports.sendMessageView = (req,res,next) => {
-  // // TO UPDATE: get profile user's image from url
+  // Get profile user's image from url
+  let receiverId = req.body.receiverid;
 
-  // // THIS DOESN'T WORK:
-  // // let receiverId = req.body.receiverid;
+  messageModel.getUserImage(receiverId)
+    .then((data) => {
+      // console.log("ImageURL retrieved:");
+      // console.log(data);
 
-  // console.log("receiverId from profile url:");
-  // console.log(receiverId);
-
-  // messageModel.getUserImage(receiverId)
-  //   .then((data) => {
-  //     // console.log("ImageURL retrieved:");
-  //     // console.log(data);
-
-  //     res.render('sendMessageView', { 
-  //     pageTitle: 'Send a Message',
-  //     imageURL: data.rows[0].imageurl,
-  //     searchResultCSS: true,
-  //     sendMsgCSS: true });
-  //   })
-  //   .catch((error) => {
-  //     console.log("Failed to retrieve imageURL due to error:");
-  //     console.log(error);
-  //   });
-
-   res.render('sendMessageView', { 
+      res.render('sendMessageView', { 
       pageTitle: 'Send a Message',
+      imageURL: data.rows[0].imageurl,
+      receiverId: receiverId,
       searchResultCSS: true,
       sendmsgCSS: true });
+    })
+    .catch((error) => {
+      console.log("Failed to retrieve imageURL due to error:");
+      console.log(error);
+    });
+
+   // res.render('sendMessageView', { 
+   //    pageTitle: 'Send a Message',
+   //    searchResultCSS: true,
+   //    sendmsgCSS: true });
 };
 
 exports.sendMessage = (req,res,next) => {
@@ -125,7 +121,7 @@ exports.sendMessage = (req,res,next) => {
 exports.startConvo = (req,res,next) => {
   let { subject, msg } = req.body;
   let senderId = req.session.userid; // current user from session
-  let receiverId = 3; // TO UPDATE: from profile url
+  let receiverId = req.body.receiverid;
   
   let input = {
     senderId: senderId,
