@@ -82,6 +82,10 @@ p {
     display: none;
 }
 
+#prev-container {
+    width: 40em;
+}
+
 #next-container {
     width: 40em;
 }
