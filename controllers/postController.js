@@ -91,6 +91,7 @@ exports.getPostsByTopic = (req, res, next) => {
     }
 };
 
+
 exports.getAllPosts = (req, res, next) => {
     let userId = req.session.userid;
     let {page, offset} = searchOptions(req.query);

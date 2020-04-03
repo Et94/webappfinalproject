@@ -33,9 +33,6 @@ app.use(bodyParser.json()) // middleware
 app.use(express.static(path.join(__dirname,'public')));
 app.use(express.static(path.join(__dirname,'views')));
 
-// !! FOR REFERENCE - When you create a route, please use this template to add it.
-// let peopleRoutes = require('./routes/peoples');
-// app.use(peopleRoutes);
 let userRoutes = require('./routes/userRoute');
 app.use(userRoutes);
 
@@ -56,19 +53,14 @@ app.use(messageRoutes);
 app.get('/', function (req,res) {
     res.render('loginView', { 
       pageTitle: 'KnowledgeBase', 
-      heading: 'Welcome to KnowledgeBase',
-      // homeCSS: true,
       loginCSS: true,
       registerCSS: true
-      // searchResultCSS: true
     });
 });
 
 // app.get('/', function (req,res) {
-//   res.render('homeView', { pageTitle: 'People App', heading: 'Welcome to People App', searchBarText: 'Search', homeCSS: true});
 //   // res.render('registerView', { 
-//   //   pageTitle: 'People App', 
-//   //   heading: 'Welcome to People App', 
+//   //   pageTitle: 'KnowledgeBase',  
 //   //   homeCSS: true,
 //   //   loginCSS: true,
 //   //   registerCSS: true
