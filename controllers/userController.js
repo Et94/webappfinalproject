@@ -76,7 +76,7 @@ exports.renderHome = (req, res, next) => {
             post: posts,
             page: page,
             route: '/profile',
-            isFirstPage: page === 0,
+            isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE >= numPosts});   
     })
     .catch(error => {
