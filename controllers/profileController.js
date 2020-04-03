@@ -45,7 +45,8 @@ exports.getProfile = (req, res, next) => {
 				l = false;
 		}
 		res.render('profileView', {
-			user: profile_user, 
+			user: profile_user,
+			userId: u_id,
 			ProfileCSS: true, 
 			likes: like.rows.length,
 			ProfileView: true,
