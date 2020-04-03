@@ -7,6 +7,14 @@ exports.getProfile = (req, res, next) => {
 	let User = userModel.getUserInfo(u_id);
 	let post;
 	let profile_user;
+	let ownProfile;
+
+	if (req.session.userid == u_id) {
+		ownProfile = true;
+	} else {
+		ownProfile = false;
+	}
+
 	User.then( (user) => {
 		profile_user = user.rows[0];
 		return postModel.getPU(u_id);
@@ -20,7 +28,15 @@ exports.getProfile = (req, res, next) => {
 			if (like.rows[i].senderid == p)
 				l = false;
 		}
-		res.render('profileView', {user: profile_user, ProfileCSS: true, likes: like.rows.length, likeBtn: l, post: post, ProfileView: true});
+		res.render('profileView', {
+			user: profile_user, 
+			ProfileCSS: true, 
+			likes: like.rows.length, 
+			likeBtn: l, 
+			post: post, 
+			ProfileView: true,
+			ownProfile: ownProfile
+		});
 	}).catch((err) => {
 		console.log(err);
 	});
