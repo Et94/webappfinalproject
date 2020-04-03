@@ -54,6 +54,8 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 5px;
+    font-size: 13px;
 }
 
 .numReplies {
@@ -62,7 +64,7 @@ p {
     border-bottom: 1px solid #1bacea;
     background-color: none;
     color: grey;
-    font-size: 1em;
+    font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
     height: fit-content;
 }
