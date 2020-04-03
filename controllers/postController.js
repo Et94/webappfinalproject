@@ -30,20 +30,6 @@ exports.createPost = (req, res, next) => {
     res.redirect(301, '/profile');
 }
 
-
-exports.getAllPosts = (req, res, next) => {
-	let page = req.params.page;
-	let u_id = req.params.id;
-	let Post = postmod.getallP();
-	let profile_user;
-	Post.then( (post) => {
-		posts = post.rows.slice((page-1)*POSTS_PER_PAGE, page*POSTS_PER_PAGE);
-		res.render('allPostsView', {post: posts, ProfileCSS: true});
-	}).catch((err) => {
-		console.log(err);
-	});
-}
-
 exports.replyToPost = (req, res, next) => {
     let reply = {postId, userId, body} = req.body;
     let route = req.body.route;
@@ -104,6 +90,7 @@ exports.getPostsByTopic = (req, res, next) => {
         });
     }
 };
+
 
 exports.getAllPosts = (req, res, next) => {
     let userId = req.session.userid;
