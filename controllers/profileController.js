@@ -4,7 +4,7 @@ let postModel = require('../models/posts');
 
 exports.getProfile = (req, res, next) => {
 	let u_id = req.params.id;
-	let User = userModel.getU(u_id);
+	let User = userModel.getUserInfo(u_id);
 	let post;
 	let profile_user;
 	User.then( (user) => {
