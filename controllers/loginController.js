@@ -10,11 +10,12 @@ exports.login = (req, res, next) => {
 	.then((data) => {
 		if (data.rows.length == 0) {
 			console.log("No user");
-			res.redirect(301, '/');			
+			res.render('loginView', {loginError: true, loginCSS: true});			
+		} else {
+			userData.password = data.rows[0].password;
+			userData.email = data.rows[0].email;
+			userData.userid = data.rows[0].userid;
 		}
-		userData.password = data.rows[0].password;
-		userData.email = data.rows[0].email;
-		userData.userid = data.rows[0].userid;
 	})
 	.then(() => {
 		bcrypt.compare(loginData.password, userData.password)
@@ -22,16 +23,15 @@ exports.login = (req, res, next) => {
 			if (result && userData.email == loginData.email) {
 				req.session.userid = userData.userid;
 				req.session.cookie.maxAge = 1800000; //30 minutes
-				// Will need to add variables when combining
-
-				// IMPORTANT - this should be replaced by a redirect to homeView so the is_authenticated middleware can protect that route.
 				res.redirect(301, "/profile");
 			} else {
 				console.log("Wrong password")
-				// add feedback to user
-				res.redirect(301, '/');
+				res.render('loginView', {loginError: true, loginCSS: true});
 			}
 		})
+		.catch((err) => {
+			console.log(err)
+		});
 	})
 	.catch((err) => {
 		console.log(err);
@@ -49,6 +49,10 @@ exports.signup = (req, res, next) => {
 			"password": hash
 		}
 	})
+	.catch((err) => {
+		console.log(err);
+	});
+
 	let isUser = false;
 
 	userModel.getUser(regData)
@@ -66,7 +70,7 @@ exports.signup = (req, res, next) => {
 			req.session.regData = regData;
 			res.render("registerView", {registerCSS: true});
 		} else {
-			res.redirect(301, '/');
+			res.render("loginView", {loginCSS: true, userExists: true});
 		}
 	})
 	.catch((err) => {
@@ -86,9 +90,9 @@ exports.register = (req, res, next) => {
 		&& regData.country != undefined && regData.dob != undefined) {
 		userModel.registerUser(regData)
 		.then((err) => console.log(err));
-		res.redirect(301, '/');
+		res.render("loginView", {userCreated: true, loginCSS: true});
 	} else {
-		res.redirect(301, '/register');
+		res.redirect('/register', {registerCSS: true});
 	}
 	
 	
