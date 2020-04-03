@@ -63,7 +63,7 @@ exports.getPostsBySubject = (req, res, next) => {
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
-            pageTitle: 'Knowledge Base',
+            pageTitle: 'KnowledgeBase',
             searchResultCSS: true,
             post: posts,
             page: page,
@@ -88,7 +88,7 @@ exports.getPostsByTopic = (req, res, next) => {
         .then(data => {
             let {posts, numposts: numPosts} = data.rows[0];
             res.render('searchResultView', {
-                pageTitle: 'Knowledge Base', 
+                pageTitle: 'KnowledgeBase', 
                 searchResultCSS: true,
                 post: posts,
                 page: page,
