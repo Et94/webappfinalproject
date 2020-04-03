@@ -12,9 +12,6 @@ exports.updateUser = (id, e) => {
     );
 }
 
-// sort out which methods to keep and which to combine. Also, figure out a common syntax.
-
-// Luc's login getUser and register user for login/register
 exports.getUser = (data) => {
 	let sql = "Select * from users where email = '" + data.email + "'";
 	return db.query(sql);
@@ -27,25 +24,6 @@ exports.registerUser = (data) => {
 	return db.query(sql);
 }
 
-// Harry's user methods
 exports.getallU = () => {
 	return db.query('SELECT * from users');
-}
-
-exports.getU = (id) => {
-	return db.query("SELECT * from users where userid = " + id);
-}
-
-exports.delU = (id) => {
-	return db.query("DELETE FROM users WHERE userid = " + id);
-}
-
-exports.getHome = (id) => {
-	return getUser(id);
-}
-
-function getUser(id) {
-	return db.query(
-        'Select * from users where userid = ' + id
-    );
 }

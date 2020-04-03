@@ -95,3 +95,28 @@
     background-color: #00a2e5;
     border-color: #00a2e5;
 }
+
+#login-error {
+	width: 88%;
+	color: red;
+	text-align: right;
+	margin-top: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#user-created {
+	width: 90%;
+	text-align: right;
+	margin-top: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#user-exists {
+	width: 100%;
+	color: red;
+	text-align: center;
+	margin-top: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+

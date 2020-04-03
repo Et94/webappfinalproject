@@ -1,3 +1,7 @@
+.reply-container {
+    width: 31em;
+}
+
 .reply {
     display: flex;
     justify-content: flex-start;
