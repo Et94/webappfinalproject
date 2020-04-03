@@ -63,7 +63,7 @@ exports.getPostsBySubject = (req, res, next) => {
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
-            pageTitle: 'People App',
+            pageTitle: 'Knowledge Base',
             searchResultCSS: true,
             post: posts,
             page: page,
@@ -88,7 +88,7 @@ exports.getPostsByTopic = (req, res, next) => {
         .then(data => {
             let {posts, numposts: numPosts} = data.rows[0];
             res.render('searchResultView', {
-                pageTitle: 'People App', 
+                pageTitle: 'Knowledge Base', 
                 searchResultCSS: true,
                 post: posts,
                 page: page,
@@ -131,8 +131,8 @@ exports.getPostsByDate = (req, res, next) => {
             page: page,
             string: string,
             route: '/posts/home',
-            isFirstPage: page == 0,
-            isLastPage: offset + POSTS_PER_PAGE > numPosts
+            isFirstPage: page === 0,
+            isLastPage: offset + POSTS_PER_PAGE >= numPosts
         });
     })
     .catch(error => {
