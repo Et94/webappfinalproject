@@ -63,14 +63,14 @@ exports.getPostsBySubject = (req, res, next) => {
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('searchResultView', {
-            pageTitle: 'KnowledgeBase',
+            pageTitle: 'People App',
             searchResultCSS: true,
             post: posts,
             page: page,
             string: string,
             userId: req.session.userid,
             route: '/posts/search',
-            isFirstPage: page === 0,
+            isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE >= numPosts
         });
     })
@@ -88,14 +88,14 @@ exports.getPostsByTopic = (req, res, next) => {
         .then(data => {
             let {posts, numposts: numPosts} = data.rows[0];
             res.render('searchResultView', {
-                pageTitle: 'KnowledgeBase', 
+                pageTitle: 'People App', 
                 searchResultCSS: true,
                 post: posts,
                 page: page,
                 string: string,
                 userId: req.session.userid,
                 route: '/posts/searchTopic',
-                isFirstPage: page === 0,
+                isFirstPage: page == 0,
                 isLastPage: offset + POSTS_PER_PAGE >= numPosts
             });
         })
@@ -105,67 +105,11 @@ exports.getPostsByTopic = (req, res, next) => {
     }
 };
 
-exports.getPostsByDate = (req, res, next) => {
-    let id = req.session.userid;
-    let User = usermod.getUserInfo(id);
-    let user_data;
-    let topics;
-    User.then((data) => {
-        // res.render('homeView', {user: data.rows[0], homeCSS: true});
-        user_data = data.rows[0];
-    });
-    let Topics = postmod.getPostTopics();
-    Topics.then((data) => {
-        topics = data.rows;
-    });
-    let {string, page, offset} = searchOptions(req.query);
-    postmod.selectAllPosts(offset)
-    .then(data => {
-        let {posts, numposts: numPosts} = data.rows[0];
-        res.render('homeView', {
-            user: user_data,
-            userId: req.session.userid,
-            topics: topics, 
-            homeCSS: true,
-            post: posts,
-            page: page,
-            string: string,
-            route: '/posts/home',
-            isFirstPage: page === 0,
-            isLastPage: offset + POSTS_PER_PAGE >= numPosts
-        });
-    })
-    .catch(error => {
-        console.log(error);
-    });
-};
-
-exports.getAllPostsInitial = (req, res, next) => {
-    let id = req.session.userid;
-    let User = usermod.getUserInfo(id);
-    let {page, offset} = searchOptions(req.query);
-    let Posts = postmod.selectPostsById(id);
-    Posts.then(data => {
-        let {posts, numposts: numPosts} = data.rows[0];
-        res.render('allPostsView', { 
-            userId: id,
-            searchResultCSS: true,
-            post: posts,
-            page: page,
-            route: '/posts/all/initial',
-            isFirstPage: page === 0,
-            isLastPage: offset + POSTS_PER_PAGE >= numPosts
-        });
-    })
-    .catch(error => {
-        console.log(error);
-    });
-}
 
 exports.getAllPosts = (req, res, next) => {
     let userId = req.session.userid;
     let {page, offset} = searchOptions(req.query);
-    postmod.selectPostByIdPaginate(userId, offset)
+    postmod.selectPostsById(userId, offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('allPostsView', { 
@@ -174,7 +118,7 @@ exports.getAllPosts = (req, res, next) => {
             post: posts,
             page: page,
             route: '/posts/all',
-            isFirstPage: page === 0,
+            isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE >= numPosts
         });
     })
