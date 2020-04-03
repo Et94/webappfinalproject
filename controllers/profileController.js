@@ -2,10 +2,25 @@ let userModel = require('../models/users');
 let likeModel = require('../models/likes');
 let postModel = require('../models/posts');
 
+const POSTS_PER_PAGE = 5
+
+const searchOptions = (query) => {
+    let {string, page, paginate} = query;
+    string = string == undefined ? '' : string;
+    page = page == undefined ? 0 : page;
+    if(paginate) {
+        page = (paginate == "next") ? ++page : --page;
+    }
+    let offset = page * POSTS_PER_PAGE;
+    return {string, page, offset}
+}
+
 exports.getProfile = (req, res, next) => {
 	let u_id = req.params.id;
 	let User = userModel.getUserInfo(u_id);
-	let post;
+	let {page, offset} = searchOptions(req.query);
+	let posts;
+	let numPosts;
 	let profile_user;
 	let ownProfile;
 
@@ -17,9 +32,10 @@ exports.getProfile = (req, res, next) => {
 
 	User.then( (user) => {
 		profile_user = user.rows[0];
-		return postModel.getPU(u_id);
-	}).then ( (posts) => {
-		post = posts.rows.slice(0, 5);;
+		return postModel.selectPostsById(u_id, offset);
+	}).then ( (data) => {
+		numPosts = data.rows[0].numposts;
+		posts = data.rows[0].posts;
 		return likeModel.getRL(u_id);			
 	}).then ( (like) => {
 		let p = req.session.userid;
@@ -31,11 +47,15 @@ exports.getProfile = (req, res, next) => {
 		res.render('profileView', {
 			user: profile_user, 
 			ProfileCSS: true, 
-			likes: like.rows.length, 
-			likeBtn: l, 
-			post: post, 
+			likes: like.rows.length,
 			ProfileView: true,
-			ownProfile: ownProfile
+			likeBtn: l, 
+			ownProfile: ownProfile,
+			page: page,
+			post: posts,
+            route: `/profile/${u_id}`,
+            isFirstPage: page == 0,
+            isLastPage: offset + POSTS_PER_PAGE >= numPosts
 		});
 	}).catch((err) => {
 		console.log(err);
