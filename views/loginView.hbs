@@ -2,11 +2,20 @@
 	<section class="login-header">
 		<img src="/assets/knowledgeBase.png" class="kb-logo"/>
 		<form action="/login" method="POST" align="right" id="login-login-form">
-			<input type="text" name="email" placeholder="email" class="login-headerinput" />
-			<input type="password" name="password" placeholder="password" class="login-headerinput" />
+			<input type="text" name="email" placeholder="email" class="login-headerinput" required/>
+			<input type="password" name="password" placeholder="password" class="login-headerinput" required/>
 			<button type="submit" id="login-login-btn">login</button>
 		</form>
 	</section>
+	{{#if loginError}}
+		<p id="login-error">The email or password was incorrect</p>
+	{{/if}}
+	{{#if userCreated}}
+		<p id="user-created">User created! Please log in</p>
+	{{/if}}
+	{{#if userExists}}
+		<p id="user-created">Email aready in use. Please use another email.</p>
+	{{/if}}
 	<section class="login-body">
 		<section id="login-img-section">
 			<img src="/assets/books.jpg" id="login-book-img" />
@@ -18,15 +27,19 @@
 			<section id="login-form">
 				<form action="/signup" method="POST">
 					<section>
-						<input type="text" name="firstname" placeholder="firstname" class="login-smallinput" />
-						<input type="text"name="lastname"  placeholder="lastname" class="login-smallinput" />
+						<input type="text" name="firstname" placeholder="firstname" class="login-smallinput" required/>
+						<input type="text"name="lastname"  placeholder="lastname" class="login-smallinput" required/>
 					</section>
-					<input type="email" name="email" placeholder="email" class="login-largeinput" />
-					<input type="password" name="password" placeholder="password" class="login-largeinput" />
-					<input type="password" name="confirm_password" placeholder="confirm password" class="login-largeinput" />
+					<input type="email" name="email" placeholder="email" class="login-largeinput" required/>
+					<input type="password" name="password" placeholder="password" class="login-largeinput" required/>
+					<input type="password" name="confirm_password" placeholder="confirm password" class="login-largeinput" required/>
 					<button type="submit" id="login-signup-btn">signup</button>
 				</form>
+				{{#if userExists}}
+					<p id="user-exists">Email aready in use. Please use another email.</p>
+				{{/if}}
 			</section>
 		</section>
 	</section>
+
 </section>

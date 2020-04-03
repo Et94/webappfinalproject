@@ -6,7 +6,7 @@ p {
 .post {
     display: flex;
     justify-content: flex-start;
-    width: 40em;
+    width: 38em;
     margin-top: 2em;
 }
 
@@ -19,11 +19,13 @@ p {
 
 .indent-container {
     padding-left: 2em;
+    width: 100%
 }
 
 .post-header {
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
 .subject {
@@ -31,6 +33,8 @@ p {
 }
 
 .topic {
+    position: relative;
+    left: 2em;
     border-style: solid;
     border-width: 1px;
     border-color: powderblue;
@@ -55,7 +59,7 @@ p {
 .numReplies {
     padding-bottom: 2px;
     border-style: none;
-    border-bottom: 1px solid blue;
+    border-bottom: 1px solid #1bacea;
     background-color: none;
     color: grey;
     font-size: 1em;
@@ -65,7 +69,7 @@ p {
 
 .numReplies:hover {
     cursor: pointer;
-    color: blue;
+    color: #1bacea;
 }
 
 .reply-container {
