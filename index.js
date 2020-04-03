@@ -57,10 +57,10 @@ app.get('/', function (req,res) {
     res.render('loginView', { 
       pageTitle: 'KnowledgeBase', 
       heading: 'Welcome to KnowledgeBase',
-      homeCSS: true,
+      // homeCSS: true,
       loginCSS: true,
-      registerCSS: true,
-      searchResultCSS: true
+      registerCSS: true
+      // searchResultCSS: true
     });
 });
 

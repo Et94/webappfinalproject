@@ -50,7 +50,7 @@ exports.editProfile = (req, res, next) => {
 exports.renderHome = (req, res, next) => {
     let {page, offset} = searchOptions(req.query);
     let id = req.session.userid;
-    let User = usermod.getHome(id);
+    let User = usermod.getUserInfo(id);
     let user_data;
     let topics;
     User.then((data) => {
