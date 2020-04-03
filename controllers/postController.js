@@ -70,7 +70,7 @@ exports.getPostsBySubject = (req, res, next) => {
             string: string,
             userId: req.session.userid,
             route: '/posts/search',
-            isFirstPage: page === 0,
+            isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE >= numPosts
         });
     })
@@ -95,7 +95,7 @@ exports.getPostsByTopic = (req, res, next) => {
                 string: string,
                 userId: req.session.userid,
                 route: '/posts/searchTopic',
-                isFirstPage: page === 0,
+                isFirstPage: page == 0,
                 isLastPage: offset + POSTS_PER_PAGE >= numPosts
             });
         })
@@ -140,6 +140,8 @@ exports.getPostsByDate = (req, res, next) => {
     });
 };
 
+/* wondering if its possible to turn this + getAllPosts into one function
+that uses postmod.selectPostsById */
 exports.getAllPostsInitial = (req, res, next) => {
     let id = req.session.userid;
     let {page, offset} = searchOptions(req.query);
@@ -153,7 +155,7 @@ exports.getAllPostsInitial = (req, res, next) => {
             post: posts,
             page: page,
             route: '/posts/all/initial',
-            isFirstPage: page === 0,
+            isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE >= numPosts
         });
     })
@@ -174,7 +176,7 @@ exports.getAllPosts = (req, res, next) => {
             post: posts,
             page: page,
             route: '/posts/all',
-            isFirstPage: page === 0,
+            isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE >= numPosts
         });
     })
