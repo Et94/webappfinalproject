@@ -9,8 +9,8 @@
         <div id="create-post-container">
             <form method="POST" action="/post">
                 <h2>What's your question today?</h2>
-                <input type="text" id="subject" name="subject" placeholder="Subject">
-                <input type="textarea" id="question" name="question" placeholder="Explain in detail ...">
+                <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                <input type="textarea" id="question" name="question" placeholder="Explain in detail ..." required>
                 <select class="topics" name="topic">
                     {{!-- <option value="php">php</option>
                     <option value="nodejs">nodejs</option>

@@ -94,13 +94,19 @@ exports.getPostsByTopic = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
     let userId = req.session.userid;
+    let User = usermod.getUserInfo(userId);
+    User.then((data) => {
+        // res.render('homeView', {user: data.rows[0], homeCSS: true});
+        user_data = data.rows[0];
+    })
     let {page, offset} = searchOptions(req.query);
     postmod.selectPostsById(userId, offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('allPostsView', { 
+            user: user_data,
             userId: userId,
-            searchResultCSS: true,
+            AllPostsCSS: true,
             post: posts,
             page: page,
             route: '/posts/all',
