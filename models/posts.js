@@ -1,5 +1,11 @@
 const db = require('../utils/db');
-var selectPostsTemplate = (whereClause) => {
+
+/**
+ * Template postgresql query to retrieve 5 posts and their replies
+ * filtered by a where clause and offset by a certain value. 
+ * @param {*} whereClause 
+ */
+const selectPostsTemplate = (whereClause) => {
     return `WITH five_posts AS (
         SELECT
             p.postId,
@@ -23,6 +29,8 @@ var selectPostsTemplate = (whereClause) => {
                 FROM Posts p
                     left join Replies r ON r.postId = p.postId
                     left join Users ur ON ur.userId = r.userId
+                ORDER BY
+                    r.replyId DESC
                 ) postReplies ON postReplies.postId = p.postId
         WHERE
             ${whereClause}

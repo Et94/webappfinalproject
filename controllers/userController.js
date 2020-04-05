@@ -67,7 +67,6 @@ exports.renderHome = (req, res, next) => {
     let Posts = postmod.selectPostsBySubject('', offset);
     Posts.then((data) => {
         let {posts, numposts: numPosts} = data.rows[0];
-        console.log(posts);
         res.render('homeView', {
             user: user_data,
             userId: id,

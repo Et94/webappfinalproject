@@ -14,5 +14,3 @@ router.post('/post', is_authenticated, postController.createPost);
 router.get('/posts/all', postController.getAllPosts);
 
 module.exports = router;
-
-module.exports = router;
