@@ -25,7 +25,7 @@ exports.getProfile = (req, res, next) => {
 	let profile_user;
 	let ownProfile;
 
-	if (req.current_user_id == u_id) {
+	if (current_user_id == u_id) {
 		ownProfile = true;
 	} else {
 		ownProfile = false;
