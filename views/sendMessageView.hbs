@@ -8,8 +8,8 @@
 	<div id="input_container">
 		<form id="msg_form" action="/message/create" method="POST">
 			<input type="hidden" name="receiverid" value={{receiverId}}>
-			<input id="subject_field" name="subject" type="text" placeholder="subject" />
-			<textarea id="msg_field" name="msg" placeholder="message details ...."></textarea>
+			<input id="subject_field" name="subject" type="text" placeholder="subject" required>
+			<textarea id="msg_field" name="msg" placeholder="message details ...." required></textarea>
 			<button id="msg_btn" type="submit">Message</button>
 		</form>
 	</div>
