@@ -1,17 +1,20 @@
-drop table if exists Users cascade;
+-- Drop table
 
-create table if not exists Users (
-    userId SERIAL not NULL,
-    firstName VARCHAR(255),
-    lastName VARCHAR(255),
-    password VARCHAR(255),
-    email VARCHAR(255),
-    imageURL VARCHAR(255),
-	about TEXT,
-    country VARCHAR(255),
-    dob VARCHAR(255),
-    numPosts INT default 0,
-    numMessages INT default 0,
-    numLikes INT default 0
-    primary key (userId)
+-- DROP TABLE public.users;
+
+CREATE TABLE public.users (
+	userid serial NOT NULL,
+	firstname varchar(255) NOT NULL,
+	"password" varchar(255) NULL,
+	imageurl varchar(255) NULL,
+	about text NULL,
+	country varchar(255) NULL,
+	dob varchar(255) NULL,
+	numposts int4 NULL DEFAULT 0,
+	nummessages int4 NULL DEFAULT 0,
+	email varchar(255) NULL,
+	lastname varchar(255) NOT NULL,
+	numlikes int4 NULL DEFAULT 0,
+	CONSTRAINT email_unique UNIQUE (email),
+	CONSTRAINT users_pkey PRIMARY KEY (userid)
 );
