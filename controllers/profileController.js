@@ -17,6 +17,7 @@ const searchOptions = (query) => {
 
 exports.getProfile = (req, res, next) => {
 	let u_id = req.params.id;
+	let current_user_id = req.session.userid;
 	let User = userModel.getUserInfo(u_id);
 	let {page, offset} = searchOptions(req.query);
 	let posts;
@@ -24,7 +25,7 @@ exports.getProfile = (req, res, next) => {
 	let profile_user;
 	let ownProfile;
 
-	if (req.session.userid == u_id) {
+	if (req.current_user_id == u_id) {
 		ownProfile = true;
 	} else {
 		ownProfile = false;
@@ -46,7 +47,7 @@ exports.getProfile = (req, res, next) => {
 		}
 		res.render('profileView', {
 			user: profile_user,
-			userId: u_id,
+			userId: current_user_id,
 			ProfileCSS: true, 
 			likes: like.rows.length,
 			ProfileView: true,

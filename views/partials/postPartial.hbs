@@ -23,7 +23,7 @@
         {{>replyPartial}}
         <div class="comment-container">
             <form method="POST" action="/reply">
-                <input class="comment-box" type="text" name="body" placeholder="Add your reply here...">
+                <input class="comment-box" type="text" name="body" placeholder="Add your reply here..." required>
                 <input type="hidden" name="postId" value="{{this.postid}}">
                 <input type="hidden" name="userId" value="{{../userId}}">
                 <input type="hidden" name="route" value="{{../route}}">
