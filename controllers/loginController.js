@@ -81,12 +81,7 @@ exports.register = (req, res, next) => {
 
 	if (regData.imageurl != undefined)
 		regData.imageurl = req.body.imageurl;
-	if (req.body.about != undefined) {
-		regData.about = req.body.about;
-	} else {
-		regData.about = "None"
-	}
-	
+	regData.about = req.body.about;
 	regData.country = req.body.country;
 	regData.dob = req.body.dob;
 
