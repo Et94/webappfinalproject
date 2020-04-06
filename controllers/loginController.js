@@ -50,6 +50,7 @@ exports.signup = (req, res, next) => {
 	})
 	.then(() => {
 		let isUser = false;
+		userModel.getUser(regData)
 		.then((data) => { 
 			if (data.rows.length != 0)
 				isUser = true;
