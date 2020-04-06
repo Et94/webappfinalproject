@@ -30,7 +30,6 @@ exports.login = (req, res, next) => {
 		})
 		.catch((err) => {
 			console.log(err)
-			res.status(500).send('Error');
 		});
 	})
 	.catch((err) => {
@@ -63,9 +62,13 @@ exports.signup = (req, res, next) => {
 	})
 	.then(() => {
 		if (!isUser && regData.firstname != undefined && regData.lastname != undefined && regData.email != undefined 
-			&& regData.password != undefined && req.body.password == req.body.confirm_password) {
-			req.session.regData = regData;
-			res.render("registerView", {registerCSS: true});
+			&& regData.password != undefined) {
+			if (req.body.password != req.body.confirm_password) {
+				res.render("loginView", {loginCSS: true, matchPass: true})
+			} else {
+				req.session.regData = regData;
+				res.render("registerView", {registerCSS: true});
+			}
 		} else {
 			res.render("loginView", {loginCSS: true, userExists: true});
 		}
