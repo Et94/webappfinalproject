@@ -14,15 +14,32 @@ const searchOptions = (query) => {
     return {string, page, offset}
 }
 
+const getCurrentTimestamp = () => {
+    
+  let t = new Date();
+  let YYYY = t.getFullYear();
+  let MM = ((t.getMonth() + 1 < 10) ? '0' : '') + (t.getMonth() + 1);
+  let DD = ((t.getDate() < 10) ? '0' : '') + t.getDate();
+  let HH = ((t.getHours() < 10) ? '0' : '') + t.getHours();
+  let mm = ((t.getMinutes() < 10) ? '0' : '') + t.getMinutes();
+  let ss = ((t.getSeconds() < 10) ? '0' : '') + t.getSeconds();
+
+  let date = YYYY+'-'+MM+'-'+DD+' '+HH+':'+mm+':'+ss;
+
+  return date;
+}
+
 exports.createPost = (req, res, next) => {
     let p_subject = req.body.subject;
     let p_question = req.body.question;
     let p_topic = req.body.topic;
+    let p_date = getCurrentTimestamp();
 
     let p0ject = {
         userid: req.session.userid,
         topicname: p_topic,
         subject: p_subject,
+        date: p_date,
         body: p_question
     };
 
