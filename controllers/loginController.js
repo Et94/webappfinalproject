@@ -61,6 +61,7 @@ exports.signup = (req, res, next) => {
 		console.log(data)
 		if (data.rows.length != 0)
 			isUser = true;
+		console.log(regData);
 	})
 	.then(() => {
 		if (!isUser && regData.firstname != undefined && regData.lastname != undefined && regData.email != undefined 
