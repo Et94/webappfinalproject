@@ -31,10 +31,12 @@ exports.login = (req, res, next) => {
 		})
 		.catch((err) => {
 			console.log(err)
+			res.status(500).send('Error');
 		});
 	})
 	.catch((err) => {
 		console.log(err);
+		res.status(500).send('Error');
 	});
 }
 
@@ -51,6 +53,7 @@ exports.signup = (req, res, next) => {
 	})
 	.catch((err) => {
 		console.log(err);
+		res.status(500).send('Error.');
 	});
 
 	let isUser = false;
@@ -75,6 +78,7 @@ exports.signup = (req, res, next) => {
 	})
 	.catch((err) => {
 		console.log(err);
+		res.status(500).send('Error.');
 	});
 }
 
@@ -89,7 +93,10 @@ exports.register = (req, res, next) => {
 	if (regData.imageurl != undefined && regData.about != undefined 
 		&& regData.country != undefined && regData.dob != undefined) {
 		userModel.registerUser(regData)
-		.then((err) => console.log(err));
+		.then((err) => {
+			console.log(err);
+			res.status(500).send('Error registering user.');
+		});
 		res.render("loginView", {userCreated: true, loginCSS: true});
 	} else {
 		res.redirect('/register', {registerCSS: true});
