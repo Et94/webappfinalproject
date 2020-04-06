@@ -39,7 +39,7 @@ exports.replyToPost = (req, res, next) => {
     })
     .catch(error => {
         console.log(error);
-        res.status(502).send("Error inserting reply into Replies table.")
+        res.status(500).send("Error inserting reply into Replies table.")
     });
 };
 
@@ -62,6 +62,7 @@ exports.getPostsBySubject = (req, res, next) => {
     })
     .catch(error => {
         console.log(error);
+        res.status(500).send('Error');
     });
 };
 
@@ -87,6 +88,7 @@ exports.getPostsByTopic = (req, res, next) => {
         })
         .catch(error => {
             console.log(error);
+            res.status(500).send('Error');
         });
     }
 };
@@ -116,5 +118,6 @@ exports.getAllPosts = (req, res, next) => {
     })
     .catch(error => {
         console.log(error);
+        res.status(500).send('Error');
     });
 }

@@ -82,6 +82,7 @@ exports.sendMessageView = (req,res,next) => {
     .catch((error) => {
       console.log("Failed to retrieve imageURL due to error:");
       console.log(error);
+      res.status(500).send('Error');
     });
 
    // res.render('sendMessageView', { 
@@ -115,6 +116,7 @@ exports.sendMessage = (req,res,next) => {
     .catch((error) => {
       console.log("Failed to save msg due to error:");
       console.log(error);
+      res.status(500).send('Error');
     });
 }
 
@@ -164,6 +166,7 @@ exports.startConvo = (req,res,next) => {
     .catch((error) => {
       console.log("Failed to create conversation due to error:");
       console.log(error);
+      res.status(500).send('Error');
     });
 }
 

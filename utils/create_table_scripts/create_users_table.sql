@@ -6,7 +6,7 @@ CREATE TABLE public.users (
 	userid serial NOT NULL,
 	firstname varchar(255) NOT NULL,
 	"password" varchar(255) NULL,
-	imageurl varchar(255) NULL,
+	imageurl varchar(255) DEFAULT "https://randomuser.me/api/portraits/lego/1.jpg",
 	about text NULL,
 	country varchar(255) NULL,
 	dob varchar(255) NULL,
