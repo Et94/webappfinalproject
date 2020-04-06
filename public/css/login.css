@@ -14,7 +14,8 @@
 
 .login-header form {
 	width: 100%;
-	min-width: 430px;	
+	min-width: 430px;
+	max-width: 1000px;
 }
 
 .login-headerinput {
@@ -102,6 +103,7 @@
 	text-align: right;
 	margin-top: 0;
 	font-family: Arial, Helvetica, sans-serif;
+	max-width: 1000px;
 }
 
 #user-created {
@@ -109,6 +111,7 @@
 	text-align: right;
 	margin-top: 0;
 	font-family: Arial, Helvetica, sans-serif;
+	max-width: 1000px;
 }
 
 #user-exists {
@@ -117,6 +120,7 @@
 	text-align: center;
 	margin-top: 0;
 	font-family: Arial, Helvetica, sans-serif;
+	max-width: 1000px;
 }
 
 
