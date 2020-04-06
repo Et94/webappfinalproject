@@ -10,7 +10,7 @@
         <link href='/css/navbar.css' rel='stylesheet' />
         <link href='/css/post.css' rel='stylesheet' />
         <link href='/css/reply.css' rel='stylesheet' />
-        <script src="../../js/post.js" defer></script>
+        <script type="text/javascript" src="/js/post.js" defer></script>
     {{/if}}
     {{#if homeCSS}}
         <link href='/css/home.css' rel='stylesheet' />
@@ -18,7 +18,7 @@
         <link href='/css/navbar.css' rel='stylesheet' />
         <link href='/css/post.css' rel='stylesheet' />
         <link href='/css/reply.css' rel='stylesheet' />
-        <script src="../../js/post.js" defer></script>
+        <script type="text/javascript" src="/js/post.js" defer></script>
     {{/if}}
     {{#if loginCSS}}
         <link href='/css/login.css' rel='stylesheet' />
@@ -38,12 +38,20 @@
         <link href='/css/post.css' rel='stylesheet' />
 		<link href='/css/reply.css' rel='stylesheet' />
 	{{/if}}
+    {{#if AllPostsCSS}}
+        <link href='/css/allposts.css' rel='stylesheet'/>
+        <link href='/css/profileSummary.css' rel='stylesheet'/>
+        <link href='/css/navbar.css' rel='stylesheet' />
+        <link href='/css/post.css' rel='stylesheet' />
+        <link href='/css/reply.css' rel='stylesheet' />
+        <script type="text/javascript" src="/js/post.js" defer></script>
+    {{/if}}
 	{{#if ProfileCSS}}
         <link href='/css/profile.css' rel='stylesheet' />
 		<link href='/css/navbar.css' rel='stylesheet' />
         <link href='/css/post.css' rel='stylesheet' />
 		<link href='/css/reply.css' rel='stylesheet' />
-        <script src="../../js/post.js" defer></script>
+        <script type="text/javascript" src="/js/post.js" defer></script>
 	{{/if}}
     <!--
     {{#if peopleCSS}}
@@ -52,12 +60,9 @@
     {{#if formsCSS}}
         <link href='/css/forms.css' rel='stylesheet' />
     {{/if}} -->
-	{{#if ProfileCSS}}
-        <link href='/css/profile.css' rel='stylesheet' />
-	{{/if}}
     {{#if msgInboxCSS}}
         <link href='/css/msginbox.css' rel='stylesheet' />
-        <script type="text/javascript" src="/js/convos.js"></script>
+        <script type="text/javascript" src="/js/convos.js" defer></script>
     {{/if}}
 	
 </head>

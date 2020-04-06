@@ -1,8 +1,10 @@
-drop table if exists Topics cascade;
+-- Drop table
 
-create table if not exists Topics (
-    topicName VARCHAR(255),
-    primary key (topicName)
+-- DROP TABLE public.topics;
+
+CREATE TABLE public.topics (
+	topicname varchar(255) NOT NULL,
+	CONSTRAINT topics_pkey PRIMARY KEY (topicname)
 );
 
 insert into Topics (topicName) values ('php');

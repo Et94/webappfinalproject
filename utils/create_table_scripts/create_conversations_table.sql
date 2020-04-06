@@ -1,11 +1,24 @@
-drop table if exists Conversations cascade;
+-- Drop table
 
-create table if not exists Conversations (
-    conversationId SERIAL not null,
-    senderId INT not null,
-    receiverId INT not null,
-    subject TEXT,
-    primary key (conversationId),
-    foreign key (senderId) references Users (userId),
-    foreign key (receiverId) references Users (userId)
+-- DROP TABLE public.conversations;
+
+CREATE TABLE public.conversations (
+	conversationid serial NOT NULL,
+	senderid int4 NOT NULL,
+	receiverid int4 NOT NULL,
+	subject text NULL,
+	latestdate timestamp NULL,
+	CONSTRAINT conversations_pkey PRIMARY KEY (conversationid),
+	CONSTRAINT conversations_receiverid_fkey FOREIGN KEY (receiverid) REFERENCES users(userid),
+	CONSTRAINT conversations_senderid_fkey FOREIGN KEY (senderid) REFERENCES users(userid)
 );
+
+-- Table Triggers
+
+-- DROP TRIGGER updateusermsgcount ON public.conversations;
+
+create trigger updateusermsgcount after
+update
+    on
+    public.conversations for each row execute function increasenummsgs();
+

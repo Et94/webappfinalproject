@@ -30,10 +30,12 @@ exports.login = (req, res, next) => {
 		})
 		.catch((err) => {
 			console.log(err)
+			res.status(500).send('Error');
 		});
 	})
 	.catch((err) => {
 		console.log(err);
+		res.status(500).send('Error');
 	});
 }
 
@@ -50,6 +52,7 @@ exports.signup = (req, res, next) => {
 	})
 	.catch((err) => {
 		console.log(err);
+		res.status(500).send('Error.');
 	});
 
 	let isUser = false;
@@ -69,6 +72,7 @@ exports.signup = (req, res, next) => {
 	})
 	.catch((err) => {
 		console.log(err);
+		res.status(500).send('Error.');
 	});
 }
 

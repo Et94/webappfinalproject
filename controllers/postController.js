@@ -14,34 +14,37 @@ const searchOptions = (query) => {
     return {string, page, offset}
 }
 
+const getCurrentTimestamp = () => {
+    
+  let t = new Date();
+  let YYYY = t.getFullYear();
+  let MM = ((t.getMonth() + 1 < 10) ? '0' : '') + (t.getMonth() + 1);
+  let DD = ((t.getDate() < 10) ? '0' : '') + t.getDate();
+  let HH = ((t.getHours() < 10) ? '0' : '') + t.getHours();
+  let mm = ((t.getMinutes() < 10) ? '0' : '') + t.getMinutes();
+  let ss = ((t.getSeconds() < 10) ? '0' : '') + t.getSeconds();
+
+  let date = YYYY+'-'+MM+'-'+DD+' '+HH+':'+mm+':'+ss;
+
+  return date;
+}
+
 exports.createPost = (req, res, next) => {
     let p_subject = req.body.subject;
     let p_question = req.body.question;
     let p_topic = req.body.topic;
+    let p_date = getCurrentTimestamp();
 
     let p0ject = {
         userid: req.session.userid,
         topicname: p_topic,
         subject: p_subject,
+        date: p_date,
         body: p_question
     };
 
     postmod.createPost(p0ject);
     res.redirect(301, '/profile');
-}
-
-
-exports.getAllPosts = (req, res, next) => {
-	let page = req.params.page;
-	let u_id = req.params.id;
-	let Post = postmod.getallP();
-	let profile_user;
-	Post.then( (post) => {
-		posts = post.rows.slice((page-1)*POSTS_PER_PAGE, page*POSTS_PER_PAGE);
-		res.render('allPostsView', {post: posts, ProfileCSS: true});
-	}).catch((err) => {
-		console.log(err);
-	});
 }
 
 exports.replyToPost = (req, res, next) => {
@@ -53,7 +56,7 @@ exports.replyToPost = (req, res, next) => {
     })
     .catch(error => {
         console.log(error);
-        res.status(502).send("Error inserting reply into Replies table.")
+        res.status(500).send("Error inserting reply into Replies table.")
     });
 };
 
@@ -70,12 +73,13 @@ exports.getPostsBySubject = (req, res, next) => {
             string: string,
             userId: req.session.userid,
             route: '/posts/search',
-            isFirstPage: page === 0,
+            isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE >= numPosts
         });
     })
     .catch(error => {
         console.log(error);
+        res.status(500).send('Error');
     });
 };
 
@@ -95,90 +99,42 @@ exports.getPostsByTopic = (req, res, next) => {
                 string: string,
                 userId: req.session.userid,
                 route: '/posts/searchTopic',
-                isFirstPage: page === 0,
+                isFirstPage: page == 0,
                 isLastPage: offset + POSTS_PER_PAGE >= numPosts
             });
         })
         .catch(error => {
             console.log(error);
+            res.status(500).send('Error');
         });
     }
 };
 
-exports.getPostsByDate = (req, res, next) => {
-    let id = req.session.userid;
-    let User = usermod.getUserInfo(id);
-    let user_data;
-    let topics;
-    User.then((data) => {
-        // res.render('homeView', {user: data.rows[0], homeCSS: true});
-        user_data = data.rows[0];
-    });
-    let Topics = postmod.getPostTopics();
-    Topics.then((data) => {
-        topics = data.rows;
-    });
-    let {string, page, offset} = searchOptions(req.query);
-    postmod.selectAllPosts(offset)
-    .then(data => {
-        let {posts, numposts: numPosts} = data.rows[0];
-        res.render('homeView', {
-            user: user_data,
-            userId: req.session.userid,
-            topics: topics, 
-            homeCSS: true,
-            post: posts,
-            page: page,
-            string: string,
-            route: '/posts/home',
-            isFirstPage: page == 0,
-            isLastPage: offset + POSTS_PER_PAGE > numPosts
-        });
-    })
-    .catch(error => {
-        console.log(error);
-    });
-};
-
-exports.getAllPostsInitial = (req, res, next) => {
-    let id = req.session.userid;
-    let User = usermod.getUserInfo(id);
-    let {page, offset} = searchOptions(req.query);
-    let Posts = postmod.selectPostsById(id);
-    Posts.then(data => {
-        let {posts, numposts: numPosts} = data.rows[0];
-        res.render('allPostsView', { 
-            userId: id,
-            searchResultCSS: true,
-            post: posts,
-            page: page,
-            route: '/posts/all/initial',
-            isFirstPage: page === 0,
-            isLastPage: offset + POSTS_PER_PAGE >= numPosts
-        });
-    })
-    .catch(error => {
-        console.log(error);
-    });
-}
 
 exports.getAllPosts = (req, res, next) => {
     let userId = req.session.userid;
+    let User = usermod.getUserInfo(userId);
+    User.then((data) => {
+        // res.render('homeView', {user: data.rows[0], homeCSS: true});
+        user_data = data.rows[0];
+    })
     let {page, offset} = searchOptions(req.query);
-    postmod.selectPostByIdPaginate(userId, offset)
+    postmod.selectPostsById(userId, offset)
     .then(data => {
         let {posts, numposts: numPosts} = data.rows[0];
         res.render('allPostsView', { 
+            user: user_data,
             userId: userId,
-            searchResultCSS: true,
+            AllPostsCSS: true,
             post: posts,
             page: page,
             route: '/posts/all',
-            isFirstPage: page === 0,
+            isFirstPage: page == 0,
             isLastPage: offset + POSTS_PER_PAGE >= numPosts
         });
     })
     .catch(error => {
         console.log(error);
+        res.status(500).send('Error');
     });
 }

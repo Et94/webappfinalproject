@@ -1,0 +1,8 @@
+{
+	"name": "KnowledgeBase",
+	"description": "COMP 4711 Term Project 4TA",
+	"repository": "https://github.com/LucMurakami/webappfinalproject",
+	"logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+	"keywords": ["node", "express", "heroku"],
+	"image": "heroku/nodejs"
+}
