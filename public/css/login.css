@@ -98,23 +98,23 @@
 }
 
 #login-error {
-	width: 88%;
+	width: 100%;
 	color: red;
 	text-align: right;
 	margin-top: 0;
 	font-family: Arial, Helvetica, sans-serif;
-	max-width: 1000px;
+	max-width: 1200px;
 }
 
 #user-created {
-	width: 90%;
+	width: 100%;
 	text-align: right;
 	margin-top: 0;
 	font-family: Arial, Helvetica, sans-serif;
-	max-width: 1000px;
+	max-width: 1200px;
 }
 
-#user-exists {
+.reg-warning {
 	width: 100%;
 	color: red;
 	text-align: center;
