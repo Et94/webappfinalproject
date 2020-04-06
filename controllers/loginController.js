@@ -9,7 +9,6 @@ exports.login = (req, res, next) => {
 	userModel.getUser(loginData)
 	.then((data) => {
 		if (data.rows.length == 0) {
-			console.log("No user");
 			res.render('loginView', {loginError: true, loginCSS: true});			
 		} else {
 			userData.password = data.rows[0].password;
@@ -22,7 +21,7 @@ exports.login = (req, res, next) => {
 		.then((result) => {
 			if (result && userData.email == loginData.email) {
 				req.session.userid = userData.userid;
-				req.session.cookie.maxAge = 1800000; //30 minutes
+				req.session.cookie.maxAge = 60*60*1000; //1 hour
 				res.redirect(301, "/profile");
 			} else {
 				console.log("Wrong password")
@@ -35,6 +34,7 @@ exports.login = (req, res, next) => {
 	})
 	.catch((err) => {
 		console.log(err);
+		res.status(500).send('Error');
 	});
 }
 
@@ -51,51 +51,52 @@ exports.signup = (req, res, next) => {
 	})
 	.catch((err) => {
 		console.log(err);
+		res.status(500).send('Error.');
 	});
 
 	let isUser = false;
-
 	userModel.getUser(regData)
-
-	// add user prompts for failures at the end
-	.then((res) => { 
-		console.log(res.row);
-		if (res.row != undefined)
+	.then((data) => { 
+		if (data.rows.length != 0)
 			isUser = true;
 	})
 	.then(() => {
-		console.log(regData);
 		if (!isUser && regData.firstname != undefined && regData.lastname != undefined && regData.email != undefined 
-			&& regData.password != undefined && req.body.password == req.body.confirm_password) {
-			req.session.regData = regData;
-			res.render("registerView", {registerCSS: true});
+			&& regData.password != undefined) {
+			if (req.body.password != req.body.confirm_password) {
+				res.render("loginView", {loginCSS: true, matchPass: true})
+			} else {
+				req.session.regData = regData;
+				res.render("registerView", {registerCSS: true});
+			}
 		} else {
 			res.render("loginView", {loginCSS: true, userExists: true});
 		}
 	})
 	.catch((err) => {
 		console.log(err);
+		res.status(500).send('Error.');
 	});
 }
 
 exports.register = (req, res, next) => {
 	let regData = req.session.regData;
-	regData.imageurl = req.body.imageurl;
-	regData.about = req.body.about;
-	regData.country = req.body.country;
-	regData.dob = req.body.dob;
-	console.log(regData);
-
-	if (regData.imageurl != undefined && regData.about != undefined 
-		&& regData.country != undefined && regData.dob != undefined) {
-		userModel.registerUser(regData)
-		.then((err) => console.log(err));
-		res.render("loginView", {userCreated: true, loginCSS: true});
+	console.log(req.body.imageurl);
+	console.log(req.body.about);
+	if (req.body.imageurl != "")
+		regData.imageurl = req.body.imageurl;
+	if (req.body.about != "") {
+		regData.about = req.body.about;
 	} else {
-		res.redirect('/register', {registerCSS: true});
+		regData.about = "None Given"
 	}
 	
-	
+	regData.country = req.body.country;
+	regData.dob = req.body.dob;
+
+	userModel.registerUser(regData)
+	.then((err) => console.log(err));
+	res.render("loginView", {userCreated: true, loginCSS: true});
 }
 
 exports.logout = (req, res, next) => {

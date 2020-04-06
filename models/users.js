@@ -18,10 +18,17 @@ exports.getUser = (data) => {
 }
 
 exports.registerUser = (data) => {
-	let sql = "Insert into users(firstname, password, imageurl, about, country, dob, email, lastname) values('" 
-	+ data.firstname + "', '" + data.password + "', '" + data.imageurl + "', '" + data.about + "', '"
-	+ data.country + "', '" + data.dob + "', '" + data.email + "', '" + data.lastname + "');"
-	return db.query(sql);
+	if (data.imageurl != undefined) {
+		let sql = "Insert into users(firstname, password, imageurl, about, country, dob, email, lastname) values('" 
+		+ data.firstname + "', '" + data.password + "', '" + data.imageurl + "', '" + data.about + "', '"
+		+ data.country + "', '" + data.dob + "', '" + data.email + "', '" + data.lastname + "');"
+		return db.query(sql);
+	} else {
+		let sql = "Insert into users(firstname, password, about, country, dob, email, lastname) values('" 
+		+ data.firstname + "', '" + data.password + "', '" + data.about + "', '"
+		+ data.country + "', '" + data.dob + "', '" + data.email + "', '" + data.lastname + "');"
+		return db.query(sql);
+	}
 }
 
 exports.getallU = () => {

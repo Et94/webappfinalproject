@@ -14,7 +14,8 @@
 
 .login-header form {
 	width: 100%;
-	min-width: 430px;	
+	min-width: 430px;
+	max-width: 1000px;
 }
 
 .login-headerinput {
@@ -97,26 +98,29 @@
 }
 
 #login-error {
-	width: 88%;
+	width: 100%;
 	color: red;
 	text-align: right;
 	margin-top: 0;
 	font-family: Arial, Helvetica, sans-serif;
+	max-width: 1200px;
 }
 
 #user-created {
-	width: 90%;
+	width: 100%;
 	text-align: right;
 	margin-top: 0;
 	font-family: Arial, Helvetica, sans-serif;
+	max-width: 1200px;
 }
 
-#user-exists {
+.reg-warning {
 	width: 100%;
 	color: red;
 	text-align: center;
 	margin-top: 0;
 	font-family: Arial, Helvetica, sans-serif;
+	max-width: 1000px;
 }
 
 

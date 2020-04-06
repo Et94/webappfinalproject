@@ -73,7 +73,6 @@ exports.sendMessageView = (req,res,next) => {
       // console.log(data);
 
       res.render('sendMessageView', { 
-      pageTitle: 'Send a Message',
       imageURL: data.rows[0].imageurl,
       receiverId: receiverId,
       searchResultCSS: true,
@@ -82,10 +81,10 @@ exports.sendMessageView = (req,res,next) => {
     .catch((error) => {
       console.log("Failed to retrieve imageURL due to error:");
       console.log(error);
+      res.status(500).send('Error');
     });
 
    // res.render('sendMessageView', { 
-   //    pageTitle: 'Send a Message',
    //    searchResultCSS: true,
    //    sendmsgCSS: true });
 };
@@ -115,6 +114,7 @@ exports.sendMessage = (req,res,next) => {
     .catch((error) => {
       console.log("Failed to save msg due to error:");
       console.log(error);
+      res.status(500).send('Error');
     });
 }
 
@@ -164,6 +164,7 @@ exports.startConvo = (req,res,next) => {
     .catch((error) => {
       console.log("Failed to create conversation due to error:");
       console.log(error);
+      res.status(500).send('Error');
     });
 }
 
@@ -191,7 +192,6 @@ exports.getConversations = (req,res,next) => {
             let messagesList = sortByDate(data.rows);
 
             res.render('messageInboxView', { 
-            pageTitle: 'Message Inbox',
             messagesList: messagesList,
             conversations: conversations,
             searchResultCSS: true,
@@ -202,8 +202,7 @@ exports.getConversations = (req,res,next) => {
             console.log(error);
           });
       } else {
-        res.render('messageInboxView', { 
-        pageTitle: 'Message Inbox',
+        res.render('messageInboxView', {
         messagesList: {},
         conversations: {},
         searchResultCSS: true,

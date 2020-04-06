@@ -61,6 +61,7 @@ exports.getProfile = (req, res, next) => {
 		});
 	}).catch((err) => {
 		console.log(err);
+		res.status(500).send('Error');
 	});
 }
 
@@ -77,5 +78,6 @@ exports.like = (req, res, next) => {
 		res.redirect(301, "/profile/" + p_id);
 	}).catch((err) => {
 		console.log(err);
+		res.status(500).send('Error');
 	});
 }
