@@ -78,10 +78,16 @@ exports.signup = (req, res, next) => {
 
 exports.register = (req, res, next) => {
 	let regData = req.session.regData;
-
-	if (regData.imageurl != undefined)
+	console.log(req.body.imageurl);
+	console.log(req.body.about);
+	if (req.body.imageurl != "")
 		regData.imageurl = req.body.imageurl;
-	regData.about = req.body.about;
+	if (req.body.about != "") {
+		regData.about = req.body.about;
+	} else {
+		regData.about = "None Given"
+	}
+	
 	regData.country = req.body.country;
 	regData.dob = req.body.dob;
 
