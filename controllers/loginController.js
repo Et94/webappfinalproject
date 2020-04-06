@@ -49,42 +49,45 @@ exports.signup = (req, res, next) => {
 			"password": hash
 		}
 	})
-	.catch((err) => {
-		console.log(err);
-		res.status(500).send('Error.');
-	});
-	console.log("DEBUG: in signup")
-	let isUser = false;
-	userModel.getUser(regData)
-	.then((data) => { 
-		console.log("DEBUG: in db call");
-		console.log(data)
-		if (data.rows.length != 0)
-			isUser = true;
-		console.log(regData);
-	})
 	.then(() => {
-		if (!isUser && regData.firstname != undefined && regData.lastname != undefined && regData.email != undefined 
-			&& regData.password != undefined) {
-			console.log("DEBUG: in input field conditional");
-			if (req.body.password != req.body.confirm_password) {
-				console.log("DEBUG: in pasword does not match")
-				res.render("loginView", {loginCSS: true, matchPass: true})
+		console.log("DEBUG: in signup")
+		let isUser = false;
+		userModel.getUser(regData)
+		.then((data) => { 
+			console.log("DEBUG: in db call");
+			console.log(data)
+			if (data.rows.length != 0)
+				isUser = true;
+			console.log(regData);
+		})
+		.then(() => {
+			if (!isUser && regData.firstname != undefined && regData.lastname != undefined && regData.email != undefined 
+				&& regData.password != undefined) {
+				console.log("DEBUG: in input field conditional");
+				if (req.body.password != req.body.confirm_password) {
+					console.log("DEBUG: in pasword does not match")
+					res.render("loginView", {loginCSS: true, matchPass: true})
+				} else {
+					console.log("DEBUG: successful db call");
+					req.session.regData = regData;
+					res.render("registerView", {registerCSS: true});
+				}
 			} else {
-				console.log("DEBUG: successful db call");
-				req.session.regData = regData;
-				res.render("registerView", {registerCSS: true});
+				console.log("DEBUG: error user exists");
+				console.log(isUser);
+				res.render("loginView", {loginCSS: true, userExists: true});
 			}
-		} else {
-			console.log("DEBUG: error user exists");
-			console.log(isUser);
-			res.render("loginView", {loginCSS: true, userExists: true});
-		}
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).send('Error.');
+		});
 	})
 	.catch((err) => {
 		console.log(err);
 		res.status(500).send('Error.');
 	});
+	
 }
 
 exports.register = (req, res, next) => {
