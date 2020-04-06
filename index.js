@@ -52,15 +52,13 @@ app.use(messageRoutes);
 // Change the variables to your view variables.
 app.get('/', function (req,res) {
     res.render('loginView', { 
-      pageTitle: 'KnowledgeBase', 
       loginCSS: true,
       registerCSS: true
     });
 });
 
 // app.get('/', function (req,res) {
-//   // res.render('registerView', { 
-//   //   pageTitle: 'KnowledgeBase',  
+//   // res.render('registerView', {  
 //   //   homeCSS: true,
 //   //   loginCSS: true,
 //   //   registerCSS: true
