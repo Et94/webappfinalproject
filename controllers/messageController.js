@@ -73,7 +73,6 @@ exports.sendMessageView = (req,res,next) => {
       // console.log(data);
 
       res.render('sendMessageView', { 
-      pageTitle: 'Send a Message',
       imageURL: data.rows[0].imageurl,
       receiverId: receiverId,
       searchResultCSS: true,
@@ -86,7 +85,6 @@ exports.sendMessageView = (req,res,next) => {
     });
 
    // res.render('sendMessageView', { 
-   //    pageTitle: 'Send a Message',
    //    searchResultCSS: true,
    //    sendmsgCSS: true });
 };
@@ -194,7 +192,6 @@ exports.getConversations = (req,res,next) => {
             let messagesList = sortByDate(data.rows);
 
             res.render('messageInboxView', { 
-            pageTitle: 'Message Inbox',
             messagesList: messagesList,
             conversations: conversations,
             searchResultCSS: true,
@@ -205,8 +202,7 @@ exports.getConversations = (req,res,next) => {
             console.log(error);
           });
       } else {
-        res.render('messageInboxView', { 
-        pageTitle: 'Message Inbox',
+        res.render('messageInboxView', {
         messagesList: {},
         conversations: {},
         searchResultCSS: true,
